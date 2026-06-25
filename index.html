@@ -1,0 +1,1965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Taboola — Account Manager Intelligence</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+<style>
+:root {
+  --primary: #0e1117;
+  --surface: #1a1d27;
+  --card: #22263a;
+  --border: #2e3350;
+  --accent: #3b82f6;
+  --accent2: #8b5cf6;
+  --green: #10b981;
+  --yellow: #f59e0b;
+  --red: #ef4444;
+  --text: #e2e8f0;
+  --muted: #94a3b8;
+  --tab-active: #3b82f6;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; display: flex; min-height: 100vh; }
+
+/* SIDEBAR */
+.sidebar { width: 240px; min-height: 100vh; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 100; }
+.sidebar-logo { padding: 20px 16px 16px; border-bottom: 1px solid var(--border); }
+.sidebar-logo .brand { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
+.sidebar-logo h1 { font-size: 18px; font-weight: 700; color: #fff; margin-top: 2px; }
+.sidebar-logo span { color: var(--accent); }
+
+.nav-section { padding: 16px 12px 8px; }
+.nav-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.2px; color: var(--muted); padding: 0 4px 8px; }
+.nav-item { display: flex; align-items: center; gap: 10px; padding: 9px 12px; border-radius: 8px; cursor: pointer; font-size: 14px; color: var(--muted); transition: all .15s; margin-bottom: 2px; }
+.nav-item:hover { background: var(--card); color: var(--text); }
+.nav-item.active { background: rgba(59,130,246,.15); color: var(--accent); font-weight: 600; }
+.nav-item .icon { font-size: 18px; width: 22px; text-align: center; }
+
+.client-select-wrap { padding: 12px; border-top: 1px solid var(--border); margin-top: auto; }
+.client-select-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 6px; }
+.client-select { width: 100%; background: var(--card); border: 1px solid var(--border); color: var(--text); padding: 9px 10px; border-radius: 8px; font-size: 13px; cursor: pointer; appearance: none; }
+.client-select:focus { outline: none; border-color: var(--accent); }
+
+/* MAIN */
+.main { margin-left: 240px; flex: 1; padding: 28px 32px; min-height: 100vh; }
+.page { display: none; }
+.page.active { display: block; }
+
+/* TOP BAR */
+.topbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 28px; }
+.topbar h2 { font-size: 22px; font-weight: 700; }
+.topbar .badge { background: rgba(59,130,246,.15); color: var(--accent); padding: 4px 12px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+.date-badge { font-size: 12px; color: var(--muted); }
+
+/* METRIC CARDS */
+.metric-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-bottom: 28px; }
+.metric-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 18px; }
+.metric-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin-bottom: 8px; }
+.metric-card .value { font-size: 26px; font-weight: 700; color: #fff; }
+.metric-card .sub { font-size: 12px; margin-top: 4px; }
+.metric-card .up { color: var(--green); }
+.metric-card .down { color: var(--red); }
+.metric-card .neutral { color: var(--muted); }
+
+/* CHARTS GRID */
+.charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 28px; }
+.charts-grid.single { grid-template-columns: 1fr; }
+.chart-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+.chart-card h3 { font-size: 14px; font-weight: 600; color: var(--text); margin-bottom: 16px; }
+.chart-card canvas { max-height: 260px; }
+
+/* SECTIONS */
+.section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin-bottom: 20px; }
+.section h3 { font-size: 15px; font-weight: 600; margin-bottom: 14px; color: #fff; display: flex; align-items: center; gap: 8px; }
+.section h3 .ico { font-size: 18px; }
+
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+
+/* TAGS */
+.tag { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 11px; font-weight: 600; margin: 2px; }
+.tag-blue { background: rgba(59,130,246,.2); color: #93c5fd; }
+.tag-green { background: rgba(16,185,129,.2); color: #6ee7b7; }
+.tag-yellow { background: rgba(245,158,11,.2); color: #fcd34d; }
+.tag-red { background: rgba(239,68,68,.2); color: #fca5a5; }
+.tag-purple { background: rgba(139,92,246,.2); color: #c4b5fd; }
+
+/* SEASONALITY TABLE */
+.season-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.season-table th { text-align: left; padding: 8px 10px; color: var(--muted); font-weight: 500; border-bottom: 1px solid var(--border); font-size: 11px; text-transform: uppercase; }
+.season-table td { padding: 8px 10px; border-bottom: 1px solid rgba(46,51,80,.5); }
+.season-table tr:last-child td { border-bottom: none; }
+.heat { display: inline-block; padding: 2px 10px; border-radius: 4px; font-size: 11px; font-weight: 700; }
+.heat-high { background: rgba(239,68,68,.2); color: #fca5a5; }
+.heat-med { background: rgba(245,158,11,.2); color: #fcd34d; }
+.heat-low { background: rgba(100,116,139,.2); color: #94a3b8; }
+
+/* CLIENT PAGE */
+.client-header { display: flex; align-items: center; gap: 20px; background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 24px; margin-bottom: 24px; }
+.client-logo-placeholder { width: 72px; height: 72px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 800; color: #fff; flex-shrink: 0; }
+.client-header .info h2 { font-size: 22px; font-weight: 700; }
+.client-header .info .vertical-tag { margin-top: 6px; }
+.client-header .info p { color: var(--muted); font-size: 13px; margin-top: 8px; max-width: 600px; line-height: 1.6; }
+
+.client-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 20px; }
+.cm { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+.cm .cl { font-size: 10px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); }
+.cm .cv { font-size: 20px; font-weight: 700; margin-top: 4px; }
+
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.info-block { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+.info-block h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--muted); margin-bottom: 10px; }
+.info-block ul { list-style: none; }
+.info-block ul li { padding: 5px 0; font-size: 13px; color: var(--text); display: flex; align-items: flex-start; gap: 8px; border-bottom: 1px solid rgba(46,51,80,.4); }
+.info-block ul li:last-child { border-bottom: none; }
+.info-block ul li::before { content: '›'; color: var(--accent); flex-shrink: 0; }
+
+.competitors-list { display: flex; flex-wrap: wrap; gap: 8px; }
+.competitor-chip { background: rgba(139,92,246,.12); border: 1px solid rgba(139,92,246,.3); color: #c4b5fd; padding: 4px 12px; border-radius: 20px; font-size: 12px; }
+
+.taboola-tips { background: rgba(59,130,246,.06); border: 1px solid rgba(59,130,246,.2); border-radius: 10px; padding: 16px; margin-top: 16px; }
+.taboola-tips h4 { font-size: 12px; text-transform: uppercase; letter-spacing: .8px; color: var(--accent); margin-bottom: 10px; }
+.taboola-tips ul { list-style: none; }
+.taboola-tips ul li { padding: 5px 0; font-size: 13px; color: var(--text); display: flex; gap: 8px; }
+.taboola-tips ul li::before { content: '✦'; color: var(--accent); flex-shrink: 0; font-size: 10px; margin-top: 3px; }
+
+/* INSIGHTS */
+.insight-card { background: var(--card); border-left: 3px solid var(--accent); border-radius: 0 10px 10px 0; padding: 14px 16px; margin-bottom: 10px; }
+.insight-card.warn { border-left-color: var(--yellow); }
+.insight-card.success { border-left-color: var(--green); }
+.insight-card h4 { font-size: 13px; font-weight: 600; margin-bottom: 4px; }
+.insight-card p { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* EMPTY CLIENT */
+.empty-client { text-align: center; padding: 60px 20px; }
+.empty-client .emoji { font-size: 48px; margin-bottom: 16px; }
+.empty-client h3 { color: var(--muted); font-size: 18px; }
+.empty-client p { color: var(--muted); font-size: 13px; margin-top: 8px; }
+
+/* RESPONSIVE */
+@media (max-width: 900px) {
+  .charts-grid { grid-template-columns: 1fr; }
+  .two-col, .three-col, .client-metrics, .info-grid { grid-template-columns: 1fr; }
+  .main { margin-left: 0; padding: 16px; }
+  .sidebar { width: 100%; min-height: auto; position: relative; }
+  body { flex-direction: column; }
+}
+
+.progress-bar-wrap { margin-bottom: 10px; }
+.progress-label { display: flex; justify-content: space-between; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+.progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+.progress-fill { height: 100%; border-radius: 3px; transition: width .6s ease; }
+
+.divider { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+
+/* COMPARATIVO */
+.comp-table { width:100%; border-collapse:collapse; font-size:13px; }
+.comp-table th { text-align:left; padding:10px 12px; color:var(--muted); font-weight:500; border-bottom:1px solid var(--border); font-size:11px; text-transform:uppercase; background:var(--surface); }
+.comp-table td { padding:10px 12px; border-bottom:1px solid rgba(46,51,80,.4); vertical-align:middle; }
+.comp-table tr:hover td { background:rgba(59,130,246,.04); }
+.comp-table tr:last-child td { border-bottom:none; }
+.star { color:#f59e0b; font-size:12px; }
+.score-bar { display:flex; align-items:center; gap:8px; }
+.score-fill { height:6px; border-radius:3px; }
+
+/* CALENDÁRIO */
+.cal-month { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:16px; margin-bottom:20px; }
+.cal-month h3 { font-size:15px; font-weight:700; color:#fff; margin-bottom:14px; display:flex; align-items:center; gap:10px; }
+.cal-month h3 .month-badge { font-size:11px; padding:2px 10px; border-radius:20px; font-weight:600; }
+.cal-events { display:flex; flex-direction:column; gap:6px; }
+.cal-event { display:flex; align-items:flex-start; gap:12px; padding:8px 12px; border-radius:8px; background:rgba(255,255,255,.03); border:1px solid var(--border); }
+.cal-event .ev-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; margin-top:4px; }
+.cal-event .ev-body { flex:1; }
+.cal-event .ev-title { font-size:13px; font-weight:600; color:var(--text); }
+.cal-event .ev-clients { font-size:11px; color:var(--muted); margin-top:3px; }
+.cal-event .ev-tip { font-size:11px; color:#93c5fd; margin-top:3px; font-style:italic; }
+.intensity-dot-high { background:#ef4444; }
+.intensity-dot-med { background:#f59e0b; }
+.intensity-dot-low { background:#3b82f6; }
+.cal-header-grid { display:grid; grid-template-columns: repeat(4,1fr); gap:12px; margin-bottom:20px; }
+.cal-stat { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:14px; text-align:center; }
+.cal-stat .cs-val { font-size:22px; font-weight:700; }
+.cal-stat .cs-label { font-size:11px; color:var(--muted); margin-top:4px; }
+
+/* TOP COMPANIES */
+.top-toggle { background:rgba(59,130,246,.08); border:1px solid rgba(59,130,246,.2); border-radius:10px; padding:14px 18px; cursor:pointer; display:flex; align-items:center; justify-content:space-between; margin-top:20px; transition:all .2s; }
+.top-toggle:hover { background:rgba(59,130,246,.14); }
+.top-toggle h3 { font-size:14px; font-weight:600; color:#93c5fd; margin:0; }
+.top-toggle .arrow { color:#93c5fd; font-size:18px; transition:transform .2s; }
+.top-toggle.open .arrow { transform:rotate(180deg); }
+.top-companies-wrap { display:none; margin-top:6px; }
+.top-companies-wrap.visible { display:block; }
+.top-co-table { width:100%; border-collapse:collapse; font-size:12px; }
+.top-co-table th { text-align:left; padding:8px 10px; color:var(--muted); font-weight:500; border-bottom:1px solid var(--border); font-size:10px; text-transform:uppercase; background:var(--surface); position:sticky; top:0; }
+.top-co-table td { padding:7px 10px; border-bottom:1px solid rgba(46,51,80,.3); vertical-align:middle; }
+.top-co-table tr:hover td { background:rgba(255,255,255,.02); }
+.top-co-table tr:last-child td { border-bottom:none; }
+.geo-badge { display:inline-block; padding:2px 7px; border-radius:4px; font-size:10px; font-weight:600; }
+.geo-nacional { background:rgba(16,185,129,.15); color:#6ee7b7; }
+.geo-regional { background:rgba(245,158,11,.15); color:#fcd34d; }
+.geo-local { background:rgba(139,92,246,.15); color:#c4b5fd; }
+.rank-num { font-weight:700; color:var(--muted); font-size:11px; }
+.source-box { background:rgba(148,163,184,.05); border:1px solid rgba(148,163,184,.15); border-radius:8px; padding:12px 16px; margin-top:16px; }
+.source-box h5 { font-size:10px; text-transform:uppercase; letter-spacing:.8px; color:var(--muted); margin-bottom:8px; }
+.source-box ul { list-style:none; }
+.source-box ul li { font-size:11px; color:var(--muted); padding:2px 0; }
+.source-box ul li a { color:#93c5fd; text-decoration:none; }
+.source-box ul li a:hover { text-decoration:underline; }
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <div class="brand">Taboola Realize</div>
+    <h1>Account <span>Intelligence</span></h1>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Verticais</div>
+    <div class="nav-item active" onclick="showPage('gambling')">
+      <span class="icon">🎲</span> Gambling
+    </div>
+    <div class="nav-item" onclick="showPage('food')">
+      <span class="icon">🍽️</span> Food
+    </div>
+    <div class="nav-item" onclick="showPage('travel')">
+      <span class="icon">✈️</span> Travel
+    </div>
+    <div class="nav-item" onclick="showPage('education')">
+      <span class="icon">🎓</span> Education
+    </div>
+    <div class="nav-item" onclick="showPage('realestate')">
+      <span class="icon">🏢</span> Real Estate
+    </div>
+    <div class="nav-item" onclick="showPage('governo')">
+      <span class="icon">🏛️</span> Governo
+    </div>
+  </div>
+
+  <div class="nav-section">
+    <div class="nav-label">Visão</div>
+    <div class="nav-item" onclick="showPage('client')">
+      <span class="icon">👤</span> Cliente
+    </div>
+    <div class="nav-item" onclick="showPage('comparativo')">
+      <span class="icon">📊</span> Comparativo
+    </div>
+    <div class="nav-item" onclick="showPage('calendario')">
+      <span class="icon">📅</span> Calendário
+    </div>
+  </div>
+
+  <div class="client-select-wrap">
+    <div class="client-select-label">Selecionar Cliente</div>
+    <select class="client-select" id="clientSelect" onchange="selectClient(this.value)">
+      <option value="">— Escolha um cliente —</option>
+      <option value="sportingbet">SportingBet</option>
+      <option value="cyrela">Cyrela</option>
+      <option value="ibmec">IBMEC</option>
+      <option value="superbet">Superbet</option>
+      <option value="azul">Azul Brazilian Airlines</option>
+      <option value="estacio">Estácio de Sá</option>
+      <option value="copacol">Copacol</option>
+      <option value="cnp">CNP Consortium</option>
+      <option value="fogodechao">Fogo de Chão</option>
+      <option value="idomed">Idomed</option>
+      <option value="gol">Gol Airlines</option>
+      <option value="petrobras">Petrobras</option>
+      <option value="iesb">IESB</option>
+      <option value="poliedro">Colégio Poliedro</option>
+      <option value="sebrae">Sebrae</option>
+      <option value="wine">Wine</option>
+      <option value="afya">Afya</option>
+      <option value="descomplica">Descomplica</option>
+      <option value="ajinomoto">Ajinomoto</option>
+      <option value="amadomundo">Amado Mundo</option>
+      <option value="gallo">Gallo Azeite</option>
+      <option value="unyleya">Unyleya</option>
+      <option value="camponesa">CAMPONESA</option>
+      <option value="cvc">CVC</option>
+      <option value="livup">Liv Up</option>
+      <option value="telesena">Tele Sena</option>
+    </select>
+  </div>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- ===== GAMBLING ===== -->
+  <div id="page-gambling" class="page active">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🎲 Gambling — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">5º mercado global</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Faturamento Anual</div>
+        <div class="value">R$22bi</div>
+        <div class="sub up">↑ Estimativa 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Apostadores Ativos</div>
+        <div class="value">25M</div>
+        <div class="sub neutral">12% da população</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Operadoras Licenciadas</div>
+        <div class="value">78</div>
+        <div class="sub neutral">182 marcas ativas</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Tributos Arrecadados</div>
+        <div class="value">R$3bi</div>
+        <div class="sub neutral">Jan–Set 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Projeção Copa 2026</div>
+        <div class="value">R$31bi</div>
+        <div class="sub up">↑ Pico histórico esperado</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-gambling-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Share de Investimento em Publicidade Digital</h3>
+        <canvas id="chart-gambling-adshare"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Evento</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jun–Jul 2026</td><td>Copa do Mundo FIFA 2026</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Nativo + Display, audiences esportivas, remarketing</td></tr>
+          <tr><td>Fev–Mar</td><td>Carnaval + início Série A/B</td><td><span class="heat heat-high">ALTA</span></td><td>Push mobile, creatives com futebol</td></tr>
+          <tr><td>Jan</td><td>Brasileirão + Libertadores início</td><td><span class="heat heat-med">MÉDIA</span></td><td>Conteúdo editorial esportivo</td></tr>
+          <tr><td>Mai–Jun</td><td>Copa do Brasil / Libertadores</td><td><span class="heat heat-high">ALTA</span></td><td>Segmentação por interesse esportivo</td></tr>
+          <tr><td>Out–Nov</td><td>Reta final Brasileirão</td><td><span class="heat heat-high">ALTA</span></td><td>Urgência / drama da competição</td></tr>
+          <tr><td>Dez</td><td>Black Friday + Copa interclubes</td><td><span class="heat heat-med">MÉDIA</span></td><td>Bônus de boas-vindas em destaque</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Mercado</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Regulamentação SPA/MF vigente desde Jan 2025 — licenças obrigatórias</li>
+          <li>PIX é o método de pagamento dominante (>80% das transações)</li>
+          <li>Mobile first: >90% dos acessos via smartphone</li>
+          <li>Futebol representa ~75% de todo o volume de apostas</li>
+          <li>CPA e Revenue Share são os modelos de afiliados mais usados</li>
+          <li>Restrições de publicidade para menores — verificação de idade obrigatória</li>
+          <li>Influenciadores e streamer são canais de aquisição crescentes</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo nativo em portais esportivos (Lance!, ESPN, ge.globo) gera CTR elevado</li>
+            <li>Retargeting de usuários que visitaram odds mas não converteram</li>
+            <li>Audiências Taboola baseadas em interesse esportivo e apostas</li>
+            <li>Formatos de vídeo curto para demonstração de plataforma</li>
+            <li>Creatives com bônus de boas-vindas têm melhor performance de conversão</li>
+            <li>Segmentação geográfica: SP, RJ, MG e RS concentram maior volume</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-gambling"></div>
+
+    <div class="section">
+      <h3><span class="ico">📌</span> Regulatório & Compliance</h3>
+      <div class="three-col">
+        <div class="insight-card">
+          <h4>Autorização SPA/MF obrigatória</h4>
+          <p>Toda campanha deve ser de operadora licenciada. Verifique a portaria de autorização antes de ativar campanhas.</p>
+        </div>
+        <div class="insight-card warn">
+          <h4>Restrições de Targeting</h4>
+          <p>Proibido segmentar menores de 18 anos. Evite audiências escolares ou de entretenimento infantil.</p>
+        </div>
+        <div class="insight-card success">
+          <h4>Copa do Mundo 2026 — Janela de Ouro</h4>
+          <p>Brasil sedia jogos. Projeção de R$31bi em apostas. Maior janela publicitária do setor na história do país.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FOOD ===== -->
+  <div id="page-food" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🍽️ Food — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span class="badge">R$ 1,02 tri em 2025</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Mercado Total</div>
+        <div class="value">R$1,02T</div>
+        <div class="sub up">↑ 8% crescimento 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Varejo Alimentar</div>
+        <div class="value">R$732bi</div>
+        <div class="sub neutral">71,7% do total</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Exportações Setor</div>
+        <div class="value">US$66,7bi</div>
+        <div class="sub up">↑ 0,7% em 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">E-comm Alimentos</div>
+        <div class="value">+15%</div>
+        <div class="sub up">↑ Crescimento anual</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-food-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Subsegmentos em Crescimento</h3>
+        <canvas id="chart-food-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Calendário Sazonal — Food</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Evento / Drive</th><th>Intensidade</th><th>Foco de Conteúdo</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nov–Dez</td><td>Natal, Reveillon, festas fim de ano</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Receitas, presentes gourmet, vinhos, churrasco</td></tr>
+          <tr><td>Jun–Jul</td><td>Festa Junina, Copa do Mundo 2026</td><td><span class="heat heat-high">ALTA</span></td><td>Comidas típicas, petiscos, drinks, snacks</td></tr>
+          <tr><td>Fev–Mar</td><td>Carnaval + Verão (pico)</td><td><span class="heat heat-high">ALTA</span></td><td>Bebidas geladas, light, praticidade</td></tr>
+          <tr><td>Mai</td><td>Dia das Mães</td><td><span class="heat heat-med">MÉDIA</span></td><td>Kits gourmet, experiências gastronômicas</td></tr>
+          <tr><td>Jun</td><td>Dia dos Namorados</td><td><span class="heat heat-med">MÉDIA</span></td><td>Jantar especial, vinhos, chocolates</td></tr>
+          <tr><td>Jan–Mar</td><td>Verão — alimentos saudáveis</td><td><span class="heat heat-med">MÉDIA</span></td><td>Dieta, detox, fitness, delivery saudável</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">📈</span> Tendências 2025–2026</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Alimentos saudáveis e funcionais em forte expansão</li>
+          <li>Plant-based cresce 22% ao ano no Brasil</li>
+          <li>Superalimentos brasileiros (açaí, castanha) em alta global</li>
+          <li>Delivery via app domina food service urbano</li>
+          <li>Premiumização: consumidor paga mais por qualidade e origem</li>
+          <li>E-commerce de alimentos: crescimento de 15% aa</li>
+          <li>Azeite de oliva com crescimento de consumo de 40% em 5 anos</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo editorial de receitas gera altíssimo engajamento orgânico</li>
+            <li>Formatos nativos em portais de culinária (TudoGostoso, Cybercook)</li>
+            <li>Vídeo curto de preparo de receitas com product placement</li>
+            <li>Audiências de interesse: culinária, gastronomia, saúde, fitness</li>
+            <li>Remarketing em usuários de apps de delivery e receitas</li>
+            <li>Datas sazonais: criar calendário de ativações 3 semanas antes</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="top-companies-food"></div>
+  </div>
+
+  <!-- ===== TRAVEL ===== -->
+  <div id="page-travel" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>✈️ Travel — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span class="badge">+55% visitantes Jan 2025</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Crescimento Visitantes</div>
+        <div class="value">+55%</div>
+        <div class="sub up">↑ Jan 2025 vs Jan 2024</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Azul Viagens Faturamento</div>
+        <div class="value">+31%</div>
+        <div class="sub up">↑ Crescimento 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Ranking Global</div>
+        <div class="value">#1</div>
+        <div class="sub up">↑ Maior crescimento mundial</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Copa 2026 Impacto</div>
+        <div class="value">Bilionário</div>
+        <div class="sub up">↑ Pico projetado</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-travel-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>🗺️ Destinos Mais Vendidos — Azul Viagens 2025</h3>
+        <canvas id="chart-travel-destinos"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Calendário Sazonal — Travel</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jun–Jul 2026</td><td>Copa do Mundo — turismo esportivo</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Pacotes, hospedagem, passagens — audiências Copa</td></tr>
+          <tr><td>Dez–Jan</td><td>Férias de verão + Réveillon</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Pacotes praia, cruzeiros, viagens internacionais</td></tr>
+          <tr><td>Fev–Mar</td><td>Carnaval — destinos nacionais</td><td><span class="heat heat-high">ALTA</span></td><td>Cidades festivas, Salvador, Rio, Recife</td></tr>
+          <tr><td>Jul</td><td>Férias de inverno</td><td><span class="heat heat-high">ALTA</span></td><td>Frio em Gramado, Campos do Jordão, exterior</td></tr>
+          <tr><td>Out–Nov</td><td>Black Friday milhas/pacotes</td><td><span class="heat heat-med">MÉDIA</span></td><td>Promoções de passagens e pacotes</td></tr>
+          <tr><td>Mai</td><td>Dia das Mães — viagem presente</td><td><span class="heat heat-med">MÉDIA</span></td><td>Pacotes românticos, spas, resorts</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">📈</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Milhas e programas de fidelidade são decisores primários de compra</li>
+          <li>Mobile lidera 68% das pesquisas de passagens</li>
+          <li>Janela de antecedência média: 45–90 dias para viagens nacionais</li>
+          <li>Instagrammability é critério de escolha de destino para Millennials</li>
+          <li>PIX parcelado impulsionou acessibilidade das viagens</li>
+          <li>Regiões Norte e Nordeste com crescimento acelerado pós-pandemia</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo inspiracional de destinos gera alto engajamento (listas, guias)</li>
+            <li>Retargeting de usuários que pesquisaram passagens/pacotes</li>
+            <li>Segmentação por interesse: viagens, turismo, aventura, família</li>
+            <li>Formatos de rich media para mostrar destinos visualmente</li>
+            <li>Audiências de viajantes frequentes com base em comportamento</li>
+            <li>Copa 2026: ativar campanhas 6 meses antes para antecipação</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="top-companies-travel"></div>
+  </div>
+
+  <!-- ===== EDUCATION ===== -->
+  <div id="page-education" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🎓 Education — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span class="badge">10,2M matrículas</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Total Matrículas</div>
+        <div class="value">10,2M</div>
+        <div class="sub up">↑ 2,5% crescimento</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Setor Privado</div>
+        <div class="value">79,8%</div>
+        <div class="sub neutral">Do total de alunos</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">EaD vs Presencial</div>
+        <div class="value">>50%</div>
+        <div class="sub up">↑ EaD ultrapassou 50%</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Mensalidade EaD</div>
+        <div class="value">R$214</div>
+        <div class="sub neutral">Mediana nacional</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Mensalidade Presencial</div>
+        <div class="value">R$835</div>
+        <div class="sub down">↓ -4,3% real em 2026</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Períodos de Alta Demanda</h3>
+        <canvas id="chart-edu-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Distribuição Presencial vs EaD</h3>
+        <canvas id="chart-edu-ead"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Calendário Sazonal — Education</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nov–Jan</td><td>ENEM, vestibulares, matrículas 1º sem</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Captação graduação, pós, cursos técnicos</td></tr>
+          <tr><td>Mai–Jun</td><td>Matrículas 2º semestre</td><td><span class="heat heat-high">ALTA</span></td><td>EaD, transferências, novos cursos</td></tr>
+          <tr><td>Mar–Abr</td><td>Início de semestre — cursos livres</td><td><span class="heat heat-med">MÉDIA</span></td><td>Extensão, idiomas, capacitação profissional</td></tr>
+          <tr><td>Ago–Set</td><td>Pós-graduação — segunda turma</td><td><span class="heat heat-med">MÉDIA</span></td><td>MBA, especialização, mestrado</td></tr>
+          <tr><td>Out–Nov</td><td>Black Friday educação</td><td><span class="heat heat-high">ALTA</span></td><td>Desconto em mensalidades, bolsas</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">📈</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>EaD cresce 3x mais rápido que presencial</li>
+          <li>47,1% das matrículas em apenas 1,4% das mantenedoras (mega-grupos)</li>
+          <li>PROUNI e FIES são decisores para segmento B/C</li>
+          <li>Medicina e Direito têm maior ticket e menor elasticidade de preço</li>
+          <li>Mobile é responsável por 72% das pesquisas de cursos</li>
+          <li>Google e Meta dominam captação, Taboola em ascensão para mid-funnel</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo de carreira e mercado de trabalho atrai público qualificado</li>
+            <li>Audiências por interesse: concurso público, carreira, desenvolvimento</li>
+            <li>Remarketing em leads que visitaram páginas de curso mas não matricularam</li>
+            <li>Segmentação por faixa etária 22–35 anos (maior volume de matrícula)</li>
+            <li>Formatos de quiz/teste vocacional com alto engajamento</li>
+            <li>Janelas Nov–Jan e Mai–Jun são prioritárias para budget</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="top-companies-education"></div>
+  </div>
+
+  <!-- ===== REAL ESTATE ===== -->
+  <div id="page-realestate" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🏢 Real Estate — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;">
+        <span class="badge">+31,1% VGV 2025</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">VGV Alto Padrão</div>
+        <div class="value">R$30bi</div>
+        <div class="sub up">↑ +20% em 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Cyrela — Lançamentos</div>
+        <div class="value">R$13bi</div>
+        <div class="sub up">↑ Líder nacional</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Cyrela — Vendas</div>
+        <div class="value">R$9,2bi</div>
+        <div class="sub up">↑ Médio/alto padrão</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Financiamento 2026</div>
+        <div class="value">+16%</div>
+        <div class="sub up">↑ Projeção crescimento</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Unidades Lançadas 2025</div>
+        <div class="value">453K</div>
+        <div class="sub up">↑ +10,6% vs 2024</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Ciclo de Lançamentos e Vendas</h3>
+        <canvas id="chart-re-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos do Mercado Imobiliário</h3>
+        <canvas id="chart-re-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Calendário Sazonal — Real Estate</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Mar–Abr</td><td>Lançamentos 1º semestre — pós-carnaval</td><td><span class="heat heat-high">ALTA</span></td><td>Conteúdo de lançamento, tours virtuais, plant floor</td></tr>
+          <tr><td>Ago–Set</td><td>Lançamentos 2º semestre</td><td><span class="heat heat-high">ALTA</span></td><td>Captação de leads qualificados, simulação financiamento</td></tr>
+          <tr><td>Nov–Dez</td><td>Fechamento de ano — decisão de compra</td><td><span class="heat heat-high">ALTA</span></td><td>IPCA, FGTS, planejamento patrimonial</td></tr>
+          <tr><td>Jan–Fev</td><td>Início do ano — resolução patrimonial</td><td><span class="heat heat-med">MÉDIA</span></td><td>Conteúdo de valorização e investimento</td></tr>
+          <tr><td>Jun</td><td>Dia dos Namorados — primeiro imóvel</td><td><span class="heat heat-low">BAIXA</span></td><td>Conteúdo inspiracional para casais jovens</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">📈</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Jornada de compra longa: 6–18 meses de pesquisa</li>
+          <li>Conteúdo de qualidade gera leads mais qualificados</li>
+          <li>Minha Casa Minha Vida: principal vetor de volume (econômico)</li>
+          <li>Alto padrão e luxo crescem +20%, puxados por SP e RJ</li>
+          <li>Consórcio imobiliário cresce como alternativa ao financiamento</li>
+          <li>Selic alta impacta financiamento — público C/D mais sensível</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo de dicas de decoração/reforma atrai compradores em pesquisa</li>
+            <li>Simuladores de financiamento como conteúdo nativo interativo</li>
+            <li>Audiências de interesse: investimento, patrimônio, família, decoração</li>
+            <li>Retargeting de visitantes de portais de imóveis (ZAP, VivaReal)</li>
+            <li>Formatos de vídeo com tour virtual têm alta taxa de engajamento</li>
+            <li>Segmentação por renda e localização geográfica (bairros premium)</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div id="top-companies-realestate"></div>
+  </div>
+
+  <!-- ===== CLIENT PAGE ===== -->
+  <div id="page-client" class="page">
+    <div id="client-content">
+      <div class="empty-client">
+        <div class="emoji">👤</div>
+        <h3>Selecione um cliente</h3>
+        <p>Use o menu no canto inferior esquerdo para carregar o perfil completo do cliente.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ===== GOVERNO ===== -->
+  <div id="page-governo" class="page">
+    <div class="topbar">
+      <div><div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div><h2>🏛️ Governo — Brasil</h2></div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">R$234mi digital 2025</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card"><div class="label">Invest. Publicidade Digital</div><div class="value">R$234mi</div><div class="sub up">↑ Federal 2025 (Secom)</div></div>
+      <div class="metric-card"><div class="label">Invest. Ads Digitais (Gov.)</div><div class="value">R$129,6mi</div><div class="sub up">↑ 3× mais que ano anterior</div></div>
+      <div class="metric-card"><div class="label">Share Digital no Budget</div><div class="value">34,5%</div><div class="sub up">↑ Era 20% em 2023</div></div>
+      <div class="metric-card"><div class="label">Google (Gov. Federal)</div><div class="value">R$64,6mi</div><div class="sub neutral">Principal plataforma 2025</div></div>
+      <div class="metric-card"><div class="label">Meta (Gov. Federal)</div><div class="value">R$56,9mi</div><div class="sub neutral">2ª maior plataforma</div></div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Campanhas Governamentais</h3>
+        <canvas id="chart-gov-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Distribuição do Investimento Digital por Plataforma</h3>
+        <canvas id="chart-gov-plat"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Calendário de Campanhas — Governo</h3>
+      <table class="season-table">
+        <thead><tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Tipo de Campanha</th></tr></thead>
+        <tbody>
+          <tr><td>Jan–Mar</td><td>Início de mandatos, Plano Plurianual, LOA</td><td><span class="heat heat-high">ALTA</span></td><td>Institucional, prestação de contas</td></tr>
+          <tr><td>Mar–Abr</td><td>Semana da Saúde / Vacinação</td><td><span class="heat heat-high">ALTA</span></td><td>Saúde pública, prevenção</td></tr>
+          <tr><td>Abr–Mai</td><td>Declaração IR, FGTS, Minha Casa Minha Vida</td><td><span class="heat heat-high">ALTA</span></td><td>Serviços ao cidadão, programas sociais</td></tr>
+          <tr><td>Jun–Jul</td><td>Copa do Mundo 2026 — segurança e turismo</td><td><span class="heat heat-high">ALTA</span></td><td>Turismo, infraestrutura, segurança</td></tr>
+          <tr><td>Ago–Set</td><td>Semana da Pátria / Independência</td><td><span class="heat heat-med">MÉDIA</span></td><td>Institucional, patriotismo</td></tr>
+          <tr><td>Out–Nov 2026</td><td>Eleições Municipais 2026</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Restrições eleitorais — atenção TSE</td></tr>
+          <tr><td>Nov–Dez</td><td>Prestação de contas / Revisão orçamentária</td><td><span class="heat heat-med">MÉDIA</span></td><td>Transparência, LDO/LOA 2027</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Publicidade oficial regulada pela Lei 9.610 e portarias da Secom</li>
+          <li>Período eleitoral (90 dias antes): restrições severas pelo TSE</li>
+          <li>Licitação pública obrigatória — processo de compra mais lento</li>
+          <li>Big Techs superam TV em investimento federal pela 1ª vez (2025)</li>
+          <li>Foco crescente em conteúdo nativo e programática</li>
+          <li>Estados e municípios têm orçamentos independentes — mercado pulverizado</li>
+          <li>Programas sociais (BF, MCMV, Pé-de-Meia) são os maiores anunciantes</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo nativo em portais de notícia para campanhas de utilidade pública</li>
+            <li>Programas sociais: alcançar classes C/D em portais de grande audiência</li>
+            <li>Campanhas de saúde pública têm alto recall em formatos nativos</li>
+            <li>Prefeituras e estados: proposta de valor de alcance regional preciso</li>
+            <li>Evitar período eleitoral (Jul–Out 2026) — risco de compliance TSE</li>
+            <li>Infraestrutura: audiências de construção civil, engenharia, moradia</li>
+            <li>Copa 2026: campanhas de turismo e segurança pública têm janela única</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">⚠️</span> Compliance & Restrições Eleitorais 2026</h3>
+      <div class="three-col">
+        <div class="insight-card warn">
+          <h4>Período Eleitoral — Jul–Out 2026</h4>
+          <p>TSE proíbe publicidade governamental que possa ser caracterizada como propaganda eleitoral nos 90 dias antes das eleições municipais.</p>
+        </div>
+        <div class="insight-card">
+          <h4>Licitação Obrigatória</h4>
+          <p>Toda compra de mídia por entes públicos exige processo licitatório (Lei 14.133/2021). Credenciamento em ata de registro de preços agiliza o processo.</p>
+        </div>
+        <div class="insight-card success">
+          <h4>Copa 2026 — Janela Especial</h4>
+          <p>Governo federal, estados-sede (SP, RJ, MG, RS, CE, AM) e municípios terão campanhas de turismo e segurança pública. Janela única: Jan–Jul 2026.</p>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-governo"></div>
+
+    <div class="source-box">
+      <h5>📌 Fontes desta Vertical</h5>
+      <ul>
+        <li><a href="https://www.bnewsnatal.com.br/noticias/politica/governo-investe-r-234-milhoes-em-publicidade-digital-em-2025.html" target="_blank">Governo investe R$234mi em publicidade digital — BNews (2025)</a></li>
+        <li><a href="https://nossomeio.com.br/publicidade-oficial-em-transformacao-quanto-o-estado-investe-hoje-em-ads-digitais/" target="_blank">Publicidade oficial em transformação — Portal Nosso Meio</a></li>
+        <li><a href="https://www.gazetadopovo.com.br/republica/critico-das-big-techs-lula-amplia-verbas-de-propaganda-do-governo-nas-redes/" target="_blank">Governo Lula amplia verbas em big techs — Gazeta do Povo</a></li>
+        <li>Secom — Secretaria de Comunicação Social da Presidência da República</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ===== COMPARATIVO ===== -->
+  <div id="page-comparativo" class="page">
+    <div class="topbar">
+      <div><div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Visão</div><h2>📊 Comparativo por Vertical</h2></div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <select id="verticalFilter" onchange="renderComparativo()" style="background:var(--card);border:1px solid var(--border);color:var(--text);padding:7px 12px;border-radius:8px;font-size:13px;">
+          <option value="all">Todas as Verticais</option>
+          <option value="Gambling">Gambling</option>
+          <option value="Food">Food</option>
+          <option value="Travel">Travel</option>
+          <option value="Education">Education</option>
+          <option value="Real Estate">Real Estate</option>
+        </select>
+      </div>
+    </div>
+    <div id="comp-charts" class="charts-grid" style="margin-bottom:24px;"></div>
+    <div id="comp-table"></div>
+  </div>
+
+  <!-- ===== CALENDÁRIO ===== -->
+  <div id="page-calendario" class="page">
+    <div class="topbar">
+      <div><div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Visão</div><h2>📅 Calendário Sazonal Consolidado</h2></div>
+      <span class="badge">Todos os clientes · 2026</span>
+    </div>
+    <div id="cal-grid"></div>
+  </div>
+
+</main>
+
+<script>
+// ─── NAVIGATION ───────────────────────────────────────────────
+function showPage(id) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+  const page = document.getElementById('page-' + id);
+  if (page) page.classList.add('active');
+  const labelMap = { gambling:'gambling', food:'food', travel:'travel', education:'education', realestate:'real', governo:'governo', client:'cliente', comparativo:'comparativo', calendario:'calendário' };
+  const keyword = labelMap[id] || id;
+  document.querySelectorAll('.nav-item').forEach(n => {
+    if (n.textContent.trim().toLowerCase().includes(keyword)) n.classList.add('active');
+  });
+}
+
+// ─── CLIENT DATA ───────────────────────────────────────────────
+const clients = {
+  sportingbet: {
+    name: 'SportingBet', vertical: 'Gambling', emoji: '🎲', color: '#e11d48',
+    tagline: 'Patrocinadora master do Palmeiras (R$100mi/ano) e da Record TV no Brasileirão 2025.',
+    desc: 'Operada pela VENTMEAR BRASIL S.A., licença SPA/MF Portaria nº 247/2025. Patrocinadora master do Palmeiras por R$300mi (3 temporadas) e patrocinadora oficial das transmissões do Brasileirão 2025 na Record TV. Também patrocinadora da Copa Libertadores e Sul-Americana.',
+    metrics: [
+      { label: 'Patrocínio Palmeiras', value: 'R$300mi / 3 anos' },
+      { label: 'Parceria Record TV', value: 'Brasileirão 2025' },
+      { label: 'Licença SPA/MF', value: 'Portaria 247/2025' },
+      { label: 'Posição de Mercado', value: 'Top 5 Brasil' }
+    ],
+    negocio: ['Apostas esportivas (foco futebol)', 'Cassino online ao vivo', 'E-sports e games', 'Poker online', 'Bônus de boas-vindas competitivo'],
+    publicoAlvo: ['Homens 18–40 anos', 'Classes B, C', 'Amantes de futebol e esportes', 'Usuários mobile-first', 'Apostadores recreativos e semiprofissionais'],
+    concorrentes: ['bet365', 'Superbet', 'Betano', 'Galera.bet', 'EstrelaBet', 'KTO'],
+    ondeAnunciam: ['Meta (Facebook/Instagram)', 'Google Ads', 'Influenciadores / Streamers', 'Patrocínio de clubes de futebol', 'TV aberta (em crescimento)', 'Taboola/DSP'],
+    tips: ['Ativar campanhas com antecedência para jogos da Copa 2026 — janela de ouro', 'Conteúdo nativo sobre análise de jogos converte melhor que banners diretos', 'Retargeting de usuários que visitaram a plataforma mas não depositaram', 'Segmentação por interesse esportivo + comportamento de apostas']
+  },
+  superbet: {
+    name: 'Superbet', vertical: 'Gambling', emoji: '⚽', color: '#7c3aed',
+    tagline: 'Plataforma europeia em rápida expansão no mercado brasileiro de apostas reguladas.',
+    desc: 'Superbet é uma empresa romena fundada em 2008, que expandiu agressivamente para o Brasil. Possui licença SPA/MF nº 2.090/2024, válida até dezembro de 2029. Investe pesado em marketing esportivo e patrocínios no Brasil.',
+    metrics: [
+      { label: 'Licença SPA/MF', value: 'nº 2.090/2024' },
+      { label: 'Validade', value: 'Até Dez/2029' },
+      { label: 'Origem', value: 'Romênia' },
+      { label: 'Foco', value: 'Esportes + Live' }
+    ],
+    negocio: ['Apostas esportivas ao vivo', 'Cassino online', 'Bônus e promoções competitivas', 'App mobile com odds em tempo real', 'Mercados internacionais'],
+    publicoAlvo: ['Homens 18–35 anos', 'Apostadores experientes', 'Usuários de plataformas concorrentes em migração', 'Fãs de futebol europeu e brasileiro'],
+    concorrentes: ['SportingBet', 'bet365', 'Betano', 'EstrelaBet', 'Galera.bet'],
+    ondeAnunciam: ['Patrocínio de clubes (ex: Flamengo, Corinthians)', 'Meta Ads', 'Influenciadores digitais', 'Streaming (Twitch, YouTube)', 'Afiliados'],
+    tips: ['Marca relativamente nova no Brasil — awareness é objetivo primário', 'Conteúdo de comparação de odds atrai apostadores experientes', 'Foco em mobile-first: 90%+ dos acessos por smartphone', 'Janelas Copa 2026 e Brasileirão são prioritárias']
+  },
+  telesena: {
+    name: 'Tele Sena', vertical: 'Gambling', emoji: '🎟️', color: '#0ea5e9',
+    tagline: 'Título de capitalização mais popular do Brasil com décadas de tradição.',
+    desc: 'A Tele Sena é o título de capitalização mais vendido do Brasil, operado pela SulAmérica Capitalização. Presente em todo o país, combina sorteios televisivos com acesso fácil em lotéricas e pontos de venda físicos.',
+    metrics: [
+      { label: 'Tipo', value: 'Título de Capitalização' },
+      { label: 'Operadora', value: 'SulAmérica Cap.' },
+      { label: 'Distribuição', value: 'Nacional' },
+      { label: 'Canal Principal', value: 'Pontos físicos + TV' }
+    ],
+    negocio: ['Títulos de capitalização mensais', 'Sorteios ao vivo na TV', 'Distribuição via lotéricas, farmácias, supermercados', 'Edições especiais (Natal, Copa)', 'Versão digital crescente'],
+    publicoAlvo: ['Adultos 25–55 anos', 'Classes C e D', 'Todo o Brasil — forte no interior', 'Consumidores de produtos de loteria e capitalização'],
+    concorrentes: ['Loteria Federal', 'Mega-Sena', 'Raspadinhas', 'Baú da Felicidade'],
+    ondeAnunciam: ['TV aberta (principal canal)', 'Rádio', 'Pontos de venda', 'Display digital em crescimento', 'Redes sociais'],
+    tips: ['Datas especiais são picos de venda: Natal, Copa, Dia das Mães', 'Conteúdo de sonhos realizados (ganhadores) tem alto engajamento', 'Audiências de classe C/D em portais populares de notícia', 'Expansão digital — boa janela para Taboola nativo em portais de grande alcance']
+  },
+  cyrela: {
+    name: 'Cyrela', vertical: 'Real Estate', emoji: '🏙️', color: '#0891b2',
+    tagline: 'Maior incorporadora do Brasil em médio e alto padrão, com R$13bi em lançamentos em 2025.',
+    desc: 'A Cyrela Brazil Realty é a maior incorporadora imobiliária do Brasil, listada na B3 (CYRE3). Fundada em 1962, atua no desenvolvimento de empreendimentos residenciais e comerciais de médio e alto padrão, principalmente em São Paulo e principais capitais.',
+    metrics: [
+      { label: 'Lançamentos 2025', value: 'R$ 13 bi' },
+      { label: 'Lucro Líquido 2025', value: 'R$ 2 bi' },
+      { label: 'Receita Líquida 2025', value: 'R$ 9,4 bi' },
+      { label: 'ROE 2025', value: '22,3%' }
+    ],
+    negocio: ['Incorporação residencial alto padrão', 'Empreendimentos comerciais', 'Cyrela Living (subsidiária econômico)', 'Plano&Plano (econômico/MCMV)', 'Cyrela Huma (inovação urbana)'],
+    publicoAlvo: ['Renda familiar acima de R$15mil', 'Investidores imobiliários', 'Famílias de classe A e B', 'Jovens executivos 30–45 anos', 'Compradores de primeiro e segundo imóvel premium'],
+    concorrentes: ['MRV', 'Eztec', 'Even', 'Moura Dubeux', 'Trisul', 'Vitacon'],
+    ondeAnunciam: ['Google (Search + Display)', 'Meta Ads', 'OOH (outdoors, mídia exterior)', 'Portais imobiliários (ZAP+, Viva Real)', 'Taboola / programática'],
+    tips: ['Conteúdo de valorização de bairros e tendências imobiliárias atrai leads qualificados', 'Tour virtual 3D em formatos nativos tem alta taxa de engajamento', 'Público de alto padrão: presença em portais financeiros e lifestyle', 'Sazonalidade: Ago–Set (lançamentos 2º semestre) são janelas prioritárias']
+  },
+  cnp: {
+    name: 'CNP Consortium', vertical: 'Real Estate / Financeiro', emoji: '🤝', color: '#059669',
+    tagline: 'Consórcio imobiliário e de bens, alternativa ao financiamento tradicional.',
+    desc: 'CNP é uma administradora de consórcios com foco em imóveis, automóveis e outros bens. O consórcio ganhou relevância com a alta da Selic, oferecendo alternativa sem juros ao financiamento bancário tradicional.',
+    metrics: [
+      { label: 'Produto', value: 'Consórcio' },
+      { label: 'Foco', value: 'Imóveis + Veículos' },
+      { label: 'Diferencial', value: 'Sem juros' },
+      { label: 'Público', value: 'Classes B, C' }
+    ],
+    negocio: ['Consórcio imobiliário', 'Consórcio de automóveis', 'Consórcio de serviços', 'Contemplação por lance ou sorteio', 'Portabilidade de cotas'],
+    publicoAlvo: ['Adultos 30–55 anos', 'Classes B e C', 'Planejadores financeiros', 'Pessoas sem entrada para financiamento', 'Investidores de longo prazo'],
+    concorrentes: ['Porto Seguro Consórcio', 'Embracon', 'Itaú Consórcio', 'Bradesco Consórcio'],
+    ondeAnunciam: ['Google Search (alto CPC)', 'Meta Ads', 'Comparadores financeiros', 'Portais de finanças pessoais'],
+    tips: ['Alta Selic favorece narrativa "consórcio sem juros"', 'Conteúdo educativo sobre consórcio vs financiamento converte bem', 'Audiências financeiras: poupança, investimento, imóvel', 'Jornada longa — mid-funnel é onde Taboola mais agrega valor']
+  },
+  ibmec: {
+    name: 'IBMEC', vertical: 'Education', emoji: '📚', color: '#7c3aed',
+    tagline: 'Instituição de ensino superior premium com foco em negócios, direito e engenharia.',
+    desc: 'O IBMEC é uma instituição de ensino superior premium do grupo Yduqs (junto com a Estácio), com campi no Rio de Janeiro, São Paulo, Brasília, Belo Horizonte e outras capitais. Referência em cursos de Economia, Administração, Direito e Engenharia.',
+    metrics: [
+      { label: 'Grupo', value: 'Yduqs (B3: YDUQ3)' },
+      { label: 'Posição', value: 'Premium / Alta Renda' },
+      { label: 'Ticket Médio', value: 'R$ 3.000–5.000/mês' },
+      { label: 'Modalidade', value: 'Presencial + Híbrido' }
+    ],
+    negocio: ['Graduação presencial premium', 'MBA e Pós-Graduação', 'Cursos de extensão executiva', 'Certificações profissionais', 'Intercâmbio e parcerias internacionais'],
+    publicoAlvo: ['Jovens 17–24 anos de classes A e B', 'Executivos 28–45 para MBA', 'Famílias que priorizam reputação da marca', 'Profissionais em transição de carreira'],
+    concorrentes: ['FGV', 'Insper', 'FIA', 'FAAP', 'PUC-Rio/SP', 'UniAnhanguera (ticket menor)'],
+    ondeAnunciam: ['Google Search', 'Meta Ads', 'LinkedIn Ads', 'Portais de notícia (Taboola)', 'OOH nas capitais'],
+    tips: ['Conteúdo de carreira e mercado financeiro atrai perfil IBMEC', 'LinkedIn e portais de negócios são canais naturais do público', 'ENEM/Vestibular: janela Nov–Jan é crítica para captação', 'Formatos nativos em G1, UOL, Valor Econômico têm alto fit com o público']
+  },
+  estacio: {
+    name: 'Estácio de Sá', vertical: 'Education', emoji: '🎓', color: '#0284c7',
+    tagline: 'Uma das maiores redes de ensino superior privado do Brasil, com forte presença em EaD.',
+    desc: 'A Estácio é uma das maiores universidades privadas do Brasil, com mais de 700 mil alunos. Pertence ao grupo Yduqs e atende principalmente as classes B, C e D com mensalidades acessíveis e forte presença de EaD.',
+    metrics: [
+      { label: 'Grupo', value: 'Yduqs (B3: YDUQ3)' },
+      { label: 'Alunos', value: '>700 mil' },
+      { label: 'Ticket EaD', value: 'R$ 200–500/mês' },
+      { label: 'Campi', value: '+600 polos EaD' }
+    ],
+    negocio: ['Graduação EaD e presencial', 'Pós-graduação e especializações', 'Cursos técnicos', 'Estácio Híbrido (novo modelo)', 'Parcerias com empresas para treinamentos'],
+    publicoAlvo: ['Trabalhadores 22–40 anos', 'Classes B, C e D', 'Primeira geração na faculdade', 'Quem busca recolocação profissional'],
+    concorrentes: ['Anhanguera', 'Uninove', 'Cruzeiro do Sul', 'Unip', 'Descomplica'],
+    ondeAnunciam: ['Meta Ads (principal)', 'Google', 'Portais de notícia e entretenimento', 'Afiliados de educação', 'Taboola'],
+    tips: ['Público amplo — portais populares (UOL, R7, G1) têm alto alcance', 'Mensagens de bolsa de estudo e preço acessível convertem bem', 'EaD: enfatizar flexibilidade de horário e acesso pelo celular', 'Nov–Jan e Mai–Jun são as janelas mais importantes para captação']
+  },
+  idomed: {
+    name: 'Idomed', vertical: 'Education (Medicina)', emoji: '🩺', color: '#dc2626',
+    tagline: 'Grupo educacional focado em cursos de medicina e saúde — segmento de maior ticket do setor.',
+    desc: 'O Idomed é um grupo educacional especializado em cursos da área de saúde, com destaque para medicina. Medicina é o curso com maior ticket e maior demanda reprimida no Brasil — FMUSP e vagas em MEC são altamente concorridas.',
+    metrics: [
+      { label: 'Segmento', value: 'Medicina / Saúde' },
+      { label: 'Ticket Medicina', value: 'R$ 8.000–15.000/mês' },
+      { label: 'Demanda', value: 'Alta / Reprimida' },
+      { label: 'Posição', value: 'Especializado' }
+    ],
+    negocio: ['Curso de Medicina', 'Residência médica e especialização', 'Cursos de Enfermagem, Fisioterapia, Farmácia', 'Preparatório para Revalida', 'Educação continuada para profissionais de saúde'],
+    publicoAlvo: ['Jovens 18–25 anos — medicina', 'Médicos formados buscando especialização', 'Profissionais de saúde em requalificação', 'Famílias de classe A'],
+    concorrentes: ['Afya', 'UNISA', 'UNINOVE Medicina', 'Santa Casa', 'Faculdades públicas (FMUSP, UNICAMP)'],
+    ondeAnunciam: ['Google Search (altíssimo CPC)', 'Meta Ads', 'Portais de saúde', 'LinkedIn para especialização'],
+    tips: ['Menor volume, altíssimo ticket — LTV justifica CPC elevado', 'Conteúdo sobre mercado médico, residência e aprovação CRM gera leads qualificados', 'Audiências por interesse: medicina, saúde, concursos', 'Remarketing é fundamental nessa jornada longa de decisão']
+  },
+  iesb: {
+    name: 'IESB', vertical: 'Education', emoji: '🏫', color: '#0891b2',
+    tagline: 'Instituição de ensino superior de referência no Distrito Federal.',
+    desc: 'O IESB é um dos principais centros universitários do Distrito Federal, reconhecido pela qualidade de ensino e pelos cursos de Direito, Comunicação, Saúde e Engenharia. Atende principalmente estudantes do DF e entorno.',
+    metrics: [
+      { label: 'Região', value: 'DF e entorno' },
+      { label: 'Destaque', value: 'Direito, Comunicação, Saúde' },
+      { label: 'Modalidade', value: 'Presencial + EaD' },
+      { label: 'Porte', value: 'Regional / Premium' }
+    ],
+    negocio: ['Graduação presencial e EaD', 'Pós-graduação e MBA', 'Cursos de extensão', 'Parcerias governo/empresas do DF'],
+    publicoAlvo: ['Jovens 17–25 do DF e Goiás', 'Servidores públicos buscando pós', 'Classes A e B do DF'],
+    concorrentes: ['UCB', 'UniCEUB', 'UDF', 'Faculdade Projeção', 'EAD Estácio/Anhanguera'],
+    ondeAnunciam: ['Google', 'Meta', 'OOH no DF', 'Portais locais do DF'],
+    tips: ['Geo-targeting focado em Brasília e Goiânia é fundamental', 'Servidores públicos são público chave — portais de concursos', 'Sazonalidade ENEM/PAS da UnB gera pico de interesse Nov–Jan']
+  },
+  poliedro: {
+    name: 'Colégio Poliedro', vertical: 'Education (Ensino Médio)', emoji: '📐', color: '#7c3aed',
+    tagline: 'Sistema de ensino de referência nacional para vestibulares e ENEM.',
+    desc: 'O Colégio Poliedro é um dos mais renomados sistemas de ensino do Brasil para preparação para vestibulares, ENEM e escolas militares. Opera como escola e como sistema de ensino licenciado para outras escolas.',
+    metrics: [
+      { label: 'Tipo', value: 'Escola + Sistema Ensino' },
+      { label: 'Foco', value: 'Vestibular / ENEM' },
+      { label: 'Presença', value: 'Nacional (Sistema Poliedro)' },
+      { label: 'Posição', value: 'Top 3 do Brasil' }
+    ],
+    negocio: ['Ensino médio presencial (colégios próprios)', 'Sistema de ensino licenciado', 'Preparatório vestibular/ENEM', 'Cursos online e plataforma digital', 'Material didático proprietário'],
+    publicoAlvo: ['Alunos 13–18 anos', 'Pais de classes A e B', 'Cidades do interior de SP e grandes capitais'],
+    concorrentes: ['COC', 'Anglo', 'Objetivo', 'SAS', 'pH', 'Gauss'],
+    ondeAnunciam: ['Google Search', 'Meta', 'YouTube (jovens)', 'Portais de educação'],
+    tips: ['Público são OS PAIS — não os alunos — quem decide e paga', 'Conteúdo sobre aprovações em universidades federais funciona bem', 'Janela crítica: Ago–Nov (matrículas 2025 para 2026)', 'Segmentação geográfica: interior de SP tem muito volume para Poliedro']
+  },
+  sebrae: {
+    name: 'Sebrae', vertical: 'Education / Negócios', emoji: '💼', color: '#f59e0b',
+    tagline: 'Principal instituição de apoio a micro e pequenas empresas do Brasil.',
+    desc: 'O Sebrae (Serviço Brasileiro de Apoio às Micro e Pequenas Empresas) é uma entidade privada sem fins lucrativos que apoia o desenvolvimento de pequenos negócios no Brasil com cursos, consultorias, eventos e programas.',
+    metrics: [
+      { label: 'Tipo', value: 'Entidade de utilidade pública' },
+      { label: 'Alcance', value: 'Nacional — todos os estados' },
+      { label: 'MPE Brasil', value: '17,7 mi empresas' },
+      { label: 'Foco', value: 'Capacitação e consultoria' }
+    ],
+    negocio: ['Cursos presenciais e online para empreendedores', 'Consultorias individuais', 'Programas de aceleração', 'Eventos como Empreender 2025', 'Conteúdo digital e ferramentas de gestão'],
+    publicoAlvo: ['Microempreendedores individuais (MEI)', 'Donos de pequenos negócios', 'Adultos 25–50 anos', 'Interessados em empreender', 'Todos os setores e regiões'],
+    concorrentes: ['SENAC', 'SENAI', 'Endeavor', 'Plataformas EaD de negócios'],
+    ondeAnunciam: ['Google', 'Meta', 'TV aberta e regional', 'Portais de negócios e empreendedorismo'],
+    tips: ['Audiências de empreendedores e MEI em portais financeiros e de negócios', 'Conteúdo sobre abertura de empresa, gestão e vendas tem alta demanda', 'Grande volume — bom para escala no Taboola', 'Mês de agosto (Mês do Empreendedor) é pico de atividade']
+  },
+  azul: {
+    name: 'Azul Brazilian Airlines', vertical: 'Travel', emoji: '🛫', color: '#1d4ed8',
+    tagline: 'Maior malha aérea doméstica do Brasil, com 160+ destinos e crescimento acelerado.',
+    desc: 'A Azul Linhas Aéreas, fundada em 2008 por David Neeleman, é a maior companhia aérea do Brasil em número de destinos, operando em mais de 160 cidades. O braço turístico (Azul Viagens) cresceu 31% em 2025 e expande para 2026.',
+    metrics: [
+      { label: 'Destinos', value: '+160 cidades' },
+      { label: 'Azul Viagens', value: '+31% em 2025' },
+      { label: 'Ticker B3', value: 'AZUL4' },
+      { label: 'Market Share', value: '~30% doméstico' }
+    ],
+    negocio: ['Aviação comercial doméstica e internacional', 'Azul Viagens (pacotes turísticos)', 'TudoAzul (programa de fidelidade)', 'Azul Cargo', 'Parcerias com hotéis e locadoras'],
+    publicoAlvo: ['Viajantes frequentes classes A, B e C', 'Famílias em férias', 'Turistas de cidades menores (únicos a atender muitas rotas)', 'Executivos'],
+    concorrentes: ['LATAM', 'Gol', 'Voepass (regional)'],
+    ondeAnunciam: ['Google Flights/Travel', 'Meta Ads', 'Portais de viagem (Decolar, Booking)', 'TV aberta', 'Email marketing para TudoAzul', 'Taboola / Native'],
+    tips: ['Azul domina no interior — segmentação geográfica fora dos grandes centros', 'Conteúdo de destinos pouco conhecidos gera interesse (Azul faz rotas exclusivas)', 'TudoAzul: audiências de membros do programa de fidelidade', 'Copa 2026: promoções de pacotes para cidades-sede são prioridade']
+  },
+  gol: {
+    name: 'Gol Airlines', vertical: 'Travel', emoji: '✈️', color: '#ff6b00',
+    tagline: 'Pioneira no modelo low-cost no Brasil, com foco em voos domésticos e conexões América do Sul.',
+    desc: 'A GOL Linhas Aéreas foi fundada em 2001 com o modelo low-cost e é uma das maiores companhias do Brasil. Em junho de 2025 concluiu a reestruturação financeira e saiu do Chapter 11 após 498 dias, captando US$1,9bi. O Grupo Abra agora controla 80% das ações. Novos tickers: GOLL53/GOLL54.',
+    metrics: [
+      { label: 'Modelo', value: 'Low-cost / Low-fare' },
+      { label: 'Ticker B3', value: 'GOLL4' },
+      { label: 'Parceria', value: 'American Airlines' },
+      { label: 'Status 2025', value: '✅ Saiu do Chapter 11' }
+    ],
+    negocio: ['Aviação doméstica low-cost', 'Rotas internacionais América do Sul e EUA', 'Smiles (programa de fidelidade — parcialmente independente)', 'GOL + (serviços premium a bordo)'],
+    publicoAlvo: ['Viajantes sensíveis a preço', 'Classes B e C', 'Turistas de lazer', 'Pequenos empresários viajantes'],
+    concorrentes: ['LATAM', 'Azul', 'Avianca (Colômbia)'],
+    ondeAnunciam: ['Google Search/Travel', 'Meta Ads', 'Comparadores de passagens (Kayak, Skyscanner)', 'TV aberta', 'Email para base Smiles'],
+    tips: ['Reestruturação financeira pode impactar budgets — confirmar aprovação de campanhas', 'Preço e promoção são mensagens que mais convertem para o perfil GOL', 'Smiles: audiências de membros para cross-sell de pacotes', 'Conteúdo de destinos domésticos baratos tem alto CTR']
+  },
+  cvc: {
+    name: 'CVC', vertical: 'Travel', emoji: '🧳', color: '#e11d48',
+    tagline: 'Maior operadora de turismo da América Latina, com mais de 1.200 lojas.',
+    desc: 'A CVC Corp é a maior empresa de turismo da América Latina, com +1.200 lojas físicas e forte presença digital. Opera marcas como CVC, Submarino Viagens, Rextur Advance e outras. Oferece pacotes nacionais e internacionais, cruzeiros e hotéis.',
+    metrics: [
+      { label: 'Lojas (Set/2025)', value: '1.597 unidades' },
+      { label: 'Lucro 2025', value: 'R$ 67 mi (virada)' },
+      { label: 'Ticker B3', value: 'CVCB3' },
+      { label: 'Operação', value: 'B2C + B2B' }
+    ],
+    negocio: ['Pacotes de viagem nacionais', 'Pacotes internacionais', 'Cruzeiros', 'Hotéis e resorts', 'Seguro viagem', 'Divisão corporativa B2B'],
+    publicoAlvo: ['Famílias classes B e C', 'Aposentados viajantes', 'Clientes de lojas físicas nas cidades médias', 'Agentes de viagem parceiros (B2B)'],
+    concorrentes: ['Decolar', 'Booking', 'Hurb', 'Esferatur', 'Agências independentes'],
+    ondeAnunciam: ['TV aberta (investimento pesado)', 'Meta', 'Google', 'Portais de viagem', 'Email marketing massivo', 'Afiliados'],
+    tips: ['Público de cidades médias e lojas físicas — portais regionais têm alto fit', 'Pacotes com parcelamento são a principal proposta de valor', 'Verão (Nov–Jan) e Julho são as maiores janelas de venda', 'Copa 2026: pacotes especiais são prioridade máxima para CVC']
+  },
+  copacol: {
+    name: 'Copacol', vertical: 'Food (Proteína Animal)', emoji: '🍗', color: '#16a34a',
+    tagline: 'Cooperativa agroindustrial paranaense, referência em frango e soja no Brasil.',
+    desc: 'A Copacol (Cooperativa Agroindustrial Consolata) é uma das maiores cooperativas do Paraná, atuando nos segmentos de frango, soja, milho e suinocultura. É uma das líderes em exportação de carne de frango.',
+    metrics: [
+      { label: 'Tipo', value: 'Cooperativa agroindustrial' },
+      { label: 'Estado', value: 'Paraná' },
+      { label: 'Foco', value: 'Frango + Soja' },
+      { label: 'Atuação', value: 'Varejo + Exportação' }
+    ],
+    negocio: ['Abate e processamento de frango', 'Produção de soja e milho', 'Linha de embutidos e frios', 'Exportação para Ásia, Europa e Oriente Médio', 'Venda direta ao varejo'],
+    publicoAlvo: ['Consumidores de proteína acessível', 'Famílias classes B, C e D', 'Compradores de supermercado', 'Público do Sul e Sudeste'],
+    concorrentes: ['BRF (Sadia/Perdigão)', 'JBS (Seara)', 'Aurora Coop', 'Diplomata'],
+    ondeAnunciam: ['TV aberta regional (Sul)', 'Trade marketing em PDV', 'Portais de receitas', 'Meta Ads'],
+    tips: ['Conteúdo de receitas com frango tem altíssima demanda — fits perfeito com Taboola', 'Sazonalidade: Carnaval (churrasco), festas juninas, Natal', 'Públicos de culinária, dona de casa, família são o core', 'Portais regionais do Sul (Paraná, SC) têm alta afinidade']
+  },
+  fogodechao: {
+    name: 'Fogo de Chão', vertical: 'Food (Restaurante Premium)', emoji: '🥩', color: '#92400e',
+    tagline: 'Rede de churrascaria premium brasileira com operações no Brasil e internacionalmente.',
+    desc: 'O Fogo de Chão é uma reconhecida rede de churrascarias premium fundada em Porto Alegre em 1979. Com forte presença nos EUA e em capitais brasileiras, é referência em rodízio de carnes nobres e experiência gastronômica premium.',
+    metrics: [
+      { label: 'Fundação', value: '1979, Porto Alegre' },
+      { label: 'Presença', value: 'Brasil + EUA + Internacional' },
+      { label: 'Posição', value: 'Premium / Experiência' },
+      { label: 'Ticket Médio', value: 'R$ 180–300/pessoa' }
+    ],
+    negocio: ['Churrascaria rodízio premium', 'Eventos corporativos e celebrações', 'Happy hour e bar', 'Delivery premium (em expansão)', 'Franquias internacionais'],
+    publicoAlvo: ['Classes A e B', 'Executivos e turistas', 'Celebrações (aniversário, negócios)', 'Turistas estrangeiros'],
+    concorrentes: ['Churrascaria Vento Haragano', 'Rubaiyat', 'Outback', 'Texas de Brazil'],
+    ondeAnunciam: ['Google (reservas)', 'Meta (visual/Instagram)', 'TripAdvisor', 'Portais de gastronomia'],
+    tips: ['Datas sazonais são críticas: Natal, Dia dos Pais, Dia das Mães, Namorados', 'Conteúdo visual de qualidade (carnes, experiência) tem alto CTR', 'Audiências premium: negócios, culinária gourmet, viagem', 'Reservas online crescem — conteúdo nativo + CTA direto funciona']
+  },
+  wine: {
+    name: 'Wine', vertical: 'Food (Bebidas/E-comm)', emoji: '🍷', color: '#7c1d6f',
+    tagline: 'Maior clube de assinatura de vinhos da América Latina.',
+    desc: 'A Wine é a maior plataforma de vinhos do Brasil e da América Latina, combinando clube de assinatura, e-commerce e experiências enogastronômicas. Opera com mais de 1 milhão de assinantes e importa vinhos de mais de 30 países.',
+    metrics: [
+      { label: 'Faturamento 2024', value: 'R$ 987 mi' },
+      { label: 'Receita 1ºsem 2025', value: 'R$ 611 mi (+6,6%)' },
+      { label: 'Assinantes ativos', value: '445 mil' },
+      { label: 'Market Share Import.', value: '16% (líder)' }
+    ],
+    negocio: ['Clube de assinatura mensal de vinhos', 'E-commerce de vinhos e acessórios', 'Eventos e degustações', 'Wine Academy (educação enogastronômica)', 'B2B (empresas, presentes corporativos)'],
+    publicoAlvo: ['Classes A e B', 'Adultos 28–50 anos', 'Apreciadores de gastronomia', 'Consumidores premium de e-commerce', 'Empresas para presentes corporativos'],
+    concorrentes: ['Evino', 'Gran Cru', 'World Wine', 'Vivino', 'Cave importadoras'],
+    ondeAnunciam: ['Meta (Instagram — visual)', 'Google', 'Email marketing (base ativa enorme)', 'Influenciadores de gastronomia', 'Portais de lifestyle'],
+    tips: ['Conteúdo editorial de harmonização e dicas de vinho tem altíssimo engajamento', 'Natal é o maior pico de vendas — ativar em outubro', 'Dia dos Pais, Dia das Mães, Namorados: kits presentes convertem muito', 'Audiências premium: gastronomia, viagem, culinária, alta renda']
+  },
+  ajinomoto: {
+    name: 'Ajinomoto', vertical: 'Food (Temperos)', emoji: '🧂', color: '#dc2626',
+    tagline: 'Multinacional japonesa com marcas icônicas no Brasil: SAZÓN, MID e VONO.',
+    desc: 'A Ajinomoto do Brasil opera no país desde 1958 e é dona das marcas SAZÓN, MID e VONO — entre as mais reconhecidas em temperos e caldos. Além de alimentos, atua em nutrição animal, farmacêutica e cosméticos.',
+    metrics: [
+      { label: 'Origem', value: 'Japão — no Brasil desde 1958' },
+      { label: 'Marcas', value: 'SAZÓN, MID, VONO' },
+      { label: 'Alcance', value: 'Nacional — todas as classes' },
+      { label: 'Posição', value: 'Líder em temperos' }
+    ],
+    negocio: ['Temperos e condimentos (SAZÓN)', 'Caldos e sopas (VONO)', 'Umami e realçadores de sabor', 'Nutrição animal e farma', 'Soluções B2B para indústria alimentícia'],
+    publicoAlvo: ['Donas de casa e cozinheiros caseiros', 'Todas as classes sociais', 'Público feminino 25–55 anos', 'Brasil inteiro — com forte presença no Nordeste'],
+    concorrentes: ['Knorr (Unilever)', 'Maggi (Nestlé)', 'Sazon Leão', 'Temperos Kitano'],
+    ondeAnunciam: ['TV aberta (investimento alto)', 'Meta (receitas)', 'Portais de culinária', 'Trade marketing PDV', 'YouTube (vídeos de receitas)'],
+    tips: ['Receitas são o principal driver de conteúdo — nativos em TudoGostoso, Cybercook', 'Sazonalidades: festas juninas, Natal, Carnaval (pratos típicos)', 'Público massivo — alto alcance em portais populares de notícia', 'Vídeos curtos de receitas têm CTR muito acima da média']
+  },
+  gallo: {
+    name: 'Gallo Azeite', vertical: 'Food (Azeite)', emoji: '🫒', color: '#78716c',
+    tagline: 'Marca líder de azeite de oliva em Portugal, com forte presença e crescimento no Brasil.',
+    desc: 'Gallo é a marca de azeite de oliva mais vendida em Portugal e tem crescimento acelerado no Brasil, onde o consumo de azeite cresceu 40% nos últimos 5 anos. A marca posiciona o azeite como ingrediente saudável e premium para o dia a dia.',
+    metrics: [
+      { label: 'Origem', value: 'Portugal' },
+      { label: 'Crescimento Brasil', value: '+40% em 5 anos' },
+      { label: 'Posição', value: 'Top 3 em azeites no Brasil' },
+      { label: 'Segmento', value: 'Premium / Saudável' }
+    ],
+    negocio: ['Azeite de oliva extra virgem premium', 'Azeites aromatizados e especiais', 'Vinagres e condimentos', 'Comunicação de saúde e culinária'],
+    publicoAlvo: ['Classes A e B', 'Consumidores health-conscious', 'Cozinheiros domésticos', 'Adultos 28–50 anos, foco feminino'],
+    concorrentes: ['Andorinha', 'Carbonell', 'Cocinero', 'Borges', 'Oliveiras do Sul'],
+    ondeAnunciam: ['TV aberta (Portugal-style advertising)', 'Meta', 'Portais de culinária e saúde', 'Influenciadores de gastronomia'],
+    tips: ['Conteúdo de benefícios do azeite para saúde tem alta demanda no Google/Taboola', 'Dieta mediterrânea é tendência crescente — cavalgar essa narrativa', 'Natal é o principal pico: azeite como presente gourmet', 'Portais de gastronomia e saúde têm altíssimo fit com a marca']
+  },
+  camponesa: {
+    name: 'CAMPONESA', vertical: 'Food (Óleos e Margarinas)', emoji: '🌻', color: '#d97706',
+    tagline: 'Marca brasileira de óleos vegetais e margarinas — presença nacional em todos os lares.',
+    desc: 'A CAMPONESA é uma marca brasileira do segmento de óleos vegetais e margarinas, com distribuição nacional e forte presença nas classes C e D. Concorre diretamente com Soya, Liza e Quaker nos supermercados.',
+    metrics: [
+      { label: 'Segmento', value: 'Óleos + Margarinas' },
+      { label: 'Distribuição', value: 'Nacional' },
+      { label: 'Público', value: 'Amplo — C e D' },
+      { label: 'Canal', value: 'Varejo / Supermercados' }
+    ],
+    negocio: ['Óleos vegetais (soja, girassol, canola)', 'Margarinas cremosas', 'Gorduras vegetais para indústria', 'Distribuição massiva em todo varejo nacional'],
+    publicoAlvo: ['Donas de casa', 'Classes C e D', 'Brasil inteiro', 'Consumidores de produtos básicos da cesta'],
+    concorrentes: ['Soya', 'Liza', 'Quaker', 'Delícia'],
+    ondeAnunciam: ['TV aberta', 'Trade marketing em PDV', 'Meta e portais populares'],
+    tips: ['Produto de cesta básica — foco em preço e disponibilidade', 'Conteúdo de receitas econômicas e cotidianas funciona bem', 'Portais de grande alcance popular (R7, UOL Entretenimento)', 'Sazonalidades: festas juninas (fritura), Natal (bolos e doces)']
+  },
+  livup: {
+    name: 'Liv Up', vertical: 'Food (Saudável / D2C)', emoji: '🥗', color: '#16a34a',
+    tagline: 'Marca de alimentação saudável, natural e sustentável — D2C e supermercados premium.',
+    desc: 'A Liv Up é uma startup de alimentos saudáveis que nasceu no modelo D2C (direct-to-consumer) via e-commerce e se expandiu para supermercados premium. Foco em refeições congeladas naturais, snacks saudáveis e alimentação funcional.',
+    metrics: [
+      { label: 'Modelo', value: 'D2C + Retail' },
+      { label: 'Segmento', value: 'Health Food' },
+      { label: 'Público', value: 'Classe A/B, urbano' },
+      { label: 'Crescimento', value: '+22% mercado saudável' }
+    ],
+    negocio: ['Refeições congeladas naturais e saudáveis', 'Snacks funcionais', 'Plano de assinatura semanal/mensal', 'Presença em redes premium (Pão de Açúcar, St. Marché)'],
+    publicoAlvo: ['Classes A e B', 'Adultos urbanos 25–40 anos', 'Praticantes de atividade física', 'Consumidores conscientes e sustentáveis'],
+    concorrentes: ['iFood (meal kit)', 'Eattu', 'Nutrah', 'Evviva', 'Dr. Good Food'],
+    ondeAnunciam: ['Meta (Instagram — lifestyle)', 'Google', 'Influenciadores fit/saúde', 'Email marketing para assinantes', 'Podcasts de saúde e bem-estar'],
+    tips: ['Conteúdo de saúde, nutrição e fitness tem altíssimo engajamento nativo', 'Janeiro (detox pós-festas) e pré-verão (set–nov) são picos', 'Audiências: fitness, emagrecimento, vida saudável, meditação', 'Portais de saúde, bem-estar e esportes são canais naturais']
+  },
+  amadomundo: {
+    name: 'Amado Mundo', vertical: 'Food / Bebidas', emoji: '🌍', color: '#0891b2',
+    tagline: 'Marca de bebidas e alimentos com proposta de sabores do mundo.',
+    desc: 'Amado Mundo é uma marca brasileira focada em bebidas e alimentos com inspiração global. Explora a tendência de diversidade cultural gastronômica que cresce no Brasil com a valorização de sabores internacionais e artesanais.',
+    metrics: [
+      { label: 'Segmento', value: 'Bebidas / Alimentos' },
+      { label: 'Posicionamento', value: 'Diversidade cultural' },
+      { label: 'Mercado', value: 'Em crescimento' },
+      { label: 'Canais', value: 'D2C + Varejo' }
+    ],
+    negocio: ['Bebidas inspiradas em sabores do mundo', 'Produtos artesanais premium', 'Experiências gastronômicas', 'E-commerce direto'],
+    publicoAlvo: ['Jovens adultos 22–38 anos', 'Classes B e C', 'Consumidores curiosos e aventureiros', 'Amantes de gastronomia internacional'],
+    concorrentes: ['Marcas premium de bebidas importadas', 'Craft drinks', 'Kombucha e functional drinks'],
+    ondeAnunciam: ['Instagram (visual)', 'Portais de gastronomia e lifestyle', 'Influenciadores de foodie'],
+    tips: ['Conteúdo de descoberta de sabores e culturas tem alto engajamento', 'Visuais e storytelling são o diferencial de comunicação', 'Audiências de viagem + gastronomia + lifestyle urbano']
+  },
+  unyleya: {
+    name: 'Unyleya', vertical: 'Education (EaD)', emoji: '💻', color: '#0284c7',
+    tagline: 'Instituição EaD 100% digital com foco em pós-graduação e capacitação profissional.',
+    desc: 'A Unyleya é uma instituição de ensino superior 100% digital, com destaque em pós-graduação EaD, MBA e capacitação profissional. Credenciada pelo MEC, oferece cursos acessíveis com grande variedade de áreas.',
+    metrics: [
+      { label: 'Modalidade', value: '100% EaD' },
+      { label: 'Credenciamento', value: 'MEC' },
+      { label: 'Foco', value: 'Pós-graduação / MBA' },
+      { label: 'Ticket', value: 'R$ 150–400/mês' }
+    ],
+    negocio: ['Pós-graduação EaD reconhecida MEC', 'MBA executivo online', 'Cursos de extensão', 'Licenciaturas EaD', 'Parcerias com empresas para capacitação'],
+    publicoAlvo: ['Trabalhadores 25–45 anos', 'Profissionais querendo pós sem sair do emprego', 'Classes B e C', 'Interior do Brasil (EaD acessa onde presencial não chega)'],
+    concorrentes: ['Descomplica Pós', 'Gran Cursos', 'Anhanguera EaD', 'Estácio EaD', 'Unifavip'],
+    ondeAnunciam: ['Meta Ads (principal)', 'Google', 'Portais de notícia e emprego', 'Afiliados de educação'],
+    tips: ['EaD: mensagem de flexibilidade e mobilidade é decisiva', 'Janelas Jan–Fev e Jun–Jul são picos para captação de pós', 'Audiências de profissionais, RH, mercado de trabalho', 'Portais de notícia popularmente acessados são canais de alto alcance']
+  },
+  afya: {
+    name: 'Afya', vertical: 'Education (Medicina)', emoji: '🏥', color: '#dc2626',
+    tagline: 'Maior grupo de educação médica do Brasil, com 33 faculdades de medicina.',
+    desc: 'A Afya é a maior empresa de educação médica do Brasil, listada na Nasdaq. Possui 33 faculdades, com 64% nas regiões Norte e Nordeste, onde a demanda por médicos é maior. Lucro cresceu 85% em 2024.',
+    metrics: [
+      { label: 'Ticker', value: 'AFYA (Nasdaq)' },
+      { label: 'Faculdades', value: '33 de medicina' },
+      { label: 'Crescimento lucro', value: '+85% em 2024' },
+      { label: 'Presença', value: 'Foco Norte/Nordeste' }
+    ],
+    negocio: ['Cursos de medicina (foco principal)', 'Outros cursos de saúde', 'Residência médica e pós', 'Afya Meds (plataforma digital médica)', 'Imedico (software para gestão médica)'],
+    publicoAlvo: ['Vestibulando para medicina 17–22 anos', 'Médicos para especialização', 'Profissionais de saúde', 'Famílias de alta renda'],
+    concorrentes: ['Idomed', 'UNISA', 'UniRV', 'Estácio Medicina', 'Faculdades públicas'],
+    ondeAnunciam: ['Google Search (altíssimo CPC em medicina)', 'Meta', 'Portais de saúde', 'Redes de prepara-para-vestibular'],
+    tips: ['Medicina: maior ticket do ensino privado — LTV justifica CAC alto', 'Foco geográfico Norte/Nordeste — Taboola com geo-targeting preciso', 'Conteúdo sobre residência médica e carreira médica tem alta demanda', 'Janela ENEM Nov–Jan é crítica para captação de vestibulandos']
+  },
+  descomplica: {
+    name: 'Descomplica', vertical: 'Education (EdTech)', emoji: '🚀', color: '#7c3aed',
+    tagline: 'EdTech pioneira no Brasil, do preparatório ENEM à graduação 100% digital.',
+    desc: 'Fundada em 2011, a Descomplica é uma das maiores EdTechs do Brasil. Começou como plataforma de videoaulas para ENEM e evoluiu para oferecer graduação e pós-graduação digitais credenciadas pelo MEC, com foco em educação acessível.',
+    metrics: [
+      { label: 'Fundação', value: '2011' },
+      { label: 'Modelo', value: '100% Digital' },
+      { label: 'Alcance', value: 'Plataforma nacional' },
+      { label: 'Foco', value: 'ENEM + Graduação + Pós' }
+    ],
+    negocio: ['Preparatório ENEM digital', 'Graduação 100% online MEC', 'Pós-graduação EaD', 'Assinatura mensal de conteúdo', 'Cursos livres e técnicos'],
+    publicoAlvo: ['Jovens 16–25 para ENEM', 'Trabalhadores 22–40 para graduação', 'Classes B e C', 'Usuários mobile-first'],
+    concorrentes: ['Stoodi', 'Estácio EaD', 'Estratégia Vestibulares', 'Unyleya', 'Gran Cursos'],
+    ondeAnunciam: ['Meta (Instagram/TikTok)', 'YouTube', 'Google', 'Influenciadores educacionais', 'TikTok (jovens)'],
+    tips: ['ENEM é o maior driver sazonal: ativar forte em Set–Nov', 'Conteúdo de dicas de estudo e simulados tem alto engajamento', 'Público jovem: Instagram e YouTube são canais primários', 'Taboola em portais de notícia e entretenimento para alcance massivo']
+  },
+  petrobras: {
+    name: 'Petrobras', vertical: 'Energia / Corporativo', emoji: '⛽', color: '#0a7c4e',
+    tagline: 'Maior empresa do Brasil e referência global em exploração de petróleo em águas profundas.',
+    desc: 'A Petrobras (Petróleo Brasileiro S.A.) é a maior empresa do Brasil e uma das maiores petroleiras do mundo. Listada na B3 e NYSE, é controlada pelo Governo Federal e referência em exploração em águas profundas (pré-sal).',
+    metrics: [
+      { label: 'Ticker', value: 'PETR4 (B3) / PBR (NYSE)' },
+      { label: 'Receita', value: '~R$ 500bi/ano' },
+      { label: 'Controle', value: 'Governo Federal' },
+      { label: 'Destaque', value: 'Pré-sal / Camada 300m' }
+    ],
+    negocio: ['Exploração e produção de petróleo e gás', 'Refino de petróleo', 'Distribuição (BR Distribuidora — Vibra)', 'Biocombustíveis e energias renováveis', 'Petroquímica', 'Gás natural'],
+    publicoAlvo: ['Investidores pessoa física e institucional', 'Consumidores de combustível via Vibra', 'Parceiros B2B indústria', 'Governo e stakeholders'],
+    concorrentes: ['Shell Brasil', 'TotalEnergies', 'Equinor (Brasil)', 'Raízen (cana + combustível)'],
+    ondeAnunciam: ['TV aberta (institucional)', 'Portais financeiros e notícia', 'Patrocínios esportivos', 'LinkedIn (B2B e ESG)', 'Sustentabilidade / ESG comunicação'],
+    tips: ['Comunicação ESG é prioridade atual da Petrobras — conteúdo sustentabilidade', 'Audiências de investidores em portais financeiros (Valor, InfoMoney)', 'Campanhas institucionais têm budget robusto — conteúdo de brand', 'Portais de notícia política e econômica são canais relevantes']
+  }
+};
+
+function selectClient(val) {
+  if (!val) {
+    document.getElementById('client-content').innerHTML = `
+      <div class="empty-client">
+        <div class="emoji">👤</div>
+        <h3>Selecione um cliente</h3>
+        <p>Use o menu no canto inferior esquerdo para carregar o perfil completo do cliente.</p>
+      </div>`;
+    showPage('client');
+    return;
+  }
+  const c = clients[val];
+  if (!c) return;
+  showPage('client');
+
+  const metricsHTML = c.metrics.map(m => `
+    <div class="cm">
+      <div class="cl">${m.label}</div>
+      <div class="cv" style="font-size:15px;">${m.value}</div>
+    </div>`).join('');
+
+  const negocioHTML = c.negocio.map(i => `<li>${i}</li>`).join('');
+  const publicoHTML = c.publicoAlvo.map(i => `<li>${i}</li>`).join('');
+  const concorrentesHTML = c.concorrentes.map(n => `<span class="competitor-chip">${n}</span>`).join('');
+  const ondeHTML = c.ondeAnunciam.map(i => `<li>${i}</li>`).join('');
+  const tipsHTML = c.tips.map(t => `<li>${t}</li>`).join('');
+
+  document.getElementById('client-content').innerHTML = `
+    <div class="client-header">
+      <div class="client-logo-placeholder" style="background:${c.color};">${c.emoji}</div>
+      <div class="info">
+        <h2>${c.name}</h2>
+        <div class="vertical-tag"><span class="tag tag-blue">${c.vertical}</span></div>
+        <p>${c.desc}</p>
+      </div>
+    </div>
+
+    <div class="client-metrics">${metricsHTML}</div>
+
+    <div class="info-grid">
+      <div class="info-block">
+        <h4>🏢 Frentes de Negócio</h4>
+        <ul>${negocioHTML}</ul>
+      </div>
+      <div class="info-block">
+        <h4>🎯 Público-Alvo</h4>
+        <ul>${publicoHTML}</ul>
+      </div>
+      <div class="info-block">
+        <h4>📢 Onde Anunciam</h4>
+        <ul>${ondeHTML}</ul>
+      </div>
+      <div class="info-block">
+        <h4>⚔️ Concorrentes</h4>
+        <div class="competitors-list" style="padding-top:4px;">${concorrentesHTML}</div>
+      </div>
+    </div>
+
+    <div class="taboola-tips">
+      <h4>✦ Estratégias & Insights Taboola para ${c.name}</h4>
+      <ul>${tipsHTML}</ul>
+    </div>`;
+}
+
+// ─── CHARTS ───────────────────────────────────────────────────
+const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const chartDefaults = {
+  responsive: true,
+  maintainAspectRatio: true,
+  plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } },
+  scales: {
+    x: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(46,51,80,.4)' } },
+    y: { ticks: { color: '#94a3b8', font: { size: 10 } }, grid: { color: 'rgba(46,51,80,.4)' } }
+  }
+};
+
+function makeBar(id, labels, datasets, options = {}) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'bar',
+    data: { labels, datasets },
+    options: { ...chartDefaults, ...options, scales: { ...chartDefaults.scales, ...options.scales } }
+  });
+}
+function makeLine(id, labels, datasets) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'line',
+    data: { labels, datasets },
+    options: { ...chartDefaults, plugins: { ...chartDefaults.plugins }, elements: { line: { tension: 0.4 } } }
+  });
+}
+function makeDoughnut(id, labels, data, colors) {
+  const ctx = document.getElementById(id);
+  if (!ctx) return;
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: { labels, datasets: [{ data, backgroundColor: colors, borderWidth: 0 }] },
+    options: { responsive: true, maintainAspectRatio: true, plugins: { legend: { labels: { color: '#94a3b8', font: { size: 11 } } } } }
+  });
+}
+
+// GAMBLING
+makeBar('chart-gambling-season', MONTHS,
+  [{ label: 'Índice de Demanda', data: [70,85,90,75,95,100,95,80,85,90,88,82], backgroundColor: MONTHS.map((_, i) => [5,9].includes(i) ? '#ef4444' : '#3b82f6') }]);
+
+makeDoughnut('chart-gambling-adshare',
+  ['Meta (FB/IG)', 'Google', 'TV Aberta', 'Patrocínios', 'Afiliados', 'Native/Taboola'],
+  [28, 22, 18, 15, 12, 5],
+  ['#3b82f6','#8b5cf6','#f59e0b','#ef4444','#10b981','#06b6d4']);
+
+// FOOD
+makeLine('chart-food-season', MONTHS, [
+  { label: 'Restaurantes & Delivery', data: [75,85,70,65,72,80,78,72,76,80,88,100], borderColor: '#10b981', fill: false },
+  { label: 'Varejo Alimentar', data: [80,78,72,70,75,78,76,74,78,82,90,100], borderColor: '#f59e0b', fill: false },
+  { label: 'Alimentos Saudáveis', data: [90,85,70,65,72,70,68,75,85,90,85,80], borderColor: '#3b82f6', fill: false }
+]);
+makeDoughnut('chart-food-segments',
+  ['Proteínas Animais','Laticínios','Grãos e Cereais','Saudável/Funcional','Bebidas','Outros'],
+  [28, 18, 16, 14, 13, 11],
+  ['#ef4444','#f59e0b','#3b82f6','#10b981','#8b5cf6','#6b7280']);
+
+// TRAVEL
+makeBar('chart-travel-season', MONTHS,
+  [{ label: 'Demanda por Viagens', data: [100,95,88,72,78,85,92,75,72,78,85,98], backgroundColor: MONTHS.map((_, i) => [0,11].includes(i) ? '#ef4444' : '#3b82f6') }]);
+makeDoughnut('chart-travel-destinos',
+  ['São Paulo','Rio de Janeiro','Fortaleza','Nordeste interior','Sul do Brasil','Internacional'],
+  [22,18,15,20,15,10],
+  ['#3b82f6','#8b5cf6','#f59e0b','#10b981','#06b6d4','#ef4444']);
+
+// EDUCATION
+makeBar('chart-edu-season', MONTHS,
+  [{ label: 'Captação de Alunos', data: [100,95,65,55,85,90,60,75,80,85,100,95], backgroundColor: MONTHS.map((_, i) => [0,10,11].includes(i) ? '#ef4444' : '#3b82f6') }]);
+makeDoughnut('chart-edu-ead',
+  ['EaD', 'Presencial'],
+  [51, 49],
+  ['#3b82f6','#8b5cf6']);
+
+// REAL ESTATE
+makeLine('chart-re-season', MONTHS, [
+  { label: 'Lançamentos', data: [50,55,80,85,78,72,70,88,92,82,85,78], borderColor: '#3b82f6', fill: false },
+  { label: 'Vendas', data: [65,60,75,80,75,70,68,82,88,80,82,88], borderColor: '#10b981', fill: false }
+]);
+makeDoughnut('chart-re-segments',
+  ['Econômico (MCMV)','Médio Padrão','Alto Padrão','Luxo','Comercial'],
+  [45, 22, 18, 8, 7],
+  ['#10b981','#3b82f6','#8b5cf6','#f59e0b','#06b6d4']);
+
+// Fix nav click
+document.querySelectorAll('.nav-item').forEach(el => {
+  el.addEventListener('click', function() {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+// ─── TOP COMPANIES & SOURCES ──────────────────────────────────
+const topCompanies = {
+  gambling: [
+    {r:1,name:'Betano',tam:'~23% GGR BR',midiaEst:'R$400mi+',geo:'Nacional',geoType:'nacional'},
+    {r:2,name:'bet365',tam:'Top 3 Global',midiaEst:'R$300mi+',geo:'Nacional',geoType:'nacional'},
+    {r:3,name:'SportingBet',tam:'Top 5 BR',midiaEst:'R$300mi',geo:'Nacional',geoType:'nacional'},
+    {r:4,name:'Superbet',tam:'Top 5 BR',midiaEst:'R$200mi',geo:'Nacional',geoType:'nacional'},
+    {r:5,name:'Esportes da Sorte',tam:'Top 5 BR',midiaEst:'R$250mi',geo:'Nacional',geoType:'nacional'},
+    {r:6,name:'Blaze',tam:'Top 10',midiaEst:'R$150mi',geo:'Nacional',geoType:'nacional'},
+    {r:7,name:'Betnacional',tam:'Top 10',midiaEst:'R$120mi',geo:'Nacional',geoType:'nacional'},
+    {r:8,name:'EstrelaBet',tam:'Top 10',midiaEst:'R$180mi',geo:'Nacional',geoType:'nacional'},
+    {r:9,name:'KTO',tam:'Top 10',midiaEst:'R$80mi',geo:'Nacional',geoType:'nacional'},
+    {r:10,name:'Galera.bet',tam:'Top 10',midiaEst:'R$90mi',geo:'Nacional',geoType:'nacional'},
+    {r:11,name:'Novibet',tam:'Crescimento',midiaEst:'R$60mi',geo:'Nacional',geoType:'nacional'},
+    {r:12,name:'Pixbet',tam:'Crescimento',midiaEst:'R$50mi',geo:'Nacional',geoType:'nacional'},
+    {r:13,name:'Vbet',tam:'Internacional',midiaEst:'R$35mi',geo:'Nacional',geoType:'nacional'},
+    {r:14,name:'7K',tam:'Top 10',midiaEst:'R$45mi',geo:'Nacional',geoType:'nacional'},
+    {r:15,name:'Betboom',tam:'Crescimento',midiaEst:'R$30mi',geo:'Nacional',geoType:'nacional'},
+    {r:16,name:'Luva.Bet',tam:'Influencer',midiaEst:'R$25mi',geo:'Nacional',geoType:'nacional'},
+    {r:17,name:'Tele Sena',tam:'Cap. líder',midiaEst:'R$80mi',geo:'Nacional',geoType:'nacional'},
+    {r:18,name:'Seguro.bet',tam:'Crescimento',midiaEst:'R$20mi',geo:'Nacional',geoType:'nacional'},
+    {r:19,name:'Betnow',tam:'Crescimento',midiaEst:'R$40mi',geo:'Nacional',geoType:'nacional'},
+    {r:20,name:'Br4bet',tam:'Nacional',midiaEst:'R$18mi',geo:'Nacional',geoType:'nacional'},
+  ],
+  food: [
+    {r:1,name:'JBS (Friboi/Seara)',tam:'R$363,8bi receita',midiaEst:'R$800mi+',geo:'Nacional + Export',geoType:'nacional'},
+    {r:2,name:'Ambev',tam:'R$87bi receita',midiaEst:'R$2bi+',geo:'Nacional',geoType:'nacional'},
+    {r:3,name:'BRF (Sadia/Perdigão)',tam:'R$54bi receita',midiaEst:'R$600mi',geo:'Nacional + Export',geoType:'nacional'},
+    {r:4,name:'Marfrig Global Foods',tam:'R$95bi receita',midiaEst:'R$200mi',geo:'Nacional',geoType:'nacional'},
+    {r:5,name:'Cargill Brasil',tam:'Top 5 Agro BR',midiaEst:'R$100mi',geo:'Nacional',geoType:'nacional'},
+    {r:6,name:'Nestlé Brasil',tam:'R$12bi+ receita',midiaEst:'R$500mi',geo:'Nacional',geoType:'nacional'},
+    {r:7,name:'Unilever Brasil',tam:'R$10bi+ receita',midiaEst:'R$600mi',geo:'Nacional',geoType:'nacional'},
+    {r:8,name:'Kraft Heinz Brasil',tam:'Top 10 Food',midiaEst:'R$150mi',geo:'Nacional',geoType:'nacional'},
+    {r:9,name:'Ajinomoto Brasil',tam:'Líder temperos',midiaEst:'R$120mi',geo:'Nacional',geoType:'nacional'},
+    {r:10,name:'M. Dias Branco',tam:'R$9bi receita',midiaEst:'R$180mi',geo:'Nacional',geoType:'nacional'},
+    {r:11,name:'Camil Alimentos',tam:'R$13bi receita',midiaEst:'R$90mi',geo:'Nacional',geoType:'nacional'},
+    {r:12,name:'Minerva Foods',tam:'R$24bi receita',midiaEst:'R$50mi',geo:'Nacional + Export',geoType:'nacional'},
+    {r:13,name:'McDonald\'s Brasil',tam:'R$5bi+ receita',midiaEst:'R$300mi',geo:'Nacional',geoType:'nacional'},
+    {r:14,name:'Burger King Brasil',tam:'Top Fast Food',midiaEst:'R$150mi',geo:'Nacional',geoType:'nacional'},
+    {r:15,name:'Wine.com.br',tam:'R$987mi fat. 2024',midiaEst:'R$80mi',geo:'Nacional',geoType:'nacional'},
+    {r:16,name:'Fogo de Chão',tam:'Premium BR/EUA',midiaEst:'R$25mi',geo:'SP, RJ, BSB, POA',geoType:'regional'},
+    {r:17,name:'Outback Brasil',tam:'Top Food Service',midiaEst:'R$60mi',geo:'Nacional',geoType:'nacional'},
+    {r:18,name:'Habib\'s',tam:'Regional SP',midiaEst:'R$40mi',geo:'SP, MG, PR',geoType:'regional'},
+    {r:19,name:'Liv Up',tam:'D2C líder saudável',midiaEst:'R$20mi',geo:'SP, RJ, BH',geoType:'regional'},
+    {r:20,name:'Gallo Azeite',tam:'Top 3 azeite BR',midiaEst:'R$25mi',geo:'Nacional',geoType:'nacional'},
+    {r:21,name:'Copacol',tam:'Líder frango PR',midiaEst:'R$18mi',geo:'Sul/Sudeste',geoType:'regional'},
+    {r:22,name:'CAMPONESA',tam:'Óleos/margarinas',midiaEst:'R$15mi',geo:'Nacional',geoType:'nacional'},
+    {r:23,name:'Giraffas',tam:'Regional Norte',midiaEst:'R$20mi',geo:'Norte/Centro-Oeste',geoType:'regional'},
+    {r:24,name:'Raízen (açúcar)',tam:'R$170bi receita',midiaEst:'R$80mi',geo:'Nacional',geoType:'nacional'},
+    {r:25,name:'São Martinho',tam:'R$8bi receita',midiaEst:'R$30mi',geo:'Nacional',geoType:'nacional'},
+  ],
+  travel: [
+    {r:1,name:'LATAM Airlines',tam:'~35% market share',midiaEst:'R$400mi',geo:'Nacional + Intl',geoType:'nacional'},
+    {r:2,name:'Gol Airlines',tam:'~28% market share',midiaEst:'R$300mi',geo:'Nacional',geoType:'nacional'},
+    {r:3,name:'Azul Linhas Aéreas',tam:'~30% / 160+ destinos',midiaEst:'R$280mi',geo:'Nacional',geoType:'nacional'},
+    {r:4,name:'CVC Corp',tam:'1.597 lojas',midiaEst:'R$200mi',geo:'Nacional',geoType:'nacional'},
+    {r:5,name:'Decolar.com',tam:'Líder OTA BR',midiaEst:'R$150mi',geo:'Nacional',geoType:'nacional'},
+    {r:6,name:'Booking.com BR',tam:'Global Top OTA',midiaEst:'R$120mi',geo:'Nacional',geoType:'nacional'},
+    {r:7,name:'Hurb (Hotel Urbano)',tam:'R$1bi+ GMV',midiaEst:'R$80mi',geo:'Nacional',geoType:'nacional'},
+    {r:8,name:'Localiza',tam:'Líder locação',midiaEst:'R$100mi',geo:'Nacional',geoType:'nacional'},
+    {r:9,name:'Movida',tam:'Top 2 locação',midiaEst:'R$60mi',geo:'Nacional',geoType:'nacional'},
+    {r:10,name:'Airbnb Brasil',tam:'Global OTA',midiaEst:'R$80mi',geo:'Nacional',geoType:'nacional'},
+    {r:11,name:'Azul Viagens',tam:'+31% fat. 2025',midiaEst:'R$60mi',geo:'Nacional',geoType:'nacional'},
+    {r:12,name:'Submarino Viagens',tam:'CVC Corp',midiaEst:'R$50mi',geo:'Nacional',geoType:'nacional'},
+    {r:13,name:'Trend Operadora',tam:'Top 3 operadoras',midiaEst:'R$40mi',geo:'Nacional',geoType:'nacional'},
+    {r:14,name:'TAP Air Portugal',tam:'Intl líder BR-PT',midiaEst:'R$60mi',geo:'Nacional',geoType:'nacional'},
+    {r:15,name:'Air France/KLM BR',tam:'Intl top 3',midiaEst:'R$50mi',geo:'Nacional',geoType:'nacional'},
+    {r:16,name:'American Airlines',tam:'Intl top 3',midiaEst:'R$45mi',geo:'Nacional',geoType:'nacional'},
+    {r:17,name:'Unidas Rent a Car',tam:'Top 3 locação',midiaEst:'R$40mi',geo:'Nacional',geoType:'nacional'},
+    {r:18,name:'Club Med Brasil',tam:'Premium resort',midiaEst:'R$30mi',geo:'Nacional',geoType:'nacional'},
+    {r:19,name:'Marriott Brasil',tam:'Top hotel chain',midiaEst:'R$40mi',geo:'SP, RJ, BSB',geoType:'regional'},
+    {r:20,name:'Hilton Brasil',tam:'Premium hotel',midiaEst:'R$30mi',geo:'SP, RJ',geoType:'regional'},
+    {r:21,name:'Expedia BR',tam:'Global OTA',midiaEst:'R$35mi',geo:'Nacional',geoType:'nacional'},
+    {r:22,name:'Visual Turismo',tam:'Top 3 operadoras',midiaEst:'R$35mi',geo:'Nacional',geoType:'nacional'},
+    {r:23,name:'Iberia Brasil',tam:'Intl',midiaEst:'R$25mi',geo:'SP, RJ',geoType:'regional'},
+    {r:24,name:'Voepass',tam:'Regional BR',midiaEst:'R$15mi',geo:'Interior SP/PR',geoType:'regional'},
+    {r:25,name:'Meliá Hotels BR',tam:'Intl hotel',midiaEst:'R$20mi',geo:'SP, RJ, SSA',geoType:'regional'},
+  ],
+  education: [
+    {r:1,name:'Cogna Educação',tam:'R$3,5bi receita',midiaEst:'R$300mi',geo:'Nacional',geoType:'nacional'},
+    {r:2,name:'Yduqs (Estácio/IBMEC)',tam:'R$2,8bi receita',midiaEst:'R$280mi',geo:'Nacional',geoType:'nacional'},
+    {r:3,name:'Ânima Educação',tam:'R$2,2bi receita',midiaEst:'R$200mi',geo:'Nacional',geoType:'nacional'},
+    {r:4,name:'Afya',tam:'R$2,8bi receita',midiaEst:'R$150mi',geo:'N/NE foco',geoType:'regional'},
+    {r:5,name:'Ser Educacional',tam:'R$1,5bi receita',midiaEst:'R$120mi',geo:'N/NE/CO',geoType:'regional'},
+    {r:6,name:'Cruzeiro do Sul',tam:'341k alunos',midiaEst:'R$100mi',geo:'SP foco',geoType:'regional'},
+    {r:7,name:'Descomplica',tam:'Top EdTech BR',midiaEst:'R$60mi',geo:'Nacional',geoType:'nacional'},
+    {r:8,name:'Sebrae',tam:'17,7M MEIs',midiaEst:'R$80mi',geo:'Nacional',geoType:'nacional'},
+    {r:9,name:'FGV',tam:'Premium',midiaEst:'R$40mi',geo:'SP, RJ, BSB',geoType:'regional'},
+    {r:10,name:'Gran Cursos Online',tam:'EaD concursos',midiaEst:'R$40mi',geo:'Nacional',geoType:'nacional'},
+    {r:11,name:'SENAC',tam:'Nacional',midiaEst:'R$60mi',geo:'Nacional',geoType:'nacional'},
+    {r:12,name:'SENAI',tam:'Nacional',midiaEst:'R$50mi',geo:'Nacional',geoType:'nacional'},
+    {r:13,name:'Estratégia Concursos',tam:'EaD concursos',midiaEst:'R$30mi',geo:'Nacional',geoType:'nacional'},
+    {r:14,name:'Unip',tam:'SP maior campus',midiaEst:'R$40mi',geo:'SP, interior',geoType:'regional'},
+    {r:15,name:'Uninove',tam:'Top SP',midiaEst:'R$35mi',geo:'São Paulo',geoType:'local'},
+    {r:16,name:'Insper',tam:'Premium SP',midiaEst:'R$20mi',geo:'São Paulo',geoType:'local'},
+    {r:17,name:'FIA Business School',tam:'MBA líder SP',midiaEst:'R$15mi',geo:'São Paulo',geoType:'local'},
+    {r:18,name:'Poliedro',tam:'Top 3 prep.',midiaEst:'R$25mi',geo:'SP e capitais',geoType:'regional'},
+    {r:19,name:'Unyleya',tam:'EaD pós',midiaEst:'R$20mi',geo:'Nacional',geoType:'nacional'},
+    {r:20,name:'IESB',tam:'Líder DF',midiaEst:'R$12mi',geo:'DF/Goiás',geoType:'regional'},
+  ],
+  realestate: [
+    {r:1,name:'Cyrela',tam:'R$13bi VGV 2025',midiaEst:'R$80mi',geo:'SP, RJ, capitais',geoType:'regional'},
+    {r:2,name:'MRV Engenharia',tam:'MCMV líder BR',midiaEst:'R$120mi',geo:'Nacional',geoType:'nacional'},
+    {r:3,name:'Moura Dubeux',tam:'R$4,6bi VGV',midiaEst:'R$30mi',geo:'Nordeste',geoType:'regional'},
+    {r:4,name:'Grupo Plaenge',tam:'R$3,1bi VGV',midiaEst:'R$20mi',geo:'Sul/Sudeste',geoType:'regional'},
+    {r:5,name:'Even Construtora',tam:'R$2,5bi VGV',midiaEst:'R$20mi',geo:'SP, RJ',geoType:'regional'},
+    {r:6,name:'Eztec',tam:'R$2,4bi VGV',midiaEst:'R$25mi',geo:'São Paulo',geoType:'local'},
+    {r:7,name:'Lavvi',tam:'R$2,4bi VGV',midiaEst:'R$12mi',geo:'São Paulo',geoType:'local'},
+    {r:8,name:'Direcional Eng.',tam:'MCMV foco',midiaEst:'R$25mi',geo:'Nacional',geoType:'nacional'},
+    {r:9,name:'Trisul',tam:'Médio padrão SP',midiaEst:'R$12mi',geo:'São Paulo',geoType:'local'},
+    {r:10,name:'Mitre Realty',tam:'R$990mi VGV',midiaEst:'R$10mi',geo:'São Paulo',geoType:'local'},
+    {r:11,name:'Melnick',tam:'R$930mi VGV',midiaEst:'R$10mi',geo:'Rio Grande do Sul',geoType:'regional'},
+    {r:12,name:'Cury Construtora',tam:'MCMV SP',midiaEst:'R$15mi',geo:'São Paulo',geoType:'local'},
+    {r:13,name:'Vitacon',tam:'Micro-apartamento SP',midiaEst:'R$10mi',geo:'São Paulo',geoType:'local'},
+    {r:14,name:'Plano&Plano',tam:'Cyrela subsidiária',midiaEst:'R$15mi',geo:'São Paulo',geoType:'local'},
+    {r:15,name:'Tegra',tam:'Alto padrão SP',midiaEst:'R$10mi',geo:'SP, RJ',geoType:'regional'},
+    {r:16,name:'Embraed',tam:'SC líder',midiaEst:'R$8mi',geo:'Santa Catarina',geoType:'regional'},
+    {r:17,name:'Helbor',tam:'Médio SP',midiaEst:'R$8mi',geo:'São Paulo',geoType:'local'},
+    {r:18,name:'OAS Imóveis',tam:'Norte/NE',midiaEst:'R$8mi',geo:'Norte/Nordeste',geoType:'regional'},
+    {r:19,name:'CNP Consortium',tam:'Consórcio imob.',midiaEst:'R$12mi',geo:'Nacional',geoType:'nacional'},
+    {r:20,name:'Porto Seguro Consórcio',tam:'Consórcio',midiaEst:'R$10mi',geo:'Nacional',geoType:'nacional'},
+  ],
+  governo: [
+    {r:1,name:'Secom / Gov. Federal',tam:'R$234mi digital',midiaEst:'R$234mi',geo:'Nacional',geoType:'nacional'},
+    {r:2,name:'Banco do Brasil',tam:'Estatal publicidade',midiaEst:'R$300mi',geo:'Nacional',geoType:'nacional'},
+    {r:3,name:'Caixa Econômica Federal',tam:'MCMV publicidade',midiaEst:'R$200mi',geo:'Nacional',geoType:'nacional'},
+    {r:4,name:'Petrobras',tam:'R$500bi receita',midiaEst:'R$60mi',geo:'Nacional',geoType:'nacional'},
+    {r:5,name:'Min. Saúde (SUS)',tam:'Saúde pública',midiaEst:'R$40mi',geo:'Nacional',geoType:'nacional'},
+    {r:6,name:'Gov. Estado SP',tam:'Maior PIB estadual',midiaEst:'R$80mi',geo:'São Paulo',geoType:'regional'},
+    {r:7,name:'Pref. São Paulo',tam:'Maior município BR',midiaEst:'R$60mi',geo:'São Paulo',geoType:'local'},
+    {r:8,name:'Gov. Estado RJ',tam:'2º PIB estadual',midiaEst:'R$40mi',geo:'Rio de Janeiro',geoType:'regional'},
+    {r:9,name:'Gov. Estado MG',tam:'3º PIB estadual',midiaEst:'R$35mi',geo:'Minas Gerais',geoType:'regional'},
+    {r:10,name:'Gov. Distrito Federal',tam:'Brasília',midiaEst:'R$30mi',geo:'Brasília',geoType:'local'},
+    {r:11,name:'Gov. Estado RS',tam:'4º PIB estadual',midiaEst:'R$25mi',geo:'Rio Grande do Sul',geoType:'regional'},
+    {r:12,name:'Gov. Estado PR',tam:'5º PIB estadual',midiaEst:'R$22mi',geo:'Paraná',geoType:'regional'},
+    {r:13,name:'Gov. Estado BA',tam:'NE maior PIB',midiaEst:'R$20mi',geo:'Bahia',geoType:'regional'},
+    {r:14,name:'Gov. Estado CE',tam:'2º NE PIB',midiaEst:'R$18mi',geo:'Ceará',geoType:'regional'},
+    {r:15,name:'Pref. Rio de Janeiro',tam:'2ª maior capital',midiaEst:'R$35mi',geo:'Rio de Janeiro',geoType:'local'},
+    {r:16,name:'Pref. BH',tam:'3ª maior capital',midiaEst:'R$20mi',geo:'Belo Horizonte',geoType:'local'},
+    {r:17,name:'Pref. Fortaleza',tam:'2ª maior NE',midiaEst:'R$12mi',geo:'Ceará',geoType:'local'},
+    {r:18,name:'Pref. Curitiba',tam:'4ª maior capital',midiaEst:'R$15mi',geo:'Paraná',geoType:'local'},
+    {r:19,name:'Min. Educação',tam:'FIES/ProUni/PNLD',midiaEst:'R$25mi',geo:'Nacional',geoType:'nacional'},
+    {r:20,name:'Gov. Estado AM',tam:'Norte + Copa sede',midiaEst:'R$15mi',geo:'Amazonas',geoType:'regional'},
+  ],
+};
+
+const verticalSources = {
+  gambling:[
+    {text:'BCB — Análise técnica apostas online Brasil 2025',url:'https://www.bcb.gov.br/conteudo/relatorioinflacao/EstudosEspeciais/EE119_Analise_tecnica_sobre_o_mercado_de_apostas_online_no_Brasil_e_o_perfil_dos_apostadores.pdf'},
+    {text:'Meio & Mensagem — 20 maiores marcas de bets em operação',url:'https://www.meioemensagem.com.br/marketing/as-20-maiores-marcas-de-bets-em-operacao-no-brasil'},
+    {text:'iGaming Brazil — Bets duplicam faturamento, R$4,5bi impostos',url:'https://igamingbusiness.com/br/apostas-esportivas/apostas-esportivas-online/bets-duplicam-faturamento-no-brasil-e-entregam-r-45-bilhoes-em-impostos/'},
+    {text:'Rádio Senado — Brasil 5º maior mercado global apostas',url:'https://www12.senado.leg.br/radio/1/noticia/2026/04/01/brasil-e-o-quinto-maior-mercado-global-de-apostas'},
+  ],
+  food:[
+    {text:'ABIA — Alimentos e bebidas cresceu 8% em 2025 (Agência Brasil)',url:'https://agenciabrasil.ebc.com.br/economia/noticia/2026-03/industria-de-alimentos-e-bebidas-cresceu-8-em-2025-diz-abia'},
+    {text:'InfoMoney — Indústria de alimentos fatura R$1,38 trilhão em 2025',url:'https://www.infomoney.com.br/economia/industria-de-alimentos-faturamento-balanco-2025-abia/'},
+    {text:'EDairy News — 59 maiores empresas de alimentos e bebidas do Brasil',url:'https://br.edairynews.com/as-59-maiores-empresas-de-alimentos-e-bebidas-do-brasil/'},
+  ],
+  travel:[
+    {text:'PANROTAS — Maiores empresas do turismo do Brasil',url:'https://www.panrotas.com.br/maiores-empresas-do-turismo/'},
+    {text:'Times Brasil — Setor de viagens: R$147,8bi recorde em 2025',url:'https://timesbrasil.com.br/empresas-e-negocios/setor-de-viagens-e-eventos-corporativos-bate-faturamento-recorde-de-r-1478-bi-em-2025/'},
+    {text:'PANROTAS — Azul Viagens cresce 31% em 2025',url:'https://www.panrotas.com.br/mercado/operadoras/2025/12/azul-viagens-registra-crescimento-de-31-no-faturamento-em-2025_224147.html'},
+  ],
+  education:[
+    {text:'Semesp — Mapa do Ensino Superior 2025 (15ª edição)',url:'https://www.semesp.org.br/mapa/edicao-15/brasil/'},
+    {text:'Exame — Maiores empresas de educação: lucro +2.900% em 2024',url:'https://exame.com/revista-exame/um-ano-de-explosao-nos-lucros/'},
+    {text:'Desafios da Educação — Mapa do Ensino Superior 2026',url:'https://desafiosdaeducacao.com.br/mapa-do-ensino-superior-2026'},
+  ],
+  realestate:[
+    {text:'ABRAINC — Indicadores mercado imobiliário Fev/2026',url:'https://www.abrainc.org.br/dados-de-mercado/indicadores-publicacoes/2026/mar%C3%A7o/fevereiro-2026-'},
+    {text:'Portas — Alto padrão cresce 20%, R$30bi em lançamentos',url:'https://portas.com.br/noticias/alto-padrao-cresce-20-e-chega-a-r-30-bi-em-lancamentos-imobiliarios/'},
+    {text:'Prognum — Grandes incorporadoras: resultados históricos 2025',url:'https://prognum.com.br/grandes-incorporadoras-fecharam-2025-com-resultados-historicos/'},
+    {text:'InfoMoney — Cyrela CYRE3 resultados 1T25',url:'https://www.infomoney.com.br/mercados/cyrela-cyre3-resultados-primeiro-trimestre-2025/'},
+  ],
+  governo:[
+    {text:'BNews — Governo investe R$234mi em publicidade digital 2025',url:'https://www.bnewsnatal.com.br/noticias/politica/governo-investe-r-234-milhoes-em-publicidade-digital-em-2025.html'},
+    {text:'Portal Nosso Meio — Publicidade oficial em transformação',url:'https://nossomeio.com.br/publicidade-oficial-em-transformacao-quanto-o-estado-investe-hoje-em-ads-digitais/'},
+    {text:'Gazeta do Povo — Big techs superam TVs nos gastos do Governo',url:'https://www.gazetadopovo.com.br/republica/critico-das-big-techs-lula-amplia-verbas-de-propaganda-do-governo-nas-redes/'},
+  ],
+};
+
+function renderTopCompanies(verticalKey, containerId) {
+  const companies = topCompanies[verticalKey];
+  const sources = verticalSources[verticalKey] || [];
+  if (!companies || !containerId) return;
+  const el = document.getElementById(containerId);
+  if (!el) return;
+  const rows = companies.map(c => `
+    <tr>
+      <td class="rank-num">#${c.r}</td>
+      <td><strong style="font-size:13px;">${c.name}</strong></td>
+      <td style="color:var(--muted);font-size:12px;">${c.tam}</td>
+      <td style="color:var(--green);font-weight:600;">${c.midiaEst}</td>
+      <td><span class="geo-badge geo-${c.geoType}">${c.geoType==='nacional'?'🌎 Nacional':c.geoType==='regional'?'📍 Regional':'📌 Local'}</span></td>
+      <td style="font-size:11px;color:var(--muted);">${c.geo}</td>
+    </tr>`).join('');
+  const srcHTML = sources.map(s=>`<li><a href="${s.url}" target="_blank">↗ ${s.text}</a></li>`).join('');
+  el.innerHTML = `
+    <div class="top-toggle" onclick="toggleTopCo(this)">
+      <h3>🏆 Top ${companies.length} Empresas da Vertical — Tamanho · Investimento em Mídia · Cobertura Geo</h3>
+      <span class="arrow">▾</span>
+    </div>
+    <div class="top-companies-wrap">
+      <div class="section" style="margin-top:0;border-top:none;border-radius:0 0 12px 12px;">
+        <div style="overflow-x:auto;">
+          <table class="top-co-table">
+            <thead><tr><th>#</th><th>Empresa</th><th>Tamanho / Posição</th><th>Invest. Mídia Est.</th><th>Penetração</th><th>Geolocalização Principal</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </div>
+        <div class="source-box" style="margin-top:12px;">
+          <h5>📌 Fontes dos dados desta vertical</h5>
+          <ul>${srcHTML}</ul>
+        </div>
+      </div>
+    </div>`;
+}
+
+function toggleTopCo(el) {
+  el.classList.toggle('open');
+  el.nextElementSibling.classList.toggle('visible');
+}
+
+// ─── COMPARATIVO DATA ──────────────────────────────────────────
+const compData = [
+  { name:'SportingBet', vertical:'Gambling', tamanhoMercado:'R$22bi', crescimento:'+35%', potencialTaboola:92, budgetEstimado:'Alto', pico:'Jun–Nov', posicao:'Top 5 BR', ticker:'—', receita:'Privado' },
+  { name:'Superbet',    vertical:'Gambling', tamanhoMercado:'R$22bi', crescimento:'+60%', potencialTaboola:88, budgetEstimado:'Alto', pico:'Jun–Nov', posicao:'Top 10 BR', ticker:'—', receita:'Privado' },
+  { name:'Tele Sena',   vertical:'Gambling', tamanhoMercado:'R$8bi cap.', crescimento:'+10%', potencialTaboola:70, budgetEstimado:'Médio', pico:'Nov–Dez', posicao:'Líder cap.', ticker:'—', receita:'Privado' },
+  { name:'Cyrela',      vertical:'Real Estate', tamanhoMercado:'R$30bi+', crescimento:'+20%', potencialTaboola:85, budgetEstimado:'Alto', pico:'Mar–Abr / Ago–Set', posicao:'Líder BR', ticker:'CYRE3', receita:'R$9,4bi' },
+  { name:'CNP Consortium', vertical:'Real Estate', tamanhoMercado:'R$15bi', crescimento:'+18%', potencialTaboola:72, budgetEstimado:'Médio', pico:'Jan–Mar', posicao:'Regional', ticker:'—', receita:'Privado' },
+  { name:'IBMEC',       vertical:'Education', tamanhoMercado:'R$50bi', crescimento:'+5%', potencialTaboola:80, budgetEstimado:'Alto', pico:'Nov–Jan', posicao:'Premium SP/RJ', ticker:'YDUQ3', receita:'Grupo Yduqs' },
+  { name:'Estácio',     vertical:'Education', tamanhoMercado:'R$50bi', crescimento:'+8%', potencialTaboola:90, budgetEstimado:'Alto', pico:'Nov–Jan / Mai–Jun', posicao:'700k alunos', ticker:'YDUQ3', receita:'Grupo Yduqs' },
+  { name:'Afya',        vertical:'Education', tamanhoMercado:'R$20bi medicina', crescimento:'+25%', potencialTaboola:75, budgetEstimado:'Alto', pico:'Nov–Jan', posicao:'#1 medicina', ticker:'AFYA (Nasdaq)', receita:'+R$2,8bi' },
+  { name:'Idomed',      vertical:'Education', tamanhoMercado:'R$20bi medicina', crescimento:'+20%', potencialTaboola:70, budgetEstimado:'Médio', pico:'Nov–Jan', posicao:'Top 5 medicina', ticker:'—', receita:'Privado' },
+  { name:'Descomplica', vertical:'Education', tamanhoMercado:'R$50bi', crescimento:'+30%', potencialTaboola:85, budgetEstimado:'Médio', pico:'Set–Nov / Mai', posicao:'Top EdTech BR', ticker:'—', receita:'Privado' },
+  { name:'IESB',        vertical:'Education', tamanhoMercado:'R$2bi DF', crescimento:'+6%', potencialTaboola:65, budgetEstimado:'Médio', pico:'Nov–Jan', posicao:'Líder DF', ticker:'—', receita:'Privado' },
+  { name:'Poliedro',    vertical:'Education', tamanhoMercado:'R$5bi prep.', crescimento:'+12%', potencialTaboola:72, budgetEstimado:'Médio', pico:'Ago–Nov', posicao:'Top 3 preparatório', ticker:'—', receita:'Privado' },
+  { name:'Sebrae',      vertical:'Education', tamanhoMercado:'17,7M MEIs', crescimento:'+15%', potencialTaboola:78, budgetEstimado:'Alto', pico:'Mar / Ago', posicao:'Líder MPE', ticker:'—', receita:'Público/Entidade' },
+  { name:'Unyleya',     vertical:'Education', tamanhoMercado:'R$50bi EaD', crescimento:'+22%', potencialTaboola:72, budgetEstimado:'Médio', pico:'Jan / Jun', posicao:'EaD Pós', ticker:'—', receita:'Privado' },
+  { name:'Azul',        vertical:'Travel', tamanhoMercado:'R$60bi aviação', crescimento:'+31%', potencialTaboola:88, budgetEstimado:'Alto', pico:'Dez–Jan / Jul', posicao:'30% doméstico', ticker:'AZUL4', receita:'Privado' },
+  { name:'Gol',         vertical:'Travel', tamanhoMercado:'R$60bi aviação', crescimento:'+19%', potencialTaboola:82, budgetEstimado:'Alto', pico:'Dez–Jan / Jul', posicao:'Pós-restruturação', ticker:'GOLL53/54', receita:'Privado' },
+  { name:'CVC',         vertical:'Travel', tamanhoMercado:'R$40bi turismo', crescimento:'+8%', potencialTaboola:85, budgetEstimado:'Alto', pico:'Nov–Jan / Jul', posicao:'1.597 lojas', ticker:'CVCB3', receita:'R$1,5bi/ano' },
+  { name:'Copacol',     vertical:'Food', tamanhoMercado:'R$120bi proteína', crescimento:'+9%', potencialTaboola:70, budgetEstimado:'Médio', pico:'Jun–Jul / Nov–Dez', posicao:'Líder PR', ticker:'—', receita:'Cooperativa' },
+  { name:'Fogo de Chão',vertical:'Food', tamanhoMercado:'R$200bi food svc', crescimento:'+12%', potencialTaboola:75, budgetEstimado:'Médio', pico:'Datas especiais', posicao:'Premium BR', ticker:'—', receita:'Privado' },
+  { name:'Wine',        vertical:'Food', tamanhoMercado:'R$6bi vinhos', crescimento:'+12%', potencialTaboola:85, budgetEstimado:'Alto', pico:'Out–Dez', posicao:'16% market share', ticker:'—', receita:'R$987mi' },
+  { name:'Ajinomoto',   vertical:'Food', tamanhoMercado:'R$15bi temperos', crescimento:'+7%', potencialTaboola:80, budgetEstimado:'Alto', pico:'Jun / Nov–Dez', posicao:'Líder temperos', ticker:'—', receita:'Privado' },
+  { name:'Amado Mundo', vertical:'Food', tamanhoMercado:'R$10bi bebidas', crescimento:'+18%', potencialTaboola:68, budgetEstimado:'Baixo-Médio', pico:'Verão / Festas', posicao:'Crescimento', ticker:'—', receita:'Privado' },
+  { name:'Gallo Azeite',vertical:'Food', tamanhoMercado:'R$3bi azeite', crescimento:'+15%', potencialTaboola:72, budgetEstimado:'Médio', pico:'Out–Dez', posicao:'Top 3 azeite BR', ticker:'—', receita:'Internacional' },
+  { name:'Camponesa',   vertical:'Food', tamanhoMercado:'R$8bi óleos', crescimento:'+5%', potencialTaboola:65, budgetEstimado:'Médio', pico:'Jun / Nov–Dez', posicao:'Nacional C/D', ticker:'—', receita:'Privado' },
+  { name:'Liv Up',      vertical:'Food', tamanhoMercado:'R$5bi saudável', crescimento:'+22%', potencialTaboola:78, budgetEstimado:'Médio', pico:'Jan / Set–Nov', posicao:'D2C líder saudável', ticker:'—', receita:'Privado' },
+  { name:'Petrobras',   vertical:'Energia', tamanhoMercado:'R$500bi+', crescimento:'+3%', potencialTaboola:70, budgetEstimado:'Alto', pico:'Institucional', posicao:'Maior empresa BR', ticker:'PETR4/PBR', receita:'~R$500bi' },
+  { name:'Secom Federal', vertical:'Governo', tamanhoMercado:'R$234mi', crescimento:'+200%', potencialTaboola:72, budgetEstimado:'Alto', pico:'Jan–Jul / Copa', posicao:'Maior anunciante público', ticker:'—', receita:'Público' },
+  { name:'Caixa Econômica', vertical:'Governo', tamanhoMercado:'MCMV+', crescimento:'+15%', potencialTaboola:80, budgetEstimado:'Alto', pico:'Ano todo', posicao:'Banco público líder', ticker:'—', receita:'Público' },
+  { name:'Banco do Brasil', vertical:'Governo', tamanhoMercado:'Maior banco BR', crescimento:'+10%', potencialTaboola:78, budgetEstimado:'Alto', pico:'Ano todo', posicao:'Líder agro/governo', ticker:'BBAS3', receita:'Público' },
+];
+
+function renderComparativo() {
+  const filter = document.getElementById('verticalFilter').value;
+  const data = filter === 'all' ? compData : compData.filter(c => c.vertical.includes(filter));
+
+  // Chart: Potencial Taboola por cliente
+  document.getElementById('comp-charts').innerHTML = `
+    <div class="chart-card" style="grid-column:1/-1;">
+      <h3>⭐ Potencial Taboola por Cliente (Score 0–100)</h3>
+      <canvas id="chart-comp-score" style="max-height:300px;"></canvas>
+    </div>`;
+
+  setTimeout(() => {
+    const ctx = document.getElementById('chart-comp-score');
+    if (!ctx) return;
+    const colors = { Gambling:'#ef4444', 'Real Estate':'#3b82f6', Education:'#8b5cf6', Travel:'#10b981', Food:'#f59e0b', Energia:'#06b6d4' };
+    new Chart(ctx, {
+      type:'bar',
+      data:{
+        labels: data.map(d=>d.name),
+        datasets:[{
+          label:'Score de Potencial',
+          data: data.map(d=>d.potencialTaboola),
+          backgroundColor: data.map(d => (colors[d.vertical]||'#3b82f6') + 'cc'),
+          borderColor: data.map(d => colors[d.vertical]||'#3b82f6'),
+          borderWidth:1, borderRadius:4
+        }]
+      },
+      options:{ ...chartDefaults, indexAxis:'y', plugins:{ legend:{display:false} }, scales:{ x:{...chartDefaults.scales.x, max:100}, y:{...chartDefaults.scales.y, ticks:{color:'#94a3b8',font:{size:11}}} } }
+    });
+  }, 50);
+
+  // Table
+  const budgetColor = { Alto:'#10b981', Médio:'#f59e0b', 'Alto / Médio':'#f59e0b', 'Baixo-Médio':'#94a3b8' };
+  const rows = data.map(c => `
+    <tr>
+      <td><strong>${c.name}</strong></td>
+      <td><span class="tag tag-blue" style="font-size:10px;">${c.vertical}</span></td>
+      <td>${c.tamanhoMercado}</td>
+      <td style="color:var(--green);">${c.crescimento}</td>
+      <td>
+        <div class="score-bar">
+          <div class="progress-bar" style="width:80px;"><div class="progress-fill" style="width:${c.potencialTaboola}%;background:${c.potencialTaboola>=85?'#10b981':c.potencialTaboola>=70?'#f59e0b':'#ef4444'};"></div></div>
+          <span style="font-size:12px;font-weight:700;">${c.potencialTaboola}</span>
+        </div>
+      </td>
+      <td><span style="color:${budgetColor[c.budgetEstimado]||'#94a3b8'};font-weight:600;font-size:12px;">${c.budgetEstimado}</span></td>
+      <td style="font-size:12px;color:var(--muted);">${c.pico}</td>
+      <td style="font-size:12px;">${c.posicao}</td>
+      <td style="font-size:12px;color:var(--muted);">${c.ticker !== '—' ? `<span style="color:#93c5fd;">${c.ticker}</span>` : '—'}</td>
+    </tr>`).join('');
+
+  document.getElementById('comp-table').innerHTML = `
+    <div class="section">
+      <h3><span class="ico">📋</span> Tabela Comparativa — ${filter==='all'?'Todos os Clientes':filter}</h3>
+      <div style="overflow-x:auto;">
+        <table class="comp-table">
+          <thead><tr>
+            <th>Cliente</th><th>Vertical</th><th>Mercado</th><th>Cresc.</th>
+            <th>Potencial Taboola</th><th>Budget</th><th>Pico Sazonal</th><th>Posição</th><th>Ticker</th>
+          </tr></thead>
+          <tbody>${rows}</tbody>
+        </table>
+      </div>
+    </div>`;
+}
+
+// ─── CALENDÁRIO ────────────────────────────────────────────────
+const calendarEvents = [
+  { month:0, label:'Janeiro', emoji:'❄️', intensity:'high', events:[
+    { title:'Matrículas 1º Semestre — Alta demanda Educação', clients:'IBMEC, Estácio, Afya, Descomplica, Unyleya, IESB', tip:'Maior janela de captação do ano. Reforçar budget.' },
+    { title:'Férias de Verão — Viagens nacionais', clients:'Azul, Gol, CVC', tip:'Pacotes de verão, cruzeiros, Réveillon ainda reverberando.' },
+    { title:'Detox & Alimentação Saudável — pico', clients:'Liv Up', tip:'Janeiro é o mês do recomeço saudável — CTR altíssimo.' },
+  ]},
+  { month:1, label:'Fevereiro', emoji:'🎭', intensity:'high', events:[
+    { title:'Carnaval — Turismo e festas', clients:'Azul, Gol, CVC', tip:'Salvador, Recife, Rio: destinos de altíssima procura.' },
+    { title:'Carnaval — Alimentos e bebidas', clients:'Copacol, Ajinomoto, Camponesa', tip:'Churrasco, petiscos, pratos típicos regionais.' },
+    { title:'Início Campeonatos Futebol — Apostas', clients:'SportingBet, Superbet', tip:'Brasileirão, Libertadores, Copa do Brasil iniciam.' },
+  ]},
+  { month:2, label:'Março', emoji:'🌱', intensity:'med', events:[
+    { title:'Lançamentos imobiliários 1º sem.', clients:'Cyrela, CNP Consortium', tip:'Maior janela de lançamentos pós-carnaval.' },
+    { title:'Início de semestre — cursos livres', clients:'Sebrae, Poliedro, Unyleya', tip:'Cursos de extensão, capacitação, preparatório.' },
+    { title:'Dia Internacional da Mulher — campanhas', clients:'Ajinomoto, Wine, Gallo Azeite', tip:'Conteúdo de valorização e presente para ela.' },
+  ]},
+  { month:3, label:'Abril', emoji:'🐣', intensity:'med', events:[
+    { title:'Páscoa — Alimentos especiais', clients:'Ajinomoto, Wine, Fogo de Chão', tip:'Chocolates, vinhos, jantar em família.' },
+    { title:'Continuidade lançamentos imob.', clients:'Cyrela', tip:'Eventos de lançamento e feiras de imóveis.' },
+    { title:'Copa do Brasil / Libertadores', clients:'SportingBet, Superbet', tip:'Fases decisivas geram pico de apostas.' },
+  ]},
+  { month:4, label:'Maio', emoji:'💐', intensity:'high', events:[
+    { title:'Dia das Mães — maior data de varejo', clients:'Wine, Fogo de Chão, Gallo Azeite, Ajinomoto', tip:'Kits gourmet, jantar especial, presentes premium.' },
+    { title:'Dia das Mães — viagem presente', clients:'Azul, Gol, CVC', tip:'Pacotes de fim de semana, resorts, spas.' },
+    { title:'Matrículas 2º semestre abrem', clients:'Estácio, Descomplica, Unyleya, IBMEC', tip:'Iniciar captação EaD e graduação 2º sem.' },
+  ]},
+  { month:5, label:'Junho', emoji:'🎪', intensity:'high', events:[
+    { title:'Festa Junina — comidas típicas pico', clients:'Copacol, Ajinomoto, Camponesa', tip:'Canjica, paçoca, quentão, milho: conteúdo de receitas.' },
+    { title:'Dia dos Namorados', clients:'Wine, Fogo de Chão, Gallo Azeite, Cyrela', tip:'Jantar especial, presente gourmet, imóvel para o casal.' },
+    { title:'Copa do Mundo 2026 — INÍCIO', clients:'SportingBet, Superbet, Tele Sena, Azul, Gol, CVC, Ajinomoto', tip:'🔥 MAIOR JANELA DO ANO. Todos os setores ativados.' },
+    { title:'Copa: Lançamento matrículas semestre', clients:'Estácio, IBMEC, Afya, Idomed', tip:'Período de decisão de matrícula 2º semestre.' },
+  ]},
+  { month:6, label:'Julho', emoji:'⚽', intensity:'high', events:[
+    { title:'Copa do Mundo 2026 — FASE DECISIVA', clients:'SportingBet, Superbet, Tele Sena', tip:'🔥 Quartas + Semifinal + Final. Pico absoluto de apostas.' },
+    { title:'Férias de Inverno — Turismo', clients:'Azul, Gol, CVC', tip:'Gramado, Campos do Jordão, frio europeu: alta demanda.' },
+    { title:'Copa: consumo alimentar, bares, delivery', clients:'Copacol, Fogo de Chão, Ajinomoto, Wine', tip:'Petiscos, churrasco, cerveja, reuniões de jogo.' },
+  ]},
+  { month:7, label:'Agosto', emoji:'📚', intensity:'med', events:[
+    { title:'Mês do Empreendedor — Sebrae', clients:'Sebrae', tip:'Principal ação do ano para o Sebrae. Budget total.' },
+    { title:'Lançamentos imobiliários 2º sem.', clients:'Cyrela, CNP Consortium', tip:'Grande janela de lançamentos do 2º semestre.' },
+    { title:'Pré-ENEM — Preparatórios intensivos', clients:'Poliedro, Descomplica, IBMEC, Afya', tip:'Iniciar captação intensa para exame em novembro.' },
+  ]},
+  { month:8, label:'Setembro', emoji:'🍂', intensity:'high', events:[
+    { title:'Pré-verão — Alimentos saudáveis', clients:'Liv Up', tip:'Operação verão: dieta, shape, alimentação funcional.' },
+    { title:'Continuidade lançamentos imob.', clients:'Cyrela', tip:'Vendas 2º semestre em aceleração.' },
+    { title:'Dia dos Pais (ago-set)', clients:'Wine, Fogo de Chão, Gallo Azeite', tip:'Kits presente, jantar e experiências masculinas.' },
+    { title:'ENEM se aproxima — captação educação', clients:'Descomplica, Poliedro, Estácio, IESB', tip:'Ativar forte — estudantes em modo decisão.' },
+  ]},
+  { month:9, label:'Outubro', emoji:'🎃', intensity:'high', events:[
+    { title:'Pré-Natal — Vinhos e presentes gourmet', clients:'Wine, Gallo Azeite, Fogo de Chão', tip:'Outubro: momento ideal para ativar Natal antecipado.' },
+    { title:'ENEM — Aplicação (1ª semana)', clients:'Poliedro, Descomplica, Afya, Idomed, IBMEC', tip:'Pico de intenção de matrícula. Capturar leads quentes.' },
+    { title:'Black Friday antecipada — educação', clients:'Estácio, Unyleya, Descomplica', tip:'Bolsas e descontos em mensalidade — campanha de urgência.' },
+    { title:'Pré-temporada apostas — Copa Interclubes', clients:'SportingBet, Superbet', tip:'Mundial de Clubes, Libertadores final.' },
+  ]},
+  { month:10, label:'Novembro', emoji:'🛍️', intensity:'high', events:[
+    { title:'Black Friday — maior semana do comércio', clients:'Wine, Azul, Gol, CVC, Liv Up, Descomplica', tip:'🔥 Ativar 2 semanas antes. Urgência e desconto no criativo.' },
+    { title:'Matrículas 1º semestre — fase intensa', clients:'IBMEC, Afya, Estácio, Poliedro, Idomed, IESB', tip:'Período crítico de captação pós-ENEM.' },
+    { title:'Lançamentos imobiliários finais 2025', clients:'Cyrela', tip:'Última grande janela antes do recesso.' },
+    { title:'Reta final Brasileirão', clients:'SportingBet, Superbet, Tele Sena', tip:'Decisão de título — pico emocional e de apostas.' },
+  ]},
+  { month:11, label:'Dezembro', emoji:'🎄', intensity:'high', events:[
+    { title:'Natal — maior pico anual Food/Bebidas', clients:'Wine, Ajinomoto, Gallo Azeite, Fogo de Chão, Copacol, Camponesa', tip:'🔥 Receitas natalinas, kits presentes, ceia completa.' },
+    { title:'Réveillon — Viagens e turismo', clients:'Azul, Gol, CVC', tip:'Passagens, pacotes de virada: intenção muito antecipada.' },
+    { title:'Tele Sena especial de Natal', clients:'Tele Sena', tip:'Edição especial de Natal — pico de vendas históricas.' },
+    { title:'Planejamento imobiliário de fim de ano', clients:'Cyrela, CNP Consortium', tip:'Decisão de compra patrimonial e FGTS fim de ano.' },
+    { title:'Copa Interclubes — apostas', clients:'SportingBet, Superbet', tip:'Mundial de Clubes FIFA dezembro.' },
+  ]},
+];
+
+function renderCalendario() {
+  const highCount = calendarEvents.filter(m=>m.intensity==='high').length;
+  document.getElementById('cal-grid').innerHTML = `
+    <div class="cal-header-grid">
+      <div class="cal-stat"><div class="cs-val" style="color:#ef4444;">8</div><div class="cs-label">Meses de Alta Intensidade</div></div>
+      <div class="cal-stat"><div class="cs-val" style="color:#f59e0b;">3</div><div class="cs-label">Meses de Média Intensidade</div></div>
+      <div class="cal-stat"><div class="cs-val" style="color:#3b82f6;">Jun–Jul</div><div class="cs-label">Pico Copa do Mundo 2026</div></div>
+      <div class="cal-stat"><div class="cs-val" style="color:#10b981;">26</div><div class="cs-label">Clientes Mapeados</div></div>
+    </div>
+    ${calendarEvents.map(m => {
+      const intColor = m.intensity==='high'?'#ef4444':m.intensity==='med'?'#f59e0b':'#3b82f6';
+      const intLabel = m.intensity==='high'?'🔴 Alta':m.intensity==='med'?'🟡 Média':'🔵 Baixa';
+      const evHTML = m.events.map(e => `
+        <div class="cal-event">
+          <div class="ev-dot intensity-dot-${m.intensity}"></div>
+          <div class="ev-body">
+            <div class="ev-title">${e.title}</div>
+            <div class="ev-clients">👥 ${e.clients}</div>
+            <div class="ev-tip">💡 ${e.tip}</div>
+          </div>
+        </div>`).join('');
+      return `
+        <div class="cal-month">
+          <h3>${m.emoji} ${m.label} <span class="month-badge" style="background:${intColor}22;color:${intColor};">${intLabel}</span></h3>
+          <div class="cal-events">${evHTML}</div>
+        </div>`;
+    }).join('')}`;
+}
+
+// Render on page load
+renderComparativo();
+renderCalendario();
+setTimeout(() => {
+  renderTopCompanies('gambling',   'top-companies-gambling');
+  renderTopCompanies('food',       'top-companies-food');
+  renderTopCompanies('travel',     'top-companies-travel');
+  renderTopCompanies('education',  'top-companies-education');
+  renderTopCompanies('realestate', 'top-companies-realestate');
+  renderTopCompanies('governo',    'top-companies-governo');
+}, 200);
+</script>
+</body>
+</html>
