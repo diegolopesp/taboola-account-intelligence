@@ -9,10 +9,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: Deploy to Netlify
         run: |
-          zip site.zip index.html
+          zip site.zip index.html netlify.toml
           curl -s -X POST \
             -H "Authorization: Bearer ${{ secrets.NETLIFY_TOKEN }}" \
             -H "Content-Type: application/zip" \
             "https://api.netlify.com/api/v1/sites/${{ secrets.NETLIFY_SITE_ID }}/deploys" \
             --data-binary @site.zip \
-            | python3 -c "import sys,json; r=json.load(sys.stdin); print('✅ Deploy:', r.get('deploy_ssl_url', r.get('state','')))"
+            | python3 -c "import sys,json; r=json.load(sys.stdin); print('✅ Deploy:', r.get('state',''))"
