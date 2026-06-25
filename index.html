@@ -24,7 +24,7 @@
 body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; display: flex; min-height: 100vh; }
 
 /* SIDEBAR */
-.sidebar { width: 240px; min-height: 100vh; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 100; }
+.sidebar { width: 240px; min-height: 100vh; background: var(--surface); border-right: 1px solid var(--border); display: flex; flex-direction: column; position: fixed; top: 0; left: 0; z-index: 100; overflow-y: auto; }
 .sidebar-logo { padding: 20px 16px 16px; border-bottom: 1px solid var(--border); }
 .sidebar-logo .brand { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; }
 .sidebar-logo h1 { font-size: 18px; font-weight: 700; color: #fff; margin-top: 2px; }
@@ -238,6 +238,39 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
     <div class="nav-item" onclick="showPage('governo')">
       <span class="icon">🏛️</span> Governo
     </div>
+    <div class="nav-item" onclick="showPage('news')">
+      <span class="icon">🗞️</span> News
+    </div>
+    <div class="nav-item" onclick="showPage('health')">
+      <span class="icon">🏥</span> Health
+    </div>
+    <div class="nav-item" onclick="showPage('shopping')">
+      <span class="icon">🛍️</span> Shopping
+    </div>
+    <div class="nav-item" onclick="showPage('fashion')">
+      <span class="icon">👗</span> Fashion
+    </div>
+    <div class="nav-item" onclick="showPage('automotive')">
+      <span class="icon">🚗</span> Automotive
+    </div>
+    <div class="nav-item" onclick="showPage('tech')">
+      <span class="icon">💻</span> Tech
+    </div>
+    <div class="nav-item" onclick="showPage('business')">
+      <span class="icon">💼</span> Business
+    </div>
+    <div class="nav-item" onclick="showPage('pets')">
+      <span class="icon">🐾</span> Pets
+    </div>
+    <div class="nav-item" onclick="showPage('finance')">
+      <span class="icon">💰</span> Finance
+    </div>
+    <div class="nav-item" onclick="showPage('home')">
+      <span class="icon">🏠</span> Home
+    </div>
+    <div class="nav-item" onclick="showPage('arts')">
+      <span class="icon">🎭</span> Arts & Ent.
+    </div>
   </div>
 
   <div class="nav-section">
@@ -298,6 +331,7 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
         <h2>🎲 Gambling — Brasil</h2>
       </div>
       <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-9</span>
         <span class="badge">5º mercado global</span>
         <span class="date-badge">2025–2026</span>
       </div>
@@ -416,6 +450,7 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
         <h2>🍽️ Food — Brasil</h2>
       </div>
       <div style="display:flex;gap:8px;">
+        <span class="badge">IAB-8</span>
         <span class="badge">R$ 1,02 tri em 2025</span>
         <span class="date-badge">2025–2026</span>
       </div>
@@ -510,6 +545,7 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
         <h2>✈️ Travel — Brasil</h2>
       </div>
       <div style="display:flex;gap:8px;">
+        <span class="badge">IAB-20</span>
         <span class="badge">+55% visitantes Jan 2025</span>
         <span class="date-badge">2025–2026</span>
       </div>
@@ -603,6 +639,7 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
         <h2>🎓 Education — Brasil</h2>
       </div>
       <div style="display:flex;gap:8px;">
+        <span class="badge">IAB-5</span>
         <span class="badge">10,2M matrículas</span>
         <span class="date-badge">2025–2026</span>
       </div>
@@ -700,6 +737,7 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
         <h2>🏢 Real Estate — Brasil</h2>
       </div>
       <div style="display:flex;gap:8px;">
+        <span class="badge">IAB-21</span>
         <span class="badge">+31,1% VGV 2025</span>
         <span class="date-badge">2025–2026</span>
       </div>
@@ -806,6 +844,7 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
     <div class="topbar">
       <div><div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div><h2>🏛️ Governo — Brasil</h2></div>
       <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-11</span>
         <span class="badge">R$234mi digital 2025</span>
         <span class="date-badge">2025–2026</span>
       </div>
@@ -906,6 +945,1050 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
     </div>
   </div>
 
+  <!-- ===== NEWS ===== -->
+  <div id="page-news" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🗞️ News — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-12</span>
+        <span class="badge">180M UVs/mês</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Mercado Mídia Digital</div>
+        <div class="value">R$28bi</div>
+        <div class="sub up">↑ /ano estimativa 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Portais Únicos/Mês</div>
+        <div class="value">180M</div>
+        <div class="sub neutral">Usuários únicos</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">CPM Médio Digital</div>
+        <div class="value">R$48</div>
+        <div class="sub neutral">ARPU digital médio</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Portais Ativos</div>
+        <div class="value">4.200+</div>
+        <div class="sub up">↑ Ecossistema em expansão</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">CPC Nativo News</div>
+        <div class="value">R$0,08–0,22</div>
+        <div class="sub neutral">Eficiência alta</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-news-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos de Audiência Digital</h3>
+        <canvas id="chart-news-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Evento</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Out 2026</td><td>Eleições Municipais</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Sponsored content, cobertura eleitoral, audiências cívicas</td></tr>
+          <tr><td>Jun–Jul 2026</td><td>Copa do Mundo FIFA</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Conteúdo esportivo, notícias ao vivo, publishers esportivos</td></tr>
+          <tr><td>Fev</td><td>Carnaval</td><td><span class="heat heat-high">ALTA</span></td><td>Cobertura cultural, turismo, entretenimento</td></tr>
+          <tr><td>Jan–Mar</td><td>BBB (Big Brother Brasil)</td><td><span class="heat heat-high">ALTA</span></td><td>Portais de entretenimento, audiências de reality show</td></tr>
+          <tr><td>Nov</td><td>Black Friday + notícias econômicas</td><td><span class="heat heat-med">MÉDIA</span></td><td>Conteúdo de consumo, economia, finanças pessoais</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>87% dos brasileiros consomem notícias online</li>
+          <li>G1 (Globo) lidera com 95M UVs/mês</li>
+          <li>Publishers são potenciais clientes e parceiros Taboola</li>
+          <li>Conteúdo nativo tem CTR 3x superior a banners display</li>
+          <li>Mobile representa 74% do consumo de notícias</li>
+          <li>Assinaturas digitais em alta: Folha, Estadão, Valor</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Publishers como clientes diretos de monetização Taboola</li>
+            <li>Sponsored content nativo em portais de grande audiência</li>
+            <li>Content recommendation para aumentar pageviews e tempo no site</li>
+            <li>Anunciantes em portais de notícia: finanças, saúde, educação, varejo</li>
+            <li>Eleições 2026: janela única para campanhas de awareness</li>
+            <li>Copa 2026: portais esportivos com audiência recorde</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-news"></div>
+  </div>
+
+  <!-- ===== HEALTH ===== -->
+  <div id="page-health" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🏥 Health — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-7</span>
+        <span class="badge">R$65bi mercado digital</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Saúde Digital</div>
+        <div class="value">R$65bi</div>
+        <div class="sub up">↑ Mercado total 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Planos de Saúde</div>
+        <div class="value">51M</div>
+        <div class="sub neutral">Beneficiários (ANS)</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Farmácias Online</div>
+        <div class="value">R$9bi</div>
+        <div class="sub up">↑ E-commerce farma</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Wellness</div>
+        <div class="value">R$22bi</div>
+        <div class="sub up">↑ Crescimento acelerado</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">CPC Nativo Saúde</div>
+        <div class="value">R$0,35–0,95</div>
+        <div class="sub up">↑ Alta qualidade de lead</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-health-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos do Mercado de Saúde</h3>
+        <canvas id="chart-health-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jan</td><td>Resolução de Ano Novo — saúde e fitness</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Planos de saúde, academias, farmácias, wellness</td></tr>
+          <tr><td>Set</td><td>Pré-verão — corpo e estética</td><td><span class="heat heat-high">ALTA</span></td><td>Emagrecimento, estética, suplementos, dermatologia</td></tr>
+          <tr><td>Nov</td><td>Black Friday Pharma</td><td><span class="heat heat-high">ALTA</span></td><td>Farmácias online, planos, equipamentos de saúde</td></tr>
+          <tr><td>Mar–Abr</td><td>Semana da Saúde / Vacinação</td><td><span class="heat heat-med">MÉDIA</span></td><td>Campanhas de prevenção, vacinas, check-up</td></tr>
+          <tr><td>Jun</td><td>Dia dos Namorados — saúde mental casal</td><td><span class="heat heat-low">BAIXA</span></td><td>Terapia de casal, wellness, planos família</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Jornada de decisão longa — conteúdo educativo converte bem</li>
+          <li>Saúde mental em alta: teleterapia cresceu 180% pós-pandemia</li>
+          <li>Farmácias online: Raia Drogasil e Droga Raia lideram digitalmente</li>
+          <li>Planos de saúde: portabilidade cresceu — lead qualificado vale mais</li>
+          <li>Regulação ANVISA e ANS impactam criativo e claims de produtos</li>
+          <li>Wellness: segmento de R$22bi com público premium</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo educativo de saúde tem altíssimo engajamento nativo</li>
+            <li>Farmácias: retargeting de usuários que pesquisaram medicamentos</li>
+            <li>Planos de saúde: audiências por faixa etária e renda familiar</li>
+            <li>Saúde mental: conteúdo de bem-estar em portais de lifestyle</li>
+            <li>Pré-verão (Set–Nov): campanhas de emagrecimento e estética</li>
+            <li>Janeiro: maior pico do ano para fitness, dieta e planos de saúde</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-health"></div>
+  </div>
+
+  <!-- ===== SHOPPING ===== -->
+  <div id="page-shopping" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🛍️ Shopping — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-22</span>
+        <span class="badge">R$204bi e-commerce</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">E-commerce Total</div>
+        <div class="value">R$204bi</div>
+        <div class="sub up">↑ ABComm 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Compradores Online</div>
+        <div class="value">87M</div>
+        <div class="sub up">↑ Maior base da LATAM</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Ticket Médio</div>
+        <div class="value">R$485</div>
+        <div class="sub neutral">Por pedido 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Share Marketplace</div>
+        <div class="value">78%</div>
+        <div class="sub neutral">Das transações</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-shopping-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Categorias Mais Vendidas</h3>
+        <canvas id="chart-shopping-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Evento</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nov</td><td>Black Friday</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Retargeting, promoções relâmpago, urgência no criativo</td></tr>
+          <tr><td>Dez</td><td>Natal</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Presentes, kits, frete grátis — compras de última hora</td></tr>
+          <tr><td>Mai</td><td>Dia das Mães</td><td><span class="heat heat-high">ALTA</span></td><td>Categorias: moda, joias, eletrodomésticos, bem-estar</td></tr>
+          <tr><td>Out</td><td>Dia das Crianças</td><td><span class="heat heat-high">ALTA</span></td><td>Brinquedos, games, moda infantil</td></tr>
+          <tr><td>Jun</td><td>Dia dos Namorados</td><td><span class="heat heat-med">MÉDIA</span></td><td>Presentes, eletrônicos, moda, joias</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Mercado Livre e Shopee dominam com 95% e 82% de penetração</li>
+          <li>PIX é o método de pagamento preferido (40% das transações)</li>
+          <li>Mobile representa 65% das compras online</li>
+          <li>Frete grátis é o principal driver de conversão</li>
+          <li>Live commerce crescendo 300% ao ano no Brasil</li>
+          <li>Social commerce via Instagram e TikTok em ascensão</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo de comparação de produtos converte muito bem nativamente</li>
+            <li>Retargeting de carrinhos abandonados em portais de notícia</li>
+            <li>Audiências por interesse de compra: eletrônicos, moda, casa</li>
+            <li>Black Friday: ativar 3 semanas antes com countdown criativo</li>
+            <li>Dia das Mães e Natal: maiores janelas de receita do varejo</li>
+            <li>Segmentação por intent de compra via dados comportamentais</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-shopping"></div>
+  </div>
+
+  <!-- ===== FASHION ===== -->
+  <div id="page-fashion" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>👗 Fashion — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-18</span>
+        <span class="badge">R$185bi mercado</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Mercado Moda Total</div>
+        <div class="value">R$185bi</div>
+        <div class="sub neutral">ABIT 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Moda Digital</div>
+        <div class="value">R$38bi</div>
+        <div class="sub up">↑ E-commerce fashion</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Produção de Jeans</div>
+        <div class="value">2º mundo</div>
+        <div class="sub neutral">2º maior produtor global</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Exportações</div>
+        <div class="value">US$1,4bi</div>
+        <div class="sub up">↑ Crescimento exportações</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-fashion-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos do Mercado de Moda</h3>
+        <canvas id="chart-fashion-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Evento</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Out–Dez</td><td>Coleção Verão + Black Friday</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Looks de verão, beachwear, moda festa, presentes</td></tr>
+          <tr><td>Nov</td><td>Black Friday Fashion</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Descontos em coleções, retargeting de visitantes</td></tr>
+          <tr><td>Mai–Jul</td><td>Coleção Inverno</td><td><span class="heat heat-high">ALTA</span></td><td>Casacos, malhas, botas — conteúdo de tendências</td></tr>
+          <tr><td>Jan / Jun</td><td>SPFW (São Paulo Fashion Week)</td><td><span class="heat heat-med">MÉDIA</span></td><td>Tendências, editorial, influencer content</td></tr>
+          <tr><td>Mai</td><td>Dia das Mães</td><td><span class="heat heat-med">MÉDIA</span></td><td>Presentes de moda, bolsas, acessórios</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Brasil é o 2º maior produtor de jeans do mundo</li>
+          <li>Instagram é o canal de descoberta de moda nº 1</li>
+          <li>Influenciadores de moda têm papel decisivo na jornada de compra</li>
+          <li>Shein revolucionou o fast fashion no Brasil com preços ultrabaixos</li>
+          <li>Sustentabilidade e moda consciente crescem no segmento premium</li>
+          <li>Re-commerce (Enjoei, OLX) em expansão entre Millennials e Gen Z</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo de tendências e looks converte altamente em formatos nativos</li>
+            <li>Listas de "melhores peças da estação" têm CTR muito acima da média</li>
+            <li>Retargeting de visitantes de e-commerces de moda</li>
+            <li>Audiências por interesse: moda, beleza, lifestyle, Instagram</li>
+            <li>SPFW: cobertura editorial gera engajamento premium</li>
+            <li>Remarketing pré-Black Friday: maior janela de receita do setor</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-fashion"></div>
+  </div>
+
+  <!-- ===== AUTOMOTIVE ===== -->
+  <div id="page-automotive" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🚗 Automotive — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-2</span>
+        <span class="badge">2,5M licenciamentos</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Licenciamentos</div>
+        <div class="value">2,5M</div>
+        <div class="sub neutral">Veículos/ano (ANFAVEA)</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Mercado de Usados</div>
+        <div class="value">17M</div>
+        <div class="sub up">↑ Veículos/ano</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">EVs Vendidos</div>
+        <div class="value">145K</div>
+        <div class="sub up">↑ +92% crescimento</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Faturamento Setor</div>
+        <div class="value">R$280bi</div>
+        <div class="sub up">↑ Record 2025</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-automotive-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Market Share por Montadora</h3>
+        <canvas id="chart-automotive-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Ago–Set</td><td>Salão do Automóvel de SP</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Lançamentos, test drive, concessionárias</td></tr>
+          <tr><td>Out–Nov</td><td>Novos modelos ano seguinte</td><td><span class="heat heat-high">ALTA</span></td><td>Comparativos, reviews, audiências automotivas</td></tr>
+          <tr><td>Mar</td><td>Pós-Carnaval — retomada de vendas</td><td><span class="heat heat-high">ALTA</span></td><td>Consórcio, financiamento, IPVA pago</td></tr>
+          <tr><td>Jan–Fev</td><td>Liquidação de estoque ano anterior</td><td><span class="heat heat-med">MÉDIA</span></td><td>Promoções de fim de linha, ofertas especiais</td></tr>
+          <tr><td>Jun–Jul</td><td>Copa do Mundo — locação e mobilidade</td><td><span class="heat heat-med">MÉDIA</span></td><td>Locadoras, apps de mobilidade, carros para Copa</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>EVs crescem 92%: BYD lidera, Volkswagen e Toyota aceleram eletrificação</li>
+          <li>Mercado de usados 6x maior que novos — Webmotors e iCarros dominam</li>
+          <li>Jornada de compra digital: 78% pesquisam online antes de ir à concessionária</li>
+          <li>Financiamento: 65% dos veículos novos vendidos com crédito</li>
+          <li>Flex fuel ainda domina: 85% dos carros vendidos são bicombustível</li>
+          <li>Salão do Automóvel bienal (anos pares) — 2026 é ano de edição</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo de reviews e comparativos de carros tem altíssimo CTR</li>
+            <li>Audiências por interesse: automóveis, test drive, financiamento</li>
+            <li>Retargeting de visitantes de portais de veículos (Webmotors, iCarros)</li>
+            <li>EVs: conteúdo educativo sobre elétricos atrai público premium</li>
+            <li>Salão do Automóvel 2026: janela de ouro para lançamentos</li>
+            <li>Segmentação geográfica: SP e MG concentram 55% das vendas</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-automotive"></div>
+  </div>
+
+  <!-- ===== TECH ===== -->
+  <div id="page-tech" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>💻 Tech — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-19</span>
+        <span class="badge">R$260bi mercado TIC</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Mercado TIC</div>
+        <div class="value">R$260bi</div>
+        <div class="sub up">↑ BRASSCOM 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">SaaS</div>
+        <div class="value">R$45bi</div>
+        <div class="sub up">↑ Crescimento 28%/aa</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Smartphones Vendidos</div>
+        <div class="value">52M</div>
+        <div class="sub neutral">Por ano no Brasil</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Fintechs Ativas</div>
+        <div class="value">1.300+</div>
+        <div class="sub up">↑ Maior ecossistema LATAM</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-tech-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos do Mercado de Tech</h3>
+        <canvas id="chart-tech-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Nov</td><td>Black Friday — gadgets e eletrônicos</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Smartphones, notebooks, acessórios — retargeting</td></tr>
+          <tr><td>Set</td><td>Lançamentos iPhone/Samsung</td><td><span class="heat heat-high">ALTA</span></td><td>Reviews, comparativos, pré-venda — conteúdo nativo</td></tr>
+          <tr><td>Jan</td><td>Volta às aulas — tecnologia</td><td><span class="heat heat-high">ALTA</span></td><td>Notebooks, tablets, fones para estudantes</td></tr>
+          <tr><td>Jun</td><td>Dia dos Namorados — gadgets</td><td><span class="heat heat-med">MÉDIA</span></td><td>Wearables, fones, smartphones como presente</td></tr>
+          <tr><td>Ago</td><td>Feiras de tecnologia (Campus Party)</td><td><span class="heat heat-med">MÉDIA</span></td><td>B2B, SaaS, startups — audiências tech</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Brasil é o maior mercado de TIC da LATAM</li>
+          <li>Samsung e Apple dominam smartphones com 65% de market share</li>
+          <li>SaaS em explosão: Microsoft 365 e Google Workspace lideram empresas</li>
+          <li>IA generativa impulsiona nova onda de investimento em tech</li>
+          <li>Startups: +5.000 ativas, São Paulo é hub principal</li>
+          <li>5G expandindo: 85% das cidades com +100k habitantes cobertas</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Reviews e comparativos de produtos tech têm CTR excepcional</li>
+            <li>B2B SaaS: conteúdo de produtividade e gestão em portais de negócios</li>
+            <li>Audiências por interesse: tecnologia, programação, startups, inovação</li>
+            <li>Black Friday: maior janela para eletrônicos — ativar 4 semanas antes</li>
+            <li>Lançamentos Apple/Samsung: cobertura editorial nativa gera buzz</li>
+            <li>Segmentação por comportamento digital: heavy users de smartphones</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-tech"></div>
+  </div>
+
+  <!-- ===== BUSINESS ===== -->
+  <div id="page-business" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>💼 Business — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-3</span>
+        <span class="badge">20M MPEs ativas</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">MPEs Ativas</div>
+        <div class="value">20M</div>
+        <div class="sub neutral">SEBRAE 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Serviços B2B</div>
+        <div class="value">R$850bi</div>
+        <div class="sub up">↑ Mercado total</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Abertura de Empresas</div>
+        <div class="value">350K/mês</div>
+        <div class="sub up">↑ Recorde histórico</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">PIB de Serviços</div>
+        <div class="value">R$6,8tri</div>
+        <div class="sub neutral">70% do PIB nacional</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-business-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos do Mercado B2B</h3>
+        <canvas id="chart-business-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jan–Fev</td><td>Planejamento anual — budget empresarial</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Softwares de gestão, ERP, consultoria, crédito PJ</td></tr>
+          <tr><td>Out–Nov</td><td>Planejamento 2026 — decisões estratégicas</td><td><span class="heat heat-high">ALTA</span></td><td>Ferramentas de gestão, seguros empresariais, B2B</td></tr>
+          <tr><td>Jul–Ago</td><td>2º semestre — retomada de contratos</td><td><span class="heat heat-high">ALTA</span></td><td>Capacitação, consultoria, feiras de negócios</td></tr>
+          <tr><td>Mar–Abr</td><td>Declaração IR PJ + revisão fiscal</td><td><span class="heat heat-med">MÉDIA</span></td><td>Contabilidade, softwares fiscais, advisors</td></tr>
+          <tr><td>Ago</td><td>Mês do Empreendedor (SEBRAE)</td><td><span class="heat heat-med">MÉDIA</span></td><td>MPE, MEI, empreendedorismo, cursos de gestão</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>350K novas empresas abertas por mês — maior criação em décadas</li>
+          <li>MEI representa 72% dos CNPJs ativos no Brasil</li>
+          <li>Fintechs de pagamento (Stone, Cielo) dominam POS de MPEs</li>
+          <li>ERP: migração para nuvem acelera — Totvs, SAP e Oracle lideram</li>
+          <li>LinkedIn é o canal B2B por excelência, mas Taboola atinge decision-makers</li>
+          <li>Crédito PJ: taxa de aprovação baixa gera alta demanda por alternativas</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo de gestão empresarial e empreendedorismo tem alto engajamento</li>
+            <li>Portais de negócios (Exame, Valor, InfoMoney) são canais naturais</li>
+            <li>Audiências de tomadores de decisão: CEO, CFO, gerentes</li>
+            <li>Mês do Empreendedor (Ago): janela estratégica para soluções B2B</li>
+            <li>Jan–Fev: maior janela de aquisição de software e consultoria</li>
+            <li>Segmentação por interesse profissional e porte da empresa</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-business"></div>
+  </div>
+
+  <!-- ===== PETS ===== -->
+  <div id="page-pets" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🐾 Pets — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-16</span>
+        <span class="badge">R$68bi — 3º do mundo</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Mercado Pet Total</div>
+        <div class="value">R$68bi</div>
+        <div class="sub up">↑ 3º maior do mundo (ABINPET)</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Animais de Estimação</div>
+        <div class="value">168M</div>
+        <div class="sub neutral">Maior população pet LATAM</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Petfood</div>
+        <div class="value">R$36bi</div>
+        <div class="sub up">↑ 53% do mercado total</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Clínicas Veterinárias</div>
+        <div class="value">30K</div>
+        <div class="sub up">↑ +18% em 5 anos</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-pets-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos do Mercado Pet</h3>
+        <canvas id="chart-pets-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Out (4/out)</td><td>Dia dos Animais</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Produtos, acessórios, serviços pet — campanhas temáticas</td></tr>
+          <tr><td>Mai</td><td>Dia das Mães + pets</td><td><span class="heat heat-high">ALTA</span></td><td>Presentes pet, adoção, acessórios para tutores</td></tr>
+          <tr><td>Dez–Jan</td><td>Natal + presentes de pets</td><td><span class="heat heat-high">ALTA</span></td><td>Adoção consciente, produtos especiais, cuidados de verão</td></tr>
+          <tr><td>Ano todo</td><td>Petfood — compra recorrente</td><td><span class="heat heat-high">ALTA</span></td><td>Assinatura, remarketing, fidelização de tutores</td></tr>
+          <tr><td>Jul</td><td>Inverno — cuidados veterinários</td><td><span class="heat heat-med">MÉDIA</span></td><td>Saúde preventiva, vacinas, planos veterinários</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Brasil tem mais pets do que crianças menores de 14 anos</li>
+          <li>Humanização dos pets eleva ticket médio e frequência de compra</li>
+          <li>Pet food premium cresce 25% ao ano — Royal Canin e Hill's lideram</li>
+          <li>Plano de saúde animal em expansão — nova categoria de crescimento</li>
+          <li>E-commerce pet: PetLove e Petz dominam o canal digital</li>
+          <li>Geração Millennial e Z são os maiores donos de pets no Brasil</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo sobre cuidados com pets tem engajamento emocional altíssimo</li>
+            <li>Audiências de tutores de cães e gatos — segmentação precisa</li>
+            <li>Dia dos Animais (4/out): janela única de ativação temática</li>
+            <li>Petfood: retargeting de compradores recorrentes para assinatura</li>
+            <li>Conteúdo veterinário e saúde animal gera leads qualificados</li>
+            <li>Premium pet: portais de lifestyle e bem-estar têm alta afinidade</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-pets"></div>
+  </div>
+
+  <!-- ===== FINANCE ===== -->
+  <div id="page-finance" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>💰 Finance — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-13</span>
+        <span class="badge">1.300+ fintechs</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Fintechs Ativas</div>
+        <div class="value">1.300+</div>
+        <div class="sub up">↑ Maior ecossistema LATAM</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Cartões em Circulação</div>
+        <div class="value">210M</div>
+        <div class="sub neutral">Crédito + Débito</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">PIX Diário</div>
+        <div class="value">75M usuários</div>
+        <div class="sub up">↑ /dia (Banco Central)</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Inadimplência</div>
+        <div class="value">5,8%</div>
+        <div class="sub down">↓ Monitorar (BC 2025)</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-finance-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos do Mercado Financeiro</h3>
+        <canvas id="chart-finance-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jan</td><td>Planejamento financeiro do ano</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Contas digitais, investimentos, controle de gastos</td></tr>
+          <tr><td>Mar–Abr</td><td>Declaração do Imposto de Renda</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Restituição, investimentos, planejamento tributário</td></tr>
+          <tr><td>Jun–Jul</td><td>13º salário parcela + férias</td><td><span class="heat heat-high">ALTA</span></td><td>Investimentos, quitação de dívidas, consórcio</td></tr>
+          <tr><td>Nov</td><td>Preparação fim de ano + 13º integral</td><td><span class="heat heat-high">ALTA</span></td><td>Crédito, seguros, investimentos de curto prazo</td></tr>
+          <tr><td>Ago–Set</td><td>Revisão de carteira 2º semestre</td><td><span class="heat heat-med">MÉDIA</span></td><td>Renda variável, fundos, previdência privada</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Nubank é o maior banco digital do mundo com 100M+ clientes no Brasil</li>
+          <li>PIX transformou pagamentos: 75M transações/dia em 2025</li>
+          <li>Investimentos: B3 tem 22M investidores pessoas físicas</li>
+          <li>Crédito consignado: principal produto de crédito das classes C/D</li>
+          <li>Open Finance: dados compartilhados impulsionam personalização</li>
+          <li>Seguros digitais crescem 35% ao ano — InsurTechs em expansão</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo de educação financeira tem demanda crescente e alto CTR</li>
+            <li>IR (Mar–Abr): maior pico do ano para produtos financeiros</li>
+            <li>Portais de finanças (InfoMoney, Valor, Estadão Econômico) têm alto fit</li>
+            <li>Audiências por interesse: investimentos, economia, renda extra</li>
+            <li>Fintechs: mensagem de facilidade e sem burocracia converte bem</li>
+            <li>Seguros: retargeting de usuários que pesquisaram mas não converteram</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-finance"></div>
+  </div>
+
+  <!-- ===== HOME ===== -->
+  <div id="page-home" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🏠 Home — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-10</span>
+        <span class="badge">R$430bi construção</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Construção & Reforma</div>
+        <div class="value">R$430bi</div>
+        <div class="sub up">↑ ABRAMAT 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">E-commerce Home</div>
+        <div class="value">R$28bi</div>
+        <div class="sub up">↑ +22% crescimento</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Decoração Online</div>
+        <div class="value">R$12bi</div>
+        <div class="sub up">↑ Segmento em expansão</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Obras Residenciais</div>
+        <div class="value">+18%</div>
+        <div class="sub up">↑ Crescimento anual</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-home-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos do Mercado Home</h3>
+        <canvas id="chart-home-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Jan–Fev</td><td>Pós-férias — renovação da casa</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Móveis, decoração, reforma, eletrodomésticos</td></tr>
+          <tr><td>Nov</td><td>Black Friday — eletros e móveis</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Eletrodomésticos, móveis planejados, decoração</td></tr>
+          <tr><td>Ago–Set</td><td>Feiras do setor (Casa Cor, etc.)</td><td><span class="heat heat-high">ALTA</span></td><td>Decoração premium, arquitetura, tendências</td></tr>
+          <tr><td>Mai</td><td>Dia das Mães — eletros e casa</td><td><span class="heat heat-med">MÉDIA</span></td><td>Eletrodomésticos, utensílios, decoração</td></tr>
+          <tr><td>Jun</td><td>Dia dos Namorados — primeiro lar</td><td><span class="heat heat-med">MÉDIA</span></td><td>Móveis, itens de casa, decoração para casal</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>MadeiraMadeira lidera e-commerce de móveis com crescimento de 40%</li>
+          <li>Tok&Stok e Etna dominam decoração em lojas físicas + digital</li>
+          <li>Reformas: MINHA CASA MINHA VIDA impulsiona material de construção</li>
+          <li>Pinterest e Instagram são canais de inspiração de decoração</li>
+          <li>Eletrodomésticos: Brastemp, Consul e Samsung dominam o segmento</li>
+          <li>Jornada de compra longa: pesquisa 2–6 meses antes da decisão</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo de decoração e dicas de reforma tem altíssimo engajamento</li>
+            <li>Listas de "melhores produtos de casa" convertem muito em nativo</li>
+            <li>Audiências por interesse: decoração, arquitetura, construção, DIY</li>
+            <li>Retargeting de visitantes de portais de imóveis (compradores recentes)</li>
+            <li>Black Friday: maior pico para eletros e móveis — ativar em outubro</li>
+            <li>Portais femininos e de lifestyle têm alta afinidade com home decor</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-home"></div>
+  </div>
+
+  <!-- ===== ARTS & ENTERTAINMENT ===== -->
+  <div id="page-arts" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Vertical</div>
+        <h2>🎭 Arts & Entertainment — Brasil</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">IAB-1</span>
+        <span class="badge">R$95bi entretenimento</span>
+        <span class="date-badge">2025–2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Entretenimento Total</div>
+        <div class="value">R$95bi</div>
+        <div class="sub up">↑ Mercado 2025</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Streaming</div>
+        <div class="value">45M assinantes</div>
+        <div class="sub up">↑ +18% crescimento</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Cinema</div>
+        <div class="value">120M ingressos</div>
+        <div class="sub neutral">Por ano no Brasil</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Shows & Eventos</div>
+        <div class="value">R$18bi</div>
+        <div class="sub up">↑ Recorde pós-pandemia</div>
+      </div>
+    </div>
+
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>📅 Sazonalidade — Índice de Demanda por Mês</h3>
+        <canvas id="chart-arts-season"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>📊 Segmentos do Mercado de Entretenimento</h3>
+        <canvas id="chart-arts-segments"></canvas>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">🔥</span> Picos de Alta Sazonalidade</h3>
+      <table class="season-table">
+        <thead>
+          <tr><th>Período</th><th>Drive</th><th>Intensidade</th><th>Oportunidade Taboola</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Fev</td><td>Carnaval — maior evento cultural do mundo</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Streaming, ingressos, artistas, cobertura ao vivo</td></tr>
+          <tr><td>Dez</td><td>Réveillon — shows e eventos</td><td><span class="heat heat-high">ALTÍSSIMA</span></td><td>Ingressos, pacotes de virada, streaming especial</td></tr>
+          <tr><td>Jun</td><td>Festas Juninas — cultura regional</td><td><span class="heat heat-high">ALTA</span></td><td>Eventos, shows, cultura nordestina, streaming</td></tr>
+          <tr><td>Jan–Fev</td><td>Temporada de verão — shows e festivais</td><td><span class="heat heat-high">ALTA</span></td><td>Festivais de música, teatro de verão, cinema</td></tr>
+          <tr><td>Out–Nov</td><td>Rock in Rio, CCXP, eventos de outono</td><td><span class="heat heat-med">MÉDIA</span></td><td>Ingressos, merchandise, cobertura editorial</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">⚡</span> Especificidades do Setor</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Netflix Brasil tem 45M assinantes — maior mercado fora dos EUA</li>
+          <li>Globo domina TV aberta com 95M de espectadores/dia</li>
+          <li>Shows ao vivo explodiram pós-pandemia: Rock in Rio 2024 bateu recordes</li>
+          <li>Spotify Brasil: 3º maior mercado global em usuários</li>
+          <li>Cinema nacional em recuperação — produções brasileiras com recorde</li>
+          <li>CCXP: maior evento de cultura pop da América Latina</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🎯</span> Oportunidades Taboola</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Conteúdo de entretenimento tem maior tempo de leitura e engajamento</li>
+            <li>Listas e rankings de séries, filmes e shows convertem muito</li>
+            <li>Audiências por interesse: streaming, cinema, música, festivais</li>
+            <li>Carnaval e Réveillon: janelas de altíssima audiência em portais</li>
+            <li>Streaming: campanhas de aquisição em portais de conteúdo têm alto fit</li>
+            <li>Ingressos: urgência (esgotando) no criativo gera conversão imediata</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <div id="top-companies-arts"></div>
+  </div>
+
   <!-- ===== COMPARATIVO ===== -->
   <div id="page-comparativo" class="page">
     <div class="topbar">
@@ -943,7 +2026,7 @@ function showPage(id) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   const page = document.getElementById('page-' + id);
   if (page) page.classList.add('active');
-  const labelMap = { gambling:'gambling', food:'food', travel:'travel', education:'education', realestate:'real', governo:'governo', client:'cliente', comparativo:'comparativo', calendario:'calendário' };
+  const labelMap = { gambling:'gambling', food:'food', travel:'travel', education:'education', realestate:'real', governo:'governo', client:'cliente', comparativo:'comparativo', calendario:'calendário', news:'news', health:'health', shopping:'shopping', fashion:'fashion', automotive:'automotive', tech:'tech', business:'business', pets:'pets', finance:'finance', home:'home', arts:'arts' };
   const keyword = labelMap[id] || id;
   document.querySelectorAll('.nav-item').forEach(n => {
     if (n.textContent.trim().toLowerCase().includes(keyword)) n.classList.add('active');
@@ -1520,6 +2603,171 @@ makeDoughnut('chart-re-segments',
   [45, 22, 18, 8, 7],
   ['#10b981','#3b82f6','#8b5cf6','#f59e0b','#06b6d4']);
 
+// NEWS
+new Chart(document.getElementById('chart-news-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[75,82,70,68,72,80,75,70,72,95,85,78],
+      backgroundColor:'rgba(59,130,246,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-news-segments'), {
+  type:'doughnut',
+  data:{ labels:['Portais Nacionais','TV Digital','Rádio Online','Jornais Digitais','Revistas Online'],
+    datasets:[{data:[42,28,12,11,7],backgroundColor:['#3b82f6','#8b5cf6','#10b981','#f59e0b','#ef4444'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// HEALTH
+new Chart(document.getElementById('chart-health-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[100,75,78,72,70,68,72,75,90,80,88,72],
+      backgroundColor:'rgba(16,185,129,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-health-segments'), {
+  type:'doughnut',
+  data:{ labels:['Planos de Saúde','Farmácias Online','Wellness','Diagnósticos','Saúde Mental'],
+    datasets:[{data:[35,25,18,14,8],backgroundColor:['#10b981','#3b82f6','#8b5cf6','#f59e0b','#ef4444'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// SHOPPING
+new Chart(document.getElementById('chart-shopping-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[70,60,65,62,85,78,72,68,75,88,100,95],
+      backgroundColor:['#3b82f6','#3b82f6','#3b82f6','#3b82f6','#ef4444','#3b82f6','#3b82f6','#3b82f6','#3b82f6','#f59e0b','#ef4444','#ef4444'].map(c=>c+'bb'),borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-shopping-segments'), {
+  type:'doughnut',
+  data:{ labels:['Eletrônicos','Moda','Casa & Deco','Beleza','Alimentos','Outros'],
+    datasets:[{data:[28,22,18,14,10,8],backgroundColor:['#3b82f6','#8b5cf6','#10b981','#f59e0b','#ef4444','#6b7280'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// FASHION
+new Chart(document.getElementById('chart-fashion-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[65,60,70,72,80,85,88,80,82,90,95,85],
+      backgroundColor:'rgba(139,92,246,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-fashion-segments'), {
+  type:'doughnut',
+  data:{ labels:['Fast Fashion','Moda Premium','Calçados','Acessórios','Underwear','Fitness/Sport'],
+    datasets:[{data:[32,20,18,14,10,6],backgroundColor:['#8b5cf6','#3b82f6','#10b981','#f59e0b','#ef4444','#06b6d4'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// AUTOMOTIVE
+new Chart(document.getElementById('chart-automotive-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[72,65,85,78,75,72,70,90,95,88,82,68],
+      backgroundColor:'rgba(245,158,11,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-automotive-segments'), {
+  type:'doughnut',
+  data:{ labels:['Hatchbacks/Sedans','SUVs','Pickups','EVs/Híbridos','Usados','Motos'],
+    datasets:[{data:[28,30,15,12,10,5],backgroundColor:['#3b82f6','#f59e0b','#ef4444','#10b981','#8b5cf6','#06b6d4'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// TECH
+new Chart(document.getElementById('chart-tech-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[88,70,68,65,72,78,75,80,90,85,100,82],
+      backgroundColor:'rgba(6,182,212,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-tech-segments'), {
+  type:'doughnut',
+  data:{ labels:['Smartphones','Notebooks/PCs','SaaS/Cloud','Acessórios','IoT/Smart Home','Wearables'],
+    datasets:[{data:[35,22,18,12,8,5],backgroundColor:['#06b6d4','#3b82f6','#8b5cf6','#10b981','#f59e0b','#ef4444'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// BUSINESS
+new Chart(document.getElementById('chart-business-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[95,90,78,72,70,68,85,88,82,88,90,65],
+      backgroundColor:'rgba(245,158,11,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-business-segments'), {
+  type:'doughnut',
+  data:{ labels:['Serviços Financeiros B2B','ERP/Software','Consultorias','Pagamentos PJ','RH/Benefícios','Outros'],
+    datasets:[{data:[28,22,18,16,10,6],backgroundColor:['#f59e0b','#3b82f6','#8b5cf6','#10b981','#ef4444','#6b7280'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// PETS
+new Chart(document.getElementById('chart-pets-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[85,72,75,78,88,75,80,78,82,95,88,90],
+      backgroundColor:'rgba(16,185,129,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-pets-segments'), {
+  type:'doughnut',
+  data:{ labels:['Petfood','Vet & Saúde','Acessórios','Banho & Tosa','Pet Shops Online','Outros'],
+    datasets:[{data:[53,18,12,10,5,2],backgroundColor:['#10b981','#3b82f6','#8b5cf6','#f59e0b','#ef4444','#6b7280'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// FINANCE
+new Chart(document.getElementById('chart-finance-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[95,80,100,98,72,85,88,78,80,75,90,82],
+      backgroundColor:'rgba(59,130,246,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-finance-segments'), {
+  type:'doughnut',
+  data:{ labels:['Bancos Digitais','Seguros','Investimentos','Crédito','Pagamentos','Previdência'],
+    datasets:[{data:[28,22,20,16,10,4],backgroundColor:['#3b82f6','#10b981','#8b5cf6','#ef4444','#f59e0b','#06b6d4'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// HOME
+new Chart(document.getElementById('chart-home-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[95,90,78,72,80,75,70,85,88,80,100,82],
+      backgroundColor:'rgba(245,158,11,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-home-segments'), {
+  type:'doughnut',
+  data:{ labels:['Eletrodomésticos','Móveis','Material Construção','Decoração','Jardim','Utilidades'],
+    datasets:[{data:[30,25,20,14,7,4],backgroundColor:['#f59e0b','#3b82f6','#10b981','#8b5cf6','#ef4444','#6b7280'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
+// ARTS & ENTERTAINMENT
+new Chart(document.getElementById('chart-arts-season'), {
+  type:'bar',
+  data:{ labels:['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'],
+    datasets:[{label:'Índice de Demanda',data:[88,100,75,70,72,90,85,78,80,85,82,95],
+      backgroundColor:'rgba(139,92,246,.7)',borderRadius:4}]},
+  options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:100,ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}},x:{ticks:{color:'#94a3b8'},grid:{color:'rgba(46,51,80,.4)'}}}}
+});
+new Chart(document.getElementById('chart-arts-segments'), {
+  type:'doughnut',
+  data:{ labels:['Streaming','Shows & Eventos','Cinema','Música/Spotify','Games','Teatro/Arte'],
+    datasets:[{data:[35,25,15,12,8,5],backgroundColor:['#8b5cf6','#ef4444','#3b82f6','#10b981','#f59e0b','#06b6d4'],borderWidth:0}]},
+  options:{plugins:{legend:{position:'bottom',labels:{color:'#94a3b8',font:{size:11}}}}}
+});
+
 // Fix nav click
 document.querySelectorAll('.nav-item').forEach(el => {
   el.addEventListener('click', function() {
@@ -1650,6 +2898,248 @@ const topCompanies = {
     {r:19,name:'CNP Consortium',tam:'Consórcio imob.',midiaEst:'R$12mi',geo:'Nacional',geoType:'nacional'},
     {r:20,name:'Porto Seguro Consórcio',tam:'Consórcio',midiaEst:'R$10mi',geo:'Nacional',geoType:'nacional'},
   ],
+  news: [
+    {r:1,name:'Grupo Globo Digital',inv:'R$2.1bi',pen:'92%',geo:'Nacional'},
+    {r:2,name:'UOL',inv:'R$980mi',pen:'78%',geo:'Nacional'},
+    {r:3,name:'Terra Networks',inv:'R$420mi',pen:'61%',geo:'Nacional'},
+    {r:4,name:'Grupo Bandeirantes (Band)',inv:'R$380mi',pen:'58%',geo:'Nacional'},
+    {r:5,name:'SBT Digital',inv:'R$290mi',pen:'52%',geo:'Nacional'},
+    {r:6,name:'Record News',inv:'R$240mi',pen:'49%',geo:'Nacional'},
+    {r:7,name:'Grupo Abril (Veja/Exame)',inv:'R$210mi',pen:'44%',geo:'Nacional'},
+    {r:8,name:'Estadão (Grupo Estado)',inv:'R$195mi',pen:'41%',geo:'Nacional'},
+    {r:9,name:'Folha de S.Paulo',inv:'R$185mi',pen:'40%',geo:'Nacional'},
+    {r:10,name:'CNN Brasil',inv:'R$175mi',pen:'38%',geo:'Nacional'},
+    {r:11,name:'Metrópoles',inv:'R$140mi',pen:'35%',geo:'Nacional'},
+    {r:12,name:'Jovem Pan News',inv:'R$130mi',pen:'34%',geo:'Nacional'},
+    {r:13,name:'Portal IG',inv:'R$95mi',pen:'28%',geo:'Nacional'},
+    {r:14,name:'Poder360',inv:'R$75mi',pen:'22%',geo:'Nacional'},
+    {r:15,name:'The Intercept Brasil',inv:'R$45mi',pen:'15%',geo:'Nacional'},
+    {r:16,name:'GZH (RBS)',inv:'R$85mi',pen:'48%',geo:'Regional'},
+    {r:17,name:'ND+ (Grupo NSC)',inv:'R$65mi',pen:'42%',geo:'Regional'},
+    {r:18,name:'Correio Braziliense',inv:'R$70mi',pen:'38%',geo:'Regional'},
+    {r:19,name:'BM&C News',inv:'R$40mi',pen:'18%',geo:'Nacional'},
+    {r:20,name:'Gaúcha ZH',inv:'R$55mi',pen:'36%',geo:'Regional'},
+  ],
+  health: [
+    {r:1,name:'Drogasil/Raia Drogasil',inv:'R$680mi',pen:'88%',geo:'Nacional'},
+    {r:2,name:'Droga Raia',inv:'R$590mi',pen:'84%',geo:'Nacional'},
+    {r:3,name:'Hapvida NotreDame',inv:'R$510mi',pen:'72%',geo:'Nacional'},
+    {r:4,name:'Unimed Brasil',inv:'R$450mi',pen:'68%',geo:'Nacional'},
+    {r:5,name:'Amil (UnitedHealth)',inv:'R$380mi',pen:'55%',geo:'Nacional'},
+    {r:6,name:'Drogaria São Paulo',inv:'R$290mi',pen:'48%',geo:'Regional'},
+    {r:7,name:'Ultrafarma',inv:'R$240mi',pen:'52%',geo:'Nacional'},
+    {r:8,name:'Fleury Medicina',inv:'R$220mi',pen:'42%',geo:'Regional'},
+    {r:9,name:'Dasa (Diagnósticos)',inv:'R$205mi',pen:'40%',geo:'Nacional'},
+    {r:10,name:'Einstein (Hospital)',inv:'R$180mi',pen:'35%',geo:'Regional'},
+    {r:11,name:'Prevent Senior',inv:'R$155mi',pen:'32%',geo:'Regional'},
+    {r:12,name:'Dr. Consulta',inv:'R$140mi',pen:'38%',geo:'Regional'},
+    {r:13,name:'Sabin Diagnóstico',inv:'R$125mi',pen:'35%',geo:'Regional'},
+    {r:14,name:'Hermes Pardini',inv:'R$110mi',pen:'32%',geo:'Regional'},
+    {r:15,name:'Zenklub',inv:'R$85mi',pen:'28%',geo:'Nacional'},
+    {r:16,name:'Vittude (saúde mental)',inv:'R$65mi',pen:'22%',geo:'Nacional'},
+    {r:17,name:'Minuto Seguros Saúde',inv:'R$75mi',pen:'25%',geo:'Nacional'},
+    {r:18,name:'MedSênior',inv:'R$60mi',pen:'20%',geo:'Nacional'},
+    {r:19,name:'Vitat (Wellhub/Gympass)',inv:'R$95mi',pen:'30%',geo:'Nacional'},
+    {r:20,name:'A Brasileira de Planos',inv:'R$50mi',pen:'18%',geo:'Regional'},
+  ],
+  shopping: [
+    {r:1,name:'Mercado Livre Brasil',inv:'R$3.2bi',pen:'95%',geo:'Nacional'},
+    {r:2,name:'Amazon Brasil',inv:'R$2.1bi',pen:'88%',geo:'Nacional'},
+    {r:3,name:'Magazine Luiza',inv:'R$1.8bi',pen:'85%',geo:'Nacional'},
+    {r:4,name:'Shopee Brasil',inv:'R$1.5bi',pen:'82%',geo:'Nacional'},
+    {r:5,name:'Americanas',inv:'R$1.2bi',pen:'80%',geo:'Nacional'},
+    {r:6,name:'Casas Bahia',inv:'R$980mi',pen:'78%',geo:'Nacional'},
+    {r:7,name:'Carrefour BR',inv:'R$750mi',pen:'72%',geo:'Nacional'},
+    {r:8,name:'Netshoes',inv:'R$480mi',pen:'62%',geo:'Nacional'},
+    {r:9,name:'Centauro',inv:'R$420mi',pen:'58%',geo:'Nacional'},
+    {r:10,name:'Kabum (Amazon)',inv:'R$380mi',pen:'55%',geo:'Nacional'},
+    {r:11,name:'Dafiti',inv:'R$340mi',pen:'52%',geo:'Nacional'},
+    {r:12,name:'Shein Brasil',inv:'R$620mi',pen:'68%',geo:'Nacional'},
+    {r:13,name:'Leroy Merlin Brasil',inv:'R$310mi',pen:'48%',geo:'Nacional'},
+    {r:14,name:'Privalia',inv:'R$185mi',pen:'35%',geo:'Nacional'},
+    {r:15,name:'Enjoei',inv:'R$140mi',pen:'38%',geo:'Nacional'},
+    {r:16,name:'OLX Brasil',inv:'R$280mi',pen:'62%',geo:'Nacional'},
+    {r:17,name:'Zattini',inv:'R$160mi',pen:'32%',geo:'Nacional'},
+    {r:18,name:'Submarino',inv:'R$210mi',pen:'44%',geo:'Nacional'},
+    {r:19,name:'Extra (GPA)',inv:'R$380mi',pen:'55%',geo:'Nacional'},
+    {r:20,name:'Wish Brasil',inv:'R$95mi',pen:'25%',geo:'Nacional'},
+  ],
+  fashion: [
+    {r:1,name:'Renner (Lojas Renner)',inv:'R$980mi',pen:'88%',geo:'Nacional'},
+    {r:2,name:'Riachuelo (Guararapes)',inv:'R$850mi',pen:'84%',geo:'Nacional'},
+    {r:3,name:'C&A Brasil',inv:'R$720mi',pen:'80%',geo:'Nacional'},
+    {r:4,name:'Zara Brasil (Inditex)',inv:'R$650mi',pen:'72%',geo:'Nacional'},
+    {r:5,name:'H&M Brasil',inv:'R$480mi',pen:'58%',geo:'Nacional'},
+    {r:6,name:'Hering',inv:'R$390mi',pen:'65%',geo:'Nacional'},
+    {r:7,name:'Arezzo&Co',inv:'R$340mi',pen:'60%',geo:'Nacional'},
+    {r:8,name:'Grupo Soma (Farm/Animale)',inv:'R$310mi',pen:'52%',geo:'Nacional'},
+    {r:9,name:'Track&Field',inv:'R$280mi',pen:'48%',geo:'Nacional'},
+    {r:10,name:'Le Lis Blanc',inv:'R$220mi',pen:'38%',geo:'Nacional'},
+    {r:11,name:'Pernambucanas',inv:'R$380mi',pen:'72%',geo:'Nacional'},
+    {r:12,name:'Marisa Lojas',inv:'R$295mi',pen:'65%',geo:'Nacional'},
+    {r:13,name:'Leader Magazine',inv:'R$185mi',pen:'42%',geo:'Regional'},
+    {r:14,name:'Amaro',inv:'R$150mi',pen:'35%',geo:'Nacional'},
+    {r:15,name:'Osklen',inv:'R$130mi',pen:'30%',geo:'Nacional'},
+    {r:16,name:'Dafiti (fashion foco)',inv:'R$340mi',pen:'52%',geo:'Nacional'},
+    {r:17,name:'Shein (moda)',inv:'R$520mi',pen:'65%',geo:'Nacional'},
+    {r:18,name:'Vivara (jóias)',inv:'R$210mi',pen:'44%',geo:'Nacional'},
+    {r:19,name:'Reserva',inv:'R$160mi',pen:'38%',geo:'Nacional'},
+    {r:20,name:'Zinzane',inv:'R$85mi',pen:'22%',geo:'Nacional'},
+  ],
+  automotive: [
+    {r:1,name:'Fiat Brasil (Stellantis)',inv:'R$1.2bi',pen:'92%',geo:'Nacional'},
+    {r:2,name:'Volkswagen Brasil',inv:'R$1.1bi',pen:'90%',geo:'Nacional'},
+    {r:3,name:'Chevrolet Brasil (GM)',inv:'R$980mi',pen:'88%',geo:'Nacional'},
+    {r:4,name:'Toyota Brasil',inv:'R$850mi',pen:'84%',geo:'Nacional'},
+    {r:5,name:'Hyundai Brasil',inv:'R$720mi',pen:'80%',geo:'Nacional'},
+    {r:6,name:'Honda Brasil',inv:'R$680mi',pen:'78%',geo:'Nacional'},
+    {r:7,name:'Jeep Brasil',inv:'R$620mi',pen:'75%',geo:'Nacional'},
+    {r:8,name:'Renault Brasil',inv:'R$540mi',pen:'70%',geo:'Nacional'},
+    {r:9,name:'Nissan Brasil',inv:'R$480mi',pen:'65%',geo:'Nacional'},
+    {r:10,name:'BYD Brasil',inv:'R$650mi',pen:'68%',geo:'Nacional'},
+    {r:11,name:'Ford Brasil',inv:'R$420mi',pen:'62%',geo:'Nacional'},
+    {r:12,name:'GWM (Haval/ORA)',inv:'R$380mi',pen:'52%',geo:'Nacional'},
+    {r:13,name:'BMW Brasil',inv:'R$310mi',pen:'42%',geo:'Nacional'},
+    {r:14,name:'Mercedes-Benz Brasil',inv:'R$290mi',pen:'40%',geo:'Nacional'},
+    {r:15,name:'Audi Brasil',inv:'R$260mi',pen:'38%',geo:'Nacional'},
+    {r:16,name:'Webmotors',inv:'R$480mi',pen:'72%',geo:'Nacional'},
+    {r:17,name:'iCarros (OLX)',inv:'R$320mi',pen:'60%',geo:'Nacional'},
+    {r:18,name:'Yamaha Motor BR',inv:'R$240mi',pen:'55%',geo:'Nacional'},
+    {r:19,name:'Localiza Hertz',inv:'R$280mi',pen:'58%',geo:'Nacional'},
+    {r:20,name:'Movida Locação',inv:'R$210mi',pen:'48%',geo:'Nacional'},
+  ],
+  tech: [
+    {r:1,name:'Samsung Brasil',inv:'R$2.1bi',pen:'95%',geo:'Nacional'},
+    {r:2,name:'Apple Brasil',inv:'R$1.8bi',pen:'88%',geo:'Nacional'},
+    {r:3,name:'Lenovo Brasil',inv:'R$980mi',pen:'78%',geo:'Nacional'},
+    {r:4,name:'Dell Brasil',inv:'R$850mi',pen:'72%',geo:'Nacional'},
+    {r:5,name:'HP Brasil',inv:'R$720mi',pen:'68%',geo:'Nacional'},
+    {r:6,name:'Positivo Tecnologia',inv:'R$480mi',pen:'65%',geo:'Nacional'},
+    {r:7,name:'Multilaser',inv:'R$420mi',pen:'62%',geo:'Nacional'},
+    {r:8,name:'Intelbras',inv:'R$380mi',pen:'58%',geo:'Nacional'},
+    {r:9,name:'Totvs',inv:'R$340mi',pen:'55%',geo:'Nacional'},
+    {r:10,name:'Vtex',inv:'R$280mi',pen:'48%',geo:'Nacional'},
+    {r:11,name:'Locaweb',inv:'R$240mi',pen:'45%',geo:'Nacional'},
+    {r:12,name:'GoDaddy Brasil',inv:'R$210mi',pen:'42%',geo:'Nacional'},
+    {r:13,name:'Salesforce Brasil',inv:'R$380mi',pen:'52%',geo:'Nacional'},
+    {r:14,name:'SAP Brasil',inv:'R$340mi',pen:'48%',geo:'Nacional'},
+    {r:15,name:'Oracle Brasil',inv:'R$310mi',pen:'45%',geo:'Nacional'},
+    {r:16,name:'Microsoft Brasil',inv:'R$650mi',pen:'72%',geo:'Nacional'},
+    {r:17,name:'Google Workspace BR',inv:'R$580mi',pen:'68%',geo:'Nacional'},
+    {r:18,name:'Conta Azul',inv:'R$180mi',pen:'40%',geo:'Nacional'},
+    {r:19,name:'Omie',inv:'R$160mi',pen:'38%',geo:'Nacional'},
+    {r:20,name:'Bling ERP',inv:'R$120mi',pen:'32%',geo:'Nacional'},
+  ],
+  business: [
+    {r:1,name:'Sebrae Nacional',inv:'R$1.1bi',pen:'88%',geo:'Nacional'},
+    {r:2,name:'XP Investimentos',inv:'R$980mi',pen:'82%',geo:'Nacional'},
+    {r:3,name:'BTG Pactual',inv:'R$850mi',pen:'78%',geo:'Nacional'},
+    {r:4,name:'Sicoob',inv:'R$620mi',pen:'72%',geo:'Nacional'},
+    {r:5,name:'Totvs (ERP)',inv:'R$480mi',pen:'65%',geo:'Nacional'},
+    {r:6,name:'Conta Azul',inv:'R$320mi',pen:'55%',geo:'Nacional'},
+    {r:7,name:'Omie',inv:'R$280mi',pen:'52%',geo:'Nacional'},
+    {r:8,name:'Netsuite Oracle BR',inv:'R$340mi',pen:'48%',geo:'Nacional'},
+    {r:9,name:'Senior Sistemas',inv:'R$240mi',pen:'45%',geo:'Nacional'},
+    {r:10,name:'Sankhya',inv:'R$210mi',pen:'42%',geo:'Nacional'},
+    {r:11,name:'Cielo',inv:'R$680mi',pen:'75%',geo:'Nacional'},
+    {r:12,name:'Stone',inv:'R$620mi',pen:'72%',geo:'Nacional'},
+    {r:13,name:'PagSeguro',inv:'R$580mi',pen:'68%',geo:'Nacional'},
+    {r:14,name:'SumUp Brasil',inv:'R$420mi',pen:'62%',geo:'Nacional'},
+    {r:15,name:'GetNet (Santander)',inv:'R$380mi',pen:'58%',geo:'Nacional'},
+    {r:16,name:'Boa Compra',inv:'R$180mi',pen:'35%',geo:'Nacional'},
+    {r:17,name:'Linx (TOTVS)',inv:'R$210mi',pen:'42%',geo:'Nacional'},
+    {r:18,name:'Sage Brasil',inv:'R$160mi',pen:'32%',geo:'Nacional'},
+    {r:19,name:'GS Group',inv:'R$140mi',pen:'28%',geo:'Nacional'},
+    {r:20,name:'Grupo Comporte',inv:'R$120mi',pen:'25%',geo:'Nacional'},
+  ],
+  pets: [
+    {r:1,name:'Petz',inv:'R$680mi',pen:'88%',geo:'Nacional'},
+    {r:2,name:'Cobasi',inv:'R$520mi',pen:'80%',geo:'Nacional'},
+    {r:3,name:'PetLove',inv:'R$420mi',pen:'72%',geo:'Nacional'},
+    {r:4,name:'Zee.Dog',inv:'R$280mi',pen:'55%',geo:'Nacional'},
+    {r:5,name:'Nestlé Purina BR',inv:'R$480mi',pen:'82%',geo:'Nacional'},
+    {r:6,name:'Royal Canin Brasil',inv:'R$380mi',pen:'72%',geo:'Nacional'},
+    {r:7,name:"Hill's Pet Nutrition",inv:'R$290mi',pen:'58%',geo:'Nacional'},
+    {r:8,name:'Premier Pet',inv:'R$240mi',pen:'52%',geo:'Nacional'},
+    {r:9,name:'Ração Total (Mars)',inv:'R$320mi',pen:'65%',geo:'Nacional'},
+    {r:10,name:'DogHero',inv:'R$140mi',pen:'42%',geo:'Nacional'},
+    {r:11,name:'Petiko',inv:'R$95mi',pen:'35%',geo:'Nacional'},
+    {r:12,name:'Guaio',inv:'R$80mi',pen:'30%',geo:'Nacional'},
+    {r:13,name:'Bravecto (MSD)',inv:'R$210mi',pen:'55%',geo:'Nacional'},
+    {r:14,name:'Vetoquinol Brasil',inv:'R$140mi',pen:'42%',geo:'Nacional'},
+    {r:15,name:'Lavizoo',inv:'R$85mi',pen:'28%',geo:'Nacional'},
+    {r:16,name:'Agroceres Nutrição Animal',inv:'R$120mi',pen:'35%',geo:'Nacional'},
+    {r:17,name:'APET',inv:'R$65mi',pen:'25%',geo:'Nacional'},
+    {r:18,name:'Petix',inv:'R$55mi',pen:'20%',geo:'Nacional'},
+    {r:19,name:'Agora Pet',inv:'R$75mi',pen:'28%',geo:'Nacional'},
+    {r:20,name:'Clínica Vet Nacional',inv:'R$95mi',pen:'32%',geo:'Regional'},
+  ],
+  finance: [
+    {r:1,name:'Nubank',inv:'R$2.8bi',pen:'95%',geo:'Nacional'},
+    {r:2,name:'Itaú Unibanco',inv:'R$2.4bi',pen:'92%',geo:'Nacional'},
+    {r:3,name:'Bradesco',inv:'R$2.1bi',pen:'90%',geo:'Nacional'},
+    {r:4,name:'Santander Brasil',inv:'R$1.8bi',pen:'86%',geo:'Nacional'},
+    {r:5,name:'Banco do Brasil',inv:'R$1.5bi',pen:'84%',geo:'Nacional'},
+    {r:6,name:'Caixa Econômica',inv:'R$1.3bi',pen:'82%',geo:'Nacional'},
+    {r:7,name:'XP Investimentos',inv:'R$1.1bi',pen:'78%',geo:'Nacional'},
+    {r:8,name:'BTG Pactual',inv:'R$950mi',pen:'72%',geo:'Nacional'},
+    {r:9,name:'C6 Bank',inv:'R$780mi',pen:'68%',geo:'Nacional'},
+    {r:10,name:'Banco Inter',inv:'R$720mi',pen:'65%',geo:'Nacional'},
+    {r:11,name:'PagSeguro/PagBank',inv:'R$620mi',pen:'70%',geo:'Nacional'},
+    {r:12,name:'Stone Pagamentos',inv:'R$580mi',pen:'68%',geo:'Nacional'},
+    {r:13,name:'Creditas',inv:'R$380mi',pen:'55%',geo:'Nacional'},
+    {r:14,name:'Porto Seguro',inv:'R$620mi',pen:'72%',geo:'Nacional'},
+    {r:15,name:'SulAmérica',inv:'R$480mi',pen:'65%',geo:'Nacional'},
+    {r:16,name:'Tokio Marine BR',inv:'R$340mi',pen:'52%',geo:'Nacional'},
+    {r:17,name:'Zurich Seguros BR',inv:'R$280mi',pen:'48%',geo:'Nacional'},
+    {r:18,name:'Loft (crédito imob.)',inv:'R$210mi',pen:'38%',geo:'Nacional'},
+    {r:19,name:'HomeEquity',inv:'R$160mi',pen:'30%',geo:'Nacional'},
+    {r:20,name:'Cielo',inv:'R$680mi',pen:'78%',geo:'Nacional'},
+  ],
+  home: [
+    {r:1,name:'Leroy Merlin Brasil',inv:'R$980mi',pen:'88%',geo:'Nacional'},
+    {r:2,name:'Tok&Stok',inv:'R$620mi',pen:'78%',geo:'Nacional'},
+    {r:3,name:'MadeiraMadeira',inv:'R$540mi',pen:'72%',geo:'Nacional'},
+    {r:4,name:'Camicado',inv:'R$420mi',pen:'65%',geo:'Nacional'},
+    {r:5,name:'Etna',inv:'R$380mi',pen:'60%',geo:'Nacional'},
+    {r:6,name:'Tramontina',inv:'R$480mi',pen:'82%',geo:'Nacional'},
+    {r:7,name:'Brastemp (Whirlpool)',inv:'R$580mi',pen:'85%',geo:'Nacional'},
+    {r:8,name:'Consul (Whirlpool)',inv:'R$520mi',pen:'82%',geo:'Nacional'},
+    {r:9,name:'Electrolux BR',inv:'R$490mi',pen:'80%',geo:'Nacional'},
+    {r:10,name:'Samsung Home',inv:'R$680mi',pen:'85%',geo:'Nacional'},
+    {r:11,name:'LG Electronics BR',inv:'R$580mi',pen:'80%',geo:'Nacional'},
+    {r:12,name:'Portobello (cerâmica)',inv:'R$240mi',pen:'52%',geo:'Nacional'},
+    {r:13,name:'Eliane Revestimentos',inv:'R$210mi',pen:'48%',geo:'Nacional'},
+    {r:14,name:'Deca (Duratex)',inv:'R$280mi',pen:'55%',geo:'Nacional'},
+    {r:15,name:'Roca Brasil',inv:'R$195mi',pen:'42%',geo:'Nacional'},
+    {r:16,name:'Atlas (ferramentas)',inv:'R$160mi',pen:'38%',geo:'Nacional'},
+    {r:17,name:'Balaroti',inv:'R$140mi',pen:'35%',geo:'Regional'},
+    {r:18,name:'Telhanorte (Saint-G.)',inv:'R$320mi',pen:'58%',geo:'Regional'},
+    {r:19,name:'Dicore',inv:'R$120mi',pen:'28%',geo:'Regional'},
+    {r:20,name:'Fujioka',inv:'R$95mi',pen:'25%',geo:'Regional'},
+  ],
+  arts: [
+    {r:1,name:'Globo (entretenimento)',inv:'R$3.5bi',pen:'95%',geo:'Nacional'},
+    {r:2,name:'Netflix Brasil',inv:'R$2.2bi',pen:'88%',geo:'Nacional'},
+    {r:3,name:'Amazon Prime BR',inv:'R$1.4bi',pen:'80%',geo:'Nacional'},
+    {r:4,name:'Disney+ Brasil',inv:'R$1.2bi',pen:'78%',geo:'Nacional'},
+    {r:5,name:'Globoplay',inv:'R$1.1bi',pen:'82%',geo:'Nacional'},
+    {r:6,name:'HBO Max Brasil',inv:'R$850mi',pen:'72%',geo:'Nacional'},
+    {r:7,name:'Paramount+ BR',inv:'R$680mi',pen:'65%',geo:'Nacional'},
+    {r:8,name:'Apple TV+ Brasil',inv:'R$520mi',pen:'55%',geo:'Nacional'},
+    {r:9,name:'Telecine',inv:'R$380mi',pen:'52%',geo:'Nacional'},
+    {r:10,name:'Spotify Brasil',inv:'R$920mi',pen:'80%',geo:'Nacional'},
+    {r:11,name:'T4F (Time for Fun)',inv:'R$340mi',pen:'58%',geo:'Nacional'},
+    {r:12,name:'Live Brasil',inv:'R$280mi',pen:'52%',geo:'Nacional'},
+    {r:13,name:'Rock in Rio',inv:'R$420mi',pen:'65%',geo:'Nacional'},
+    {r:14,name:'Cinemark Brasil',inv:'R$310mi',pen:'55%',geo:'Nacional'},
+    {r:15,name:'Cinépolis Brasil',inv:'R$240mi',pen:'48%',geo:'Nacional'},
+    {r:16,name:'Ingresso.com',inv:'R$210mi',pen:'52%',geo:'Nacional'},
+    {r:17,name:'Sympla',inv:'R$185mi',pen:'45%',geo:'Nacional'},
+    {r:18,name:'Eventim Brasil',inv:'R$160mi',pen:'40%',geo:'Nacional'},
+    {r:19,name:'CCXP (Comic Con)',inv:'R$140mi',pen:'38%',geo:'Nacional'},
+    {r:20,name:'Ticketmaster BR',inv:'R$195mi',pen:'42%',geo:'Nacional'},
+  ],
   governo: [
     {r:1,name:'Secom / Gov. Federal',tam:'R$234mi digital',midiaEst:'R$234mi',geo:'Nacional',geoType:'nacional'},
     {r:2,name:'Banco do Brasil',tam:'Estatal publicidade',midiaEst:'R$300mi',geo:'Nacional',geoType:'nacional'},
@@ -1707,6 +3197,72 @@ const verticalSources = {
     {text:'Portal Nosso Meio — Publicidade oficial em transformação',url:'https://nossomeio.com.br/publicidade-oficial-em-transformacao-quanto-o-estado-investe-hoje-em-ads-digitais/'},
     {text:'Gazeta do Povo — Big techs superam TVs nos gastos do Governo',url:'https://www.gazetadopovo.com.br/republica/critico-das-big-techs-lula-amplia-verbas-de-propaganda-do-governo-nas-redes/'},
   ],
+  news:[
+    {text:'Reuters Institute Digital News Report 2024',url:'https://reutersinstitute.politics.ox.ac.uk/digital-news-report/2024'},
+    {text:'IBGE PNAD Contínua — Acesso à Internet',url:'https://www.ibge.gov.br/estatisticas/sociais/trabalho/17270-pnad-continua.html'},
+    {text:'Interactive Advertising Bureau Brasil (IAB BR)',url:'https://iabbrasil.com.br'},
+    {text:'Kantar IBOPE Media — Audiência Digital',url:'https://www.kantar.com/br'},
+  ],
+  health:[
+    {text:'ANS — Agência Nacional de Saúde Suplementar',url:'https://www.ans.gov.br'},
+    {text:'IQVIA Brasil — Mercado Farmacêutico',url:'https://www.iqvia.com/pt-br'},
+    {text:'ABIFINA — Indústria Farmoquímica',url:'https://www.abifina.org.br'},
+    {text:'IBGE — Pesquisa Nacional de Saúde',url:'https://www.ibge.gov.br'},
+  ],
+  shopping:[
+    {text:'ABComm — Associação Brasileira de Comércio Eletrônico',url:'https://abcomm.org'},
+    {text:'Ebit|Nielsen — Webshoppers',url:'https://www.ebit.com.br'},
+    {text:'SBVC — Sociedade Brasileira de Varejo e Consumo',url:'https://sbvc.com.br'},
+    {text:'Neotrust — Dados E-commerce Brasil',url:'https://neotrust.com.br'},
+  ],
+  fashion:[
+    {text:'ABIT — Associação Brasileira da Indústria Têxtil',url:'https://www.abit.org.br'},
+    {text:'ABVTEX — Associação Brasileira do Varejo Têxtil',url:'https://www.abvtex.org.br'},
+    {text:'Euromonitor International — Fashion Brazil',url:'https://www.euromonitor.com'},
+    {text:'IEMI — Inteligência de Mercado',url:'https://iemi.com.br'},
+  ],
+  automotive:[
+    {text:'ANFAVEA — Associação Nacional dos Fabricantes de Veículos',url:'https://anfavea.com.br'},
+    {text:'FENABRAVE — Federação Nacional da Distribuição de Veículos',url:'https://fenabrave.org.br'},
+    {text:'Sindipeças — Ind. de Autopeças',url:'https://www.sindipecas.org.br'},
+    {text:'ABVE — Associação Brasileira do Veículo Elétrico',url:'https://www.abve.org.br'},
+  ],
+  tech:[
+    {text:'BRASSCOM — Assoc. Brasileira das Empresas de TIC',url:'https://brasscom.org.br'},
+    {text:'IDC Brasil — Mercado de TI',url:'https://www.idc.com/br'},
+    {text:'Gartner Brasil',url:'https://www.gartner.com/pt/brasil'},
+    {text:'ABINEE — Indústria Elétrica e Eletrônica',url:'https://www.abinee.org.br'},
+  ],
+  business:[
+    {text:'SEBRAE — Serviço Brasileiro de Apoio às MPEs',url:'https://www.sebrae.com.br'},
+    {text:'IBGE — Cadastro Central de Empresas',url:'https://www.ibge.gov.br'},
+    {text:'Banco Central do Brasil — Nota de Crédito',url:'https://www.bcb.gov.br'},
+    {text:'Febraban — Federação Brasileira de Bancos',url:'https://febraban.org.br'},
+  ],
+  pets:[
+    {text:'ABINPET — Ind. Nacional de Produtos para Animais',url:'https://abinpet.org.br'},
+    {text:'Instituto Pet Brasil',url:'https://institutopetbrasil.com'},
+    {text:'IBGE — Pesquisa de Orçamentos Familiares',url:'https://www.ibge.gov.br'},
+    {text:'Euromonitor — Pet Care Brazil',url:'https://www.euromonitor.com'},
+  ],
+  finance:[
+    {text:'Banco Central do Brasil — SGS',url:'https://www.bcb.gov.br'},
+    {text:'CVM — Comissão de Valores Mobiliários',url:'https://www.gov.br/cvm'},
+    {text:'ANBIMA — Associação Brasileira das Entidades dos Mercados',url:'https://www.anbima.com.br'},
+    {text:'Febraban — Pesquisa CIAB',url:'https://febraban.org.br'},
+  ],
+  home:[
+    {text:'ABRAMAT — Associação Brasileira da Indústria de Materiais',url:'https://www.abramat.org.br'},
+    {text:'ANAMACO — Assoc. Nacional dos Comerciantes de Material de Construção',url:'https://www.anamaco.com.br'},
+    {text:'ABIMÓVEL — Assoc. Brasileira das Ind. do Mobiliário',url:'https://www.abimovel.com'},
+    {text:'CBIC — Câmara Brasileira da Indústria da Construção',url:'https://cbic.org.br'},
+  ],
+  arts:[
+    {text:'ANCINE — Agência Nacional do Cinema',url:'https://www.gov.br/ancine'},
+    {text:'Pro-Música Brasil — Mercado Fonográfico',url:'https://pro-musicabrasil.com.br'},
+    {text:'ABRAFIN — Assoc. Brasileira de Festivais Independentes',url:'https://abrafin.org.br'},
+    {text:'Kantar IBOPE — Audiência TV/Streaming',url:'https://www.kantar.com/br'},
+  ],
 };
 
 function renderTopCompanies(verticalKey, containerId) {
@@ -1715,15 +3271,23 @@ function renderTopCompanies(verticalKey, containerId) {
   if (!companies || !containerId) return;
   const el = document.getElementById(containerId);
   if (!el) return;
-  const rows = companies.map(c => `
+  const rows = companies.map(c => {
+    const isNewFormat = c.inv !== undefined;
+    const col2 = isNewFormat ? (c.pen || '—') : (c.tam || '—');
+    const col3 = isNewFormat ? (c.inv || '—') : (c.midiaEst || '—');
+    const geoLower = (c.geo || '').toLowerCase();
+    const geoType = isNewFormat ? (geoLower.includes('regional') ? 'regional' : geoLower.includes('local') ? 'local' : 'nacional') : (c.geoType || 'nacional');
+    const geoLabel = geoType === 'nacional' ? '🌎 Nacional' : geoType === 'regional' ? '📍 Regional' : '📌 Local';
+    return `
     <tr>
       <td class="rank-num">#${c.r}</td>
       <td><strong style="font-size:13px;">${c.name}</strong></td>
-      <td style="color:var(--muted);font-size:12px;">${c.tam}</td>
-      <td style="color:var(--green);font-weight:600;">${c.midiaEst}</td>
-      <td><span class="geo-badge geo-${c.geoType}">${c.geoType==='nacional'?'🌎 Nacional':c.geoType==='regional'?'📍 Regional':'📌 Local'}</span></td>
+      <td style="color:var(--muted);font-size:12px;">${col2}</td>
+      <td style="color:var(--green);font-weight:600;">${col3}</td>
+      <td><span class="geo-badge geo-${geoType}">${geoLabel}</span></td>
       <td style="font-size:11px;color:var(--muted);">${c.geo}</td>
-    </tr>`).join('');
+    </tr>`;
+  }).join('');
   const srcHTML = sources.map(s=>`<li><a href="${s.url}" target="_blank">↗ ${s.text}</a></li>`).join('');
   el.innerHTML = `
     <div class="top-toggle" onclick="toggleTopCo(this)">
@@ -1953,12 +3517,23 @@ function renderCalendario() {
 renderComparativo();
 renderCalendario();
 setTimeout(() => {
-  renderTopCompanies('gambling',   'top-companies-gambling');
-  renderTopCompanies('food',       'top-companies-food');
-  renderTopCompanies('travel',     'top-companies-travel');
-  renderTopCompanies('education',  'top-companies-education');
-  renderTopCompanies('realestate', 'top-companies-realestate');
-  renderTopCompanies('governo',    'top-companies-governo');
+  renderTopCompanies('gambling',    'top-companies-gambling');
+  renderTopCompanies('food',        'top-companies-food');
+  renderTopCompanies('travel',      'top-companies-travel');
+  renderTopCompanies('education',   'top-companies-education');
+  renderTopCompanies('realestate',  'top-companies-realestate');
+  renderTopCompanies('governo',     'top-companies-governo');
+  renderTopCompanies('news',        'top-companies-news');
+  renderTopCompanies('health',      'top-companies-health');
+  renderTopCompanies('shopping',    'top-companies-shopping');
+  renderTopCompanies('fashion',     'top-companies-fashion');
+  renderTopCompanies('automotive',  'top-companies-automotive');
+  renderTopCompanies('tech',        'top-companies-tech');
+  renderTopCompanies('business',    'top-companies-business');
+  renderTopCompanies('pets',        'top-companies-pets');
+  renderTopCompanies('finance',     'top-companies-finance');
+  renderTopCompanies('home',        'top-companies-home');
+  renderTopCompanies('arts',        'top-companies-arts');
 }, 200);
 </script>
 </body>
