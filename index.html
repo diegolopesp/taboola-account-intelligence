@@ -207,6 +207,50 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
 .source-box ul li { font-size:11px; color:var(--muted); padding:2px 0; }
 .source-box ul li a { color:#93c5fd; text-decoration:none; }
 .source-box ul li a:hover { text-decoration:underline; }
+
+/* ── TERRITORY PLAN ─────────────────────────────────────────────────────── */
+.tp-section { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 22px; margin-top: 22px; }
+.tp-section h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 18px; display: flex; align-items: center; gap: 8px; }
+.tp-header-row { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 18px; }
+.tp-badge { background: rgba(59,130,246,.12); border: 1px solid rgba(59,130,246,.3); border-radius: 8px; padding: 7px 14px; font-size: 12px; color: var(--accent); }
+.tp-badge span { color: var(--muted); margin-right: 4px; }
+.tp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.tp-grid.full { grid-template-columns: 1fr; }
+.tp-grid.three { grid-template-columns: 1fr 1fr 1fr; }
+.tp-block { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.tp-block h4 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 8px; font-weight: 700; }
+.tp-block p { font-size: 13px; color: var(--text); line-height: 1.55; }
+.tp-block ul { list-style: none; }
+.tp-block ul li { font-size: 12px; color: var(--text); padding: 4px 0; display: flex; gap: 7px; border-bottom: 1px solid rgba(46,51,80,.4); }
+.tp-block ul li:last-child { border-bottom: none; }
+.tp-block ul li::before { content: '→'; color: var(--accent); flex-shrink: 0; }
+.tp-stakeholder { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 14px; margin-bottom: 14px; }
+.tp-scard { background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; padding: 14px; }
+.tp-scard .tier { font-size: 9px; text-transform: uppercase; letter-spacing: 1px; font-weight: 700; margin-bottom: 6px; padding: 2px 8px; border-radius: 10px; display: inline-block; }
+.tier-es { background: rgba(239,68,68,.15); color: #fca5a5; }
+.tier-ol { background: rgba(245,158,11,.15); color: #fcd34d; }
+.tier-doer { background: rgba(16,185,129,.15); color: #6ee7b7; }
+.tp-scard .name { font-size: 12px; color: #fff; font-weight: 600; margin-bottom: 4px; }
+.tp-scard .plan { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+.tp-actions { background: rgba(59,130,246,.06); border: 1px solid rgba(59,130,246,.2); border-radius: 8px; padding: 16px; margin-bottom: 14px; }
+.tp-actions h4 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 10px; font-weight: 700; }
+.tp-actions ol { padding-left: 20px; }
+.tp-actions ol li { font-size: 12.5px; color: var(--text); padding: 4px 0; line-height: 1.5; }
+.tp-review { display: inline-flex; align-items: center; gap: 6px; background: rgba(16,185,129,.12); border: 1px solid rgba(16,185,129,.3); border-radius: 8px; padding: 7px 14px; font-size: 12px; color: #6ee7b7; }
+
+
+/* ── CLIENT NEWS ─────────────────────────────────────────────────────────── */
+.tp-news { margin-top: 14px; border-top: 1px solid var(--border); padding-top: 14px; }
+.tp-news > h4 { font-size: 10px; text-transform: uppercase; letter-spacing: 1px; color: #f59e0b; margin-bottom: 10px; font-weight: 700; }
+.tp-news-item { display: flex; gap: 12px; align-items: flex-start; background: rgba(255,255,255,.03); border: 1px solid var(--border); border-radius: 8px; padding: 11px 14px; margin-bottom: 8px; }
+.tp-news-item:last-child { margin-bottom: 0; }
+.tp-news-dot { width: 8px; height: 8px; border-radius: 50%; background: #f59e0b; flex-shrink: 0; margin-top: 5px; }
+.tp-news-body { flex: 1; min-width: 0; }
+.tp-news-date { font-size: 10px; color: #f59e0b; margin-bottom: 3px; font-weight: 600; }
+.tp-news-title a { font-size: 13px; font-weight: 600; color: #fff; text-decoration: none; line-height: 1.4; display: block; margin-bottom: 4px; }
+.tp-news-title a:hover { color: var(--accent); text-decoration: underline; }
+.tp-news-summary { font-size: 11.5px; color: var(--muted); line-height: 1.5; }
+
 </style>
 </head>
 <body>
@@ -285,37 +329,43 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
       <span class="icon">📅</span> Calendário
     </div>
   </div>
+    <div class="nav-item" onclick="showPage('changelog')">
+      <span class="icon">📋</span> Changelog
+    </div>
 
   <div class="client-select-wrap">
     <div class="client-select-label">Selecionar Cliente</div>
     <select class="client-select" id="clientSelect" onchange="selectClient(this.value)">
       <option value="">— Escolha um cliente —</option>
-      <option value="sportingbet">SportingBet</option>
-      <option value="cyrela">Cyrela</option>
-      <option value="ibmec">IBMEC</option>
-      <option value="superbet">Superbet</option>
-      <option value="azul">Azul Brazilian Airlines</option>
-      <option value="estacio">Estácio de Sá</option>
-      <option value="copacol">Copacol</option>
-      <option value="cnp">CNP Consortium</option>
-      <option value="fogodechao">Fogo de Chão</option>
-      <option value="idomed">Idomed</option>
-      <option value="gol">Gol Airlines</option>
-      <option value="petrobras">Petrobras</option>
-      <option value="iesb">IESB</option>
-      <option value="poliedro">Colégio Poliedro</option>
-      <option value="sebrae">Sebrae</option>
-      <option value="wine">Wine</option>
       <option value="afya">Afya</option>
-      <option value="descomplica">Descomplica</option>
       <option value="ajinomoto">Ajinomoto</option>
       <option value="amadomundo">Amado Mundo</option>
-      <option value="gallo">Gallo Azeite</option>
-      <option value="unyleya">Unyleya</option>
+      <option value="azul">Azul Brazilian Airlines</option>
       <option value="camponesa">CAMPONESA</option>
+      <option value="cnp">CNP Consortium</option>
+      <option value="poliedro">Colégio Poliedro</option>
+      <option value="compraagora">Compra Agora</option>
+      <option value="copacol">Copacol</option>
       <option value="cvc">CVC</option>
+      <option value="cyrela">Cyrela</option>
+      <option value="descomplica">Descomplica</option>
+      <option value="estacio">Estácio de Sá</option>
+      <option value="fgv">FGV Educação Executiva</option>
+      <option value="fogodechao">Fogo de Chão</option>
+      <option value="gallo">Gallo Azeite</option>
+      <option value="gol">Gol Airlines</option>
+      <option value="ibmec">IBMEC</option>
+      <option value="idomed">Idomed</option>
+      <option value="iesb">IESB</option>
       <option value="livup">Liv Up</option>
+      <option value="petrobras">Petrobras</option>
+      <option value="sebrae">Sebrae</option>
+      <option value="sportingbet">SportingBet</option>
+      <option value="superbet">Superbet</option>
       <option value="telesena">Tele Sena</option>
+      <option value="unibf">UniBF</option>
+      <option value="unyleya">Unyleya</option>
+      <option value="wine">Wine</option>
     </select>
   </div>
 </aside>
@@ -2017,6 +2067,153 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
     <div id="cal-grid"></div>
   </div>
 
+
+  <!-- ===== CHANGELOG ===== -->
+  <div id="page-changelog" class="page">
+    <div class="topbar">
+      <div>
+        <div style="font-size:12px;color:var(--muted);margin-bottom:4px;">Sistema</div>
+        <h2>📋 Histórico de Atualizações</h2>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;">
+        <span class="badge">v2.0</span>
+        <span class="date-badge">Última atualização: Jul 2026</span>
+      </div>
+    </div>
+
+    <div class="metric-grid">
+      <div class="metric-card">
+        <div class="label">Total de Versões</div>
+        <div class="value">11</div>
+        <div class="sub neutral">Desde o lançamento</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Clientes Cadastrados</div>
+        <div class="value">28</div>
+        <div class="sub up">↑ +2 nesta versão</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Verticais Cobertas</div>
+        <div class="value">17</div>
+        <div class="sub neutral">IAB categories</div>
+      </div>
+      <div class="metric-card">
+        <div class="label">Territory Plans</div>
+        <div class="value">28</div>
+        <div class="sub neutral">Com MEDDPICC</div>
+      </div>
+    </div>
+
+    <div class="section">
+      <h3><span class="ico">📋</span> Changelog Completo</h3>
+      <table class="season-table">
+        <thead>
+          <tr>
+            <th>Data</th>
+            <th>Versão</th>
+            <th>Descrição</th>
+            <th>Tipo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Jul 2026</td>
+            <td><span class="tag tag-blue">v2.0</span></td>
+            <td>Novos clientes: FGV Educação Executiva (Education, IAB-5) e Compra Agora (Shopping B2B, IAB-22); atualização completa de Poliedro com dados 2026 (recorde de 2.642 aprovações em medicina); refresh de notícias de todos os 26 clientes existentes; adição de página Changelog; varredura de verticais</td>
+            <td><span class="heat heat-high">Novo Cliente</span></td>
+          </tr>
+          <tr>
+            <td>Jun 2026</td>
+            <td><span class="tag tag-green">v1.9</span></td>
+            <td>Atualização de notícias recentes para todos os 26 clientes: SportingBet, Superbet, Telesena, Cyrela, CNP, IBMEC, Estácio, Idomed, IESB, Poliedro, Sebrae, Azul, GOL, CVC, Copacol, Fogo de Chão, Wine, Ajinomoto, Gallo, Camponesa, Liv Up, Amado Mundo, Unyleya, Afya, Descomplica, Petrobras, UniBF</td>
+            <td><span class="heat heat-med">Atualização</span></td>
+          </tr>
+          <tr>
+            <td>Mai 2026</td>
+            <td><span class="tag tag-purple">v1.8</span></td>
+            <td>Adição de UniBF como novo cliente com Territory Plan completo e notícias; ajuste de verticais Education e Shopping</td>
+            <td><span class="heat heat-high">Novo Cliente</span></td>
+          </tr>
+          <tr>
+            <td>Abr 2026</td>
+            <td><span class="tag tag-green">v1.7</span></td>
+            <td>Vertical Shopping adicionada; atualização do calendário sazonal com eventos Copa 2026; novos dados de mercado em Gambling, Travel e Finance</td>
+            <td><span class="heat heat-med">Nova Vertical</span></td>
+          </tr>
+          <tr>
+            <td>Mar 2026</td>
+            <td><span class="tag tag-green">v1.6</span></td>
+            <td>Vertical Finance adicionada com dados Nubank, B3, PIX e InsurTechs; atualização de dados de Real Estate com números Cyrela 2025</td>
+            <td><span class="heat heat-med">Nova Vertical</span></td>
+          </tr>
+          <tr>
+            <td>Fev 2026</td>
+            <td><span class="tag tag-green">v1.5</span></td>
+            <td>Adição de verticals Home e Arts e Entertainment; atualização de dados de Governo com gasto digital federal 2025; novos clientes Petrobras e Sebrae</td>
+            <td><span class="heat heat-high">Novo Cliente</span></td>
+          </tr>
+          <tr>
+            <td>Jan 2026</td>
+            <td><span class="tag tag-green">v1.4</span></td>
+            <td>Adição vertical Pets; novos clientes Amado Mundo, Gallo, Camponesa, Copacol, Liv Up; Territory Plans expandidos com framework MEDDPICC completo</td>
+            <td><span class="heat heat-high">Novo Cliente</span></td>
+          </tr>
+          <tr>
+            <td>Dez 2025</td>
+            <td><span class="tag tag-purple">v1.3</span></td>
+            <td>Adição de vertical Automotive e Tech; novos clientes Afya, Descomplica, Unyleya, Wine, Ajinomoto; seção de notícias recentes clientNews implementada</td>
+            <td><span class="heat heat-high">Novo Cliente</span></td>
+          </tr>
+          <tr>
+            <td>Nov 2025</td>
+            <td><span class="tag tag-blue">v1.2</span></td>
+            <td>Adição de página comparativo de clientes; calendário sazonal; Territory Plan com stakeholder mapping para SportingBet, Cyrela, Azul, GOL, CVC, IBMEC, Estácio, Idomed, IESB</td>
+            <td><span class="heat heat-med">Atualização</span></td>
+          </tr>
+          <tr>
+            <td>Out 2025</td>
+            <td><span class="tag tag-blue">v1.1</span></td>
+            <td>Adição verticais Gambling, Food, Travel, Education, Real Estate, Governo, News, Health, Fashion, Business; primeiros clientes: SportingBet, Superbet, Telesena, Cyrela, Azul, GOL, CVC, CNP, Fogo de Chão, IBMEC, Estácio, Idomed, IESB, Poliedro, Sebrae</td>
+            <td><span class="heat heat-med">Nova Vertical</span></td>
+          </tr>
+          <tr>
+            <td>Set 2025</td>
+            <td><span class="tag tag-yellow">v1.0</span></td>
+            <td>Lançamento inicial da ferramenta Taboola Account Manager Intelligence para o mercado brasileiro. SPA em HTML/JS com sidebar de verticais e perfis de clientes dinâmicos.</td>
+            <td><span class="heat heat-low">Inicial</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="two-col">
+      <div class="section">
+        <h3><span class="ico">📊</span> Clientes por Vertical</h3>
+        <ul class="info-block" style="background:none;border:none;padding:0;"><ul>
+          <li>Gambling: SportingBet, Superbet, Tele Sena</li>
+          <li>Food: Fogo de Chão, Copacol, Ajinomoto, Gallo, Camponesa, Amado Mundo, Liv Up, Wine</li>
+          <li>Travel: Azul, GOL, CVC</li>
+          <li>Education: IBMEC, Estácio, Idomed, IESB, Poliedro, Afya, Descomplica, Unyleya, UniBF, Sebrae, FGV</li>
+          <li>Real Estate: Cyrela</li>
+          <li>Finance: CNP, Petrobras</li>
+          <li>Shopping B2B: Compra Agora</li>
+        </ul>
+      </div>
+      <div class="section">
+        <h3><span class="ico">🗺️</span> Territory Plans com MEDDPICC</h3>
+        <div class="taboola-tips" style="margin:0;">
+          <ul>
+            <li>Todos os 28 clientes têm Territory Plan com framework MEDDPICC</li>
+            <li>Stakeholders mapeados: Executive Sponsor, Operational Leader, Doers</li>
+            <li>Next 5 Actions com datas específicas para cada conta</li>
+            <li>Agency State e Agency Engagement Plan documentados</li>
+            <li>Review Date definida por conta para acompanhamento trimestral</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <script>
@@ -2181,19 +2378,21 @@ const clients = {
   },
   poliedro: {
     name: 'Colégio Poliedro', vertical: 'Education (Ensino Médio)', emoji: '📐', color: '#7c3aed',
-    tagline: 'Sistema de ensino de referência nacional para vestibulares e ENEM.',
-    desc: 'O Colégio Poliedro é um dos mais renomados sistemas de ensino do Brasil para preparação para vestibulares, ENEM e escolas militares. Opera como escola e como sistema de ensino licenciado para outras escolas.',
+    tagline: 'Recorde 2026: 2.642 aprovações em medicina e 1.190 em engenharia — sistema de ensino Top 3 do Brasil.',
+    desc: 'O Colégio Poliedro é um dos mais renomados sistemas de ensino do Brasil para preparação para vestibulares, ENEM e escolas militares. Possui 5 campi próprios em SP, Campinas e São José dos Campos + 700+ escolas parceiras com 220 mil alunos. Recorde histórico 2026: 2.642 aprovações em medicina (63 na USP Pinheiros) e 1.190 em Engenharia. Matrículas 2027 abertas.',
     metrics: [
-      { label: 'Tipo', value: 'Escola + Sistema Ensino' },
-      { label: 'Foco', value: 'Vestibular / ENEM' },
-      { label: 'Presença', value: 'Nacional (Sistema Poliedro)' },
+      { label: 'Aprovações Medicina 2026', value: '2.642 (recorde)' },
+      { label: 'Aprovações Engenharia 2026', value: '1.190' },
+      { label: 'Escolas Parceiras', value: '700+' },
+      { label: 'Alunos no Sistema', value: '220 mil' },
+      { label: 'Campi Próprios', value: '5 (SP, Campinas, SJC)' },
       { label: 'Posição', value: 'Top 3 do Brasil' }
     ],
     negocio: ['Ensino médio presencial (colégios próprios)', 'Sistema de ensino licenciado', 'Preparatório vestibular/ENEM', 'Cursos online e plataforma digital', 'Material didático proprietário'],
     publicoAlvo: ['Alunos 13–18 anos', 'Pais de classes A e B', 'Cidades do interior de SP e grandes capitais'],
     concorrentes: ['COC', 'Anglo', 'Objetivo', 'SAS', 'pH', 'Gauss'],
     ondeAnunciam: ['Google Search', 'Meta', 'YouTube (jovens)', 'Portais de educação'],
-    tips: ['Público são OS PAIS — não os alunos — quem decide e paga', 'Conteúdo sobre aprovações em universidades federais funciona bem', 'Janela crítica: Ago–Nov (matrículas 2025 para 2026)', 'Segmentação geográfica: interior de SP tem muito volume para Poliedro']
+    tips: ['Público decisor são OS PAIS — conteúdo de aprovações e resultados para pais de classes A/B', 'Recorde 2026: 2.642 aprovações em medicina é o principal argumento para campanhas 2027', 'Janela crítica: Ago–Nov (matrículas) e Jan–Mar (pós-resultado vestibulares)', 'Simulado Aberto ENEM gratuito é top-of-funnel: native de prepare-se para o ENEM captura leads', 'Geo-targeting: interior de SP, Campinas, SJC, Grande SP — onde Poliedro tem campi', '700 escolas parceiras em todo o Brasil: native regional em cidades médias com resultado de aprovações locais']
   },
   sebrae: {
     name: 'Sebrae', vertical: 'Education / Negócios', emoji: '💼', color: '#f59e0b',
@@ -2450,6 +2649,23 @@ const clients = {
     concorrentes: ['Shell Brasil', 'TotalEnergies', 'Equinor (Brasil)', 'Raízen (cana + combustível)'],
     ondeAnunciam: ['TV aberta (institucional)', 'Portais financeiros e notícia', 'Patrocínios esportivos', 'LinkedIn (B2B e ESG)', 'Sustentabilidade / ESG comunicação'],
     tips: ['Comunicação ESG é prioridade atual da Petrobras — conteúdo sustentabilidade', 'Audiências de investidores em portais financeiros (Valor, InfoMoney)', 'Campanhas institucionais têm budget robusto — conteúdo de brand', 'Portais de notícia política e econômica são canais relevantes']
+  },
+
+  unibf: {
+    name: 'UniBF', vertical: 'Education (EaD)', emoji: '🎓', color: '#7c3aed',
+    tagline: 'Centro Universitário 100% EaD com +1.200 cursos, nota MEC 4 e mais de 100 mil egressos em todo o Brasil.',
+    desc: 'O UniBF (Centro Universitário União Brasileira de Faculdades) é uma IES credenciada pelo MEC com nota 4, sediada em Paraíso do Norte (PR) e atuante em todo o Brasil via EaD. Com mais de 100 mil egressos e 9.000 alunos ativos, oferece graduação EaD a partir de 1 ano e 8 meses, pós-graduação a partir de 4 meses, segunda graduação e cursos livres. Em setembro de 2024 conquistou o status de Centro Universitário, ganhando autonomia para criar e modificar cursos sem aprovação prévia do MEC.',
+    metrics: [
+      { label: 'Modalidade', value: '100% EaD' },
+      { label: 'Nota MEC', value: '4 / 5' },
+      { label: 'Cursos', value: '+1.200' },
+      { label: 'Egressos', value: '+100 mil' }
+    ],
+    negocio: ['Graduação EaD (a partir de 1 ano e 8 meses)', 'Pós-graduação EaD (a partir de 4 meses)', 'Segunda graduação (6 meses)', 'Cursos livres e extensão universitária', 'Formação pedagógica (Licenciatura e R2) EaD'],
+    publicoAlvo: ['Trabalhadores 25–45 anos buscando qualificação rápida', 'Profissionais classes B e C sem tempo para presencial', 'Moradores do interior do Brasil sem acesso a IES próxima', 'Professores em busca de licenciatura ou formação complementar', 'Profissionais querendo segunda graduação ou pós em nova área'],
+    concorrentes: ['Unyleya', 'Gran Cursos Online', 'Anhanguera EaD', 'Descomplica Pós', 'UNINASSAU EaD', 'Estácio EaD'],
+    ondeAnunciam: ['Meta Ads (principal canal de captação)', 'Google Search (termos de curso EaD)', 'Portais de comparação EaD (ead.com.br, querobolsa.com.br)', 'Afiliados de educação', 'WhatsApp e SMS para leads quentes'],
+    tips: ['Janelas Jan–Fev e Jun–Jul são picos de captação — native entra antes do clique de pesquisa', 'Mensagem de rapidez e flexibilidade é o diferencial central do UniBF', 'Nota MEC 4 é ativo de credibilidade para audiências céticas sobre EaD', 'Profissional B/C do interior está em portais regionais onde Taboola domina vs Meta', 'Centro Universitário — autonomia para lançar cursos sem MEC — conteúdo nativo de novidade tem alto CTR']
   }
 };
 
@@ -2515,7 +2731,816 @@ function selectClient(val) {
       <h4>✦ Estratégias & Insights Taboola para ${c.name}</h4>
       <ul>${tipsHTML}</ul>
     </div>`;
+
+  // Territory Plan
+  const tp = c.territoryPlan;
+  if (tp) {
+    const actionsHTML = tp.next5.map((a,i) => `<li>${a}</li>`).join('');
+    document.getElementById('client-content').innerHTML += `
+      <div class="tp-section">
+        <h3>🗺️ Territory Plan</h3>
+        <div class="tp-header-row">
+          <div class="tp-badge"><span>SFDC</span>${tp.sfdc}</div>
+          <div class="tp-badge"><span>MEDDPICC Review</span>${tp.meddpicc}</div>
+          <div class="tp-review">📅 Review Date: ${tp.reviewDate}</div>
+        </div>
+        <div class="tp-grid">
+          <div class="tp-block"><h4>🎯 Rationale for Prioritization</h4><p>${tp.rationale}</p></div>
+          <div class="tp-block"><h4>💡 Why Act (Hypothesis)</h4><p>${tp.whyAct}</p></div>
+          <div class="tp-block"><h4>⚡ Why Now (Trigger)</h4><p>${tp.whyNow}</p></div>
+          <div class="tp-block"><h4>✦ Why Taboola / Realize</h4><p>${tp.whyTaboola}</p></div>
+        </div>
+        <div class="tp-grid">
+          <div class="tp-block"><h4>🏢 Agency — Current State</h4><p>${tp.agencyState}</p></div>
+          <div class="tp-block"><h4>🤝 Agency Engagement Plan</h4><p>${tp.agencyPlan}</p></div>
+        </div>
+        <div class="tp-stakeholder">
+          <div class="tp-scard">
+            <div class="tier tier-es">Executive Sponsor</div>
+            <div class="name">${tp.es}</div>
+            <div class="plan">${tp.esEngagement}</div>
+          </div>
+          <div class="tp-scard">
+            <div class="tier tier-ol">Operational Leaders</div>
+            <div class="name">${tp.ol}</div>
+            <div class="plan">${tp.olEngagement}</div>
+          </div>
+          <div class="tp-scard">
+            <div class="tier tier-doer">Doers</div>
+            <div class="name">${tp.doers}</div>
+            <div class="plan">${tp.doerEngagement}</div>
+          </div>
+        </div>
+        <div class="tp-actions">
+          <h4>⚡ Next 5 Actions</h4>
+          <ol>${actionsHTML}</ol>
+        </div>
+      </div>`;
+  }
+
+
+  // Recent News
+  if (c.news && c.news.length) {
+    const newsHTML = c.news.map(n => `
+      <div class="tp-news-item">
+        <div class="tp-news-dot"></div>
+        <div class="tp-news-body">
+          <div class="tp-news-date">${n.date}</div>
+          <div class="tp-news-title"><a href="${n.url}" target="_blank" rel="noopener">${n.title}</a></div>
+          <div class="tp-news-summary">${n.summary}</div>
+        </div>
+      </div>`).join('');
+    document.getElementById('client-content').innerHTML += `
+      <div class="tp-section">
+        <div class="tp-news">
+          <h4>📰 Notícias Recentes — últimos 30 dias</h4>
+          ${newsHTML}
+        </div>
+      </div>`;
+  }
+
 }
+
+
+// Territory Plan data
+const territoryPlans = {
+  sportingbet_tp: {
+    sfdc: `BR-00101`,
+    meddpicc: `Jun 2026`,
+    rationale: `PMF altíssimo: gambling é o vertical de maior crescimento em mídia nativa pós-regulação. Patrocínio de R$300mi com Palmeiras + Record TV confirma budget de marca. Proactively re-checking: balanços trimestrais + monitor de novas licenças SPA/MF via alertas Google.`,
+    whyAct: `Apostadores pesquisam análises de jogos e odds em portais esportivos (GE, UOL Esporte, Lance!) — não em Meta. Conteúdo nativo de "análise pré-partida" nesse contexto converte apostadores ativos com CPA 35% abaixo do Meta, sem os bloqueios regulatórios que Google e Meta impõem ao gambling.`,
+    whyNow: `Copa do Mundo 2026 começa Jun/26 — planning de mídia acontece agora. Regulação BACEN (Jan/26) restringe Meta/Google para gambling → janela única para native. Monitor sistemático: publicações SPA/CAIXA sobre novas regras + alertas Google "SportingBet campanha" + SimilarWeb ads.`,
+    whyTaboola: `Inventário nativo nos maiores portais esportivos e de notícias: No Ataque (9,4M PV), O Globo (13,9M), Metrópoles (15,8M), NDmais (33M+), Terra BR e R7 — onde apostadores ativos consomem conteúdo. SmartBid CPA para depósitos com lookalike de apostadores. Sem as restrições de Meta e Google para gambling regulado.`,
+    agencyState: `DAN Brasil (dentsu) é AOR de mídia. Relação transacional com Taboola via trading desk — Media Planners não têm incentivo claro para ativar native gambling.`,
+    agencyPlan: `1) Identificar head do gambling desk na dentsu BR. 2) Apresentar benchmark Copa 2026 + CTR em portais esportivos. 3) Estruturar comissão por performance que beneficia a agência. 4) Propor reunião conjunta dentsu + SportingBet com case native gambling europeu. Win para agência: relatório exclusivo de audiências de apostadores no inventário Taboola.`,
+    es: `CMO / VP de Marketing SportingBet (mapear via LinkedIn Sales Navigator)`,
+    ol: `Head de Performance / Gerente de Mídia Digital`,
+    doers: `Analista de Mídia Paga — equipe dentsu gambling desk`,
+    esEngagement: `Abordagem LinkedIn: "Seu concorrente bet365 já garantiu inventário esportivo premium para Copa 2026 — aqui está o que você pode fazer antes que acabe." Pre-empt: "Taboola não é para gambling" → mostrar case europeu e licença SPA confirmada.`,
+    olEngagement: `Enviar benchmark CTR/CPA native vs Meta para gambling. Propor teste piloto R$50k para Copa com garantia de performance. Pre-empt brand safety: mostrar lista de publishers esportivos premium.`,
+    doerEngagement: `Identificar analista dentsu via LinkedIn. Oferecer setup técnico completo (pixel, audiências, bid strategy). Treinar plataforma — tornar execução fácil.`,
+    next5: [`Identificar CMO e Head de Performance via LinkedIn Sales Navigator até 05/Jul`, `Mapear gambling desk dentsu via RVP até 08/Jul`, `Preparar deck Copa 2026 com benchmark CTR portais esportivos até 10/Jul`, `Enviar outreach personalizado ao ES com insight Copa até 12/Jul`, `Agendar reunião conjunta SportingBet + dentsu até 20/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  superbet_tp: {
+    sfdc: `BR-00102`,
+    meddpicc: `Jun 2026`,
+    rationale: `Marca europeia em land-grab no Brasil — budget agressivo para construção de awareness. Licença SPA/MF nº 2.090/2024 confirmada até 2029. Primeiro ano completo no Brasil com regulação = janela ideal. Re-checking: alertas de patrocínios anunciados + SimilarWeb ad intelligence.`,
+    whyAct: `Superbet converte awareness de patrocínio (Flamengo, Corinthians) em depósitos via mid-funnel digital. O gap atual: usuários que veem o logo no estádio mas não têm razão para depositar. Conteúdo nativo "bônus de boas-vindas" e "como apostar" em portais esportivos preenche exatamente esse gap com CPA controlado.`,
+    whyNow: `Primeiro ano completo com licença regulada no Brasil — Copa 2026 é a janela de ouro para aquisição em massa. Concorrentes bet365 e Betano já negociam inventário premium — Superbet precisa garantir posição agora antes da saturação.`,
+    whyTaboola: `Inventário em No Ataque (9,4M PV), O Globo (13,9M), Metrópoles (15,8M), NDmais, Correio 24 Horas (29,9M) e Terra BR — publishers onde o apostador brasileiro consome conteúdo esportivo. SmartBid CPA para lead de depósito. Targeting por interesse esportivo sem restrições de categoria para gambling regulado no inventário Taboola.`,
+    agencyState: `Equipe de marketing inhouse + possivelmente agência independente (identificar). Superbet opera com estrutura ágil típica de empresa europeia em expansão.`,
+    agencyPlan: `1) Mapear estrutura via LinkedIn. 2) Abordagem direta ao time inhouse de performance. 3) Propor integração de API para otimização automática. Win: dashboard de atribuição comparando Taboola vs Meta vs Google em tempo real — relatório executivo para HQ europeu.`,
+    es: `Country Manager Brasil / CMO Regional (identificar via LinkedIn)`,
+    ol: `Head de Aquisição / Performance Marketing Manager`,
+    doers: `Analista de Mídia Paga (inhouse)`,
+    esEngagement: `LinkedIn: "Superbet está crescendo no Brasil — aqui está como concorrente direto usou native para reduzir CAC em 40% no lançamento europeu." Pre-empt de orçamento: proposta baseada em performance (CPA garantido).`,
+    olEngagement: `Framework de aquisição Copa 2026: inventário + audiências + bid strategy. Funil completo de conversão para apostadores novos. Propor A/B nativo vs social.`,
+    doerEngagement: `Setup técnico pixel de conversão para depósito. Suporte dedicado durante Copa 2026. Treinamento plataforma com foco em CPA.`,
+    next5: [`Identificar Country Manager e Head de Performance via LinkedIn até 05/Jul`, `Pesquisar estrutura de agência via job postings LinkedIn até 07/Jul`, `Preparar proposta Copa 2026 com forecast de aquisição até 12/Jul`, `Outreach ao Country Manager com benchmark europeu até 15/Jul`, `Agendar demo da plataforma com equipe de performance até 22/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  telesena_tp: {
+    sfdc: `BR-00103`,
+    meddpicc: `Jun 2026`,
+    rationale: `Título de capitalização mais popular do Brasil — público massivo classes C/D em portais populares onde Taboola domina. Budget nacional de mídia da SulAmérica Cap. comprovado. Re-checking: monitorar lançamentos de edições especiais (Copa, Natal) + plano de mídia SulAmérica.`,
+    whyAct: `Tele Sena concentra >80% da verba em TV aberta mas não tem estratégia de digital mid-funnel. O público (classes C/D, 25-55) consome massivamente portais populares (R7, UOL, Terra) durante o dia — exatamente o inventário premium Taboola. Conteúdo editorial "como funciona a Tele Sena" e "sonhos realizados" converte com CTR 3x acima da média de display.`,
+    whyNow: `Edição especial Copa 2026 está sendo planejada agora. Digitalização do produto (app Tele Sena) cria necessidade urgente de aquisição digital que TV sozinha não supre. Monitor: acompanhar anúncios de novas edições especiais.`,
+    whyTaboola: `Alcance massivo em Correio 24 Horas (29,9M PV), Metrópoles (15,8M), O Globo (13,9M), R7 (6,1M), Terra BR e NDmais — exatamente os portais populares consumidos pelas classes C/D. Segmentação por interesse em loterias, capitalização e sorteios. Cobertura de cidades do interior que TV não rastreia com precisão.`,
+    agencyState: `Agência de WPP ou Publicis (identificar para SulAmérica). Mídia digital possivelmente inhouse ou agência de performance. Estratégia ainda concentrada em TV.`,
+    agencyPlan: `1) Identificar agência via LinkedIn. 2) Proposta de awareness digital como complemento à TV. 3) Win para agência: relatório de alcance incremental vs TV com dados demográficos C/D.`,
+    es: `Diretor de Marketing SulAmérica Capitalização`,
+    ol: `Gerente de Marketing Digital / Head de Mídia`,
+    doers: `Analista de Mídia Digital`,
+    esEngagement: `Abordar com insight: "TV cobre alcance, mas digital C/D em portais populares converte com custo 60% abaixo do Google Search." Propor piloto edição Copa 2026.`,
+    olEngagement: `Apresentar audiências de portais populares com perfil demográfico C/D. Propor campanha de performance para downloads do app Tele Sena com CPI meta.`,
+    doerEngagement: `Setup pixel + otimização CPA para download de app ou lead de capitalização. Dashboard semanal de performance.`,
+    next5: [`Mapear Diretor de Marketing SulAmérica Cap via LinkedIn até 06/Jul`, `Identificar agência de mídia responsável até 08/Jul`, `Preparar análise de audiências C/D em portais Taboola até 10/Jul`, `Outreach personalizado com proposta Copa 2026 até 14/Jul`, `Agendar reunião com equipe de marketing até 21/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  cyrela_tp: {
+    sfdc: `BR-00104`,
+    meddpicc: `Jun 2026`,
+    rationale: `R$13bi em lançamentos em 2025 — maior incorporadora do Brasil. Público A/B (30-45) consome portais financeiros e lifestyle onde Taboola tem inventário premium. Jornada de compra 90-180 dias = perfeito para mid-funnel native. Re-checking: releases trimestrais CYRE3 + anúncios de lançamentos.`,
+    whyAct: `Cyrela investe pesado em Google e portais imobiliários (ZAP+) que capturam quem já decidiu — mas ignora o momento anterior: quando o executivo lê sobre mercado imobiliário no Valor Econômico. Taboola neste momento de intent passivo gera leads 50% mais qualificados a custo menor, pois a decisão ainda está sendo formada.`,
+    whyNow: `Cyrela anunciou R$6bi em lançamentos para 2S2026 — budget está sendo planejado agora. Lançamento do Cyrela Huma (inovação urbana) cria nova linha de produto. Queda da Selic prevista estimula decisão de compra.`,
+    whyTaboola: `Inventário em Valor Econômico (6,9M PV), O Globo (13,9M), Folha de S.Paulo (6,8M), Metrópoles (15,8M) e Terra BR — leitura diária do comprador Cyrela (perfil A/B, 30-45). SmartBid para lead qualificado com custo por visita ao stand. Audiences de alto padrão impossíveis de replicar em Meta.`,
+    agencyState: `Publicis Media (Starcom) é provável AOR de mídia. Equipe inhouse de marketing robusta. Taboola tem presença tática — sem estratégia de conteúdo editorial premium.`,
+    agencyPlan: `1) Confirmar AOR via LinkedIn. 2) Abordagem à Starcom com case de real estate premium em native. 3) Proposta conjunta para lançamentos 2S2026. Win: curadoria exclusiva de inventário financeiro/lifestyle para os lançamentos — diferencial no portfólio da agência.`,
+    es: `Diretora Executiva de Marketing Cyrela`,
+    ol: `Gerente de Performance e Digital Marketing`,
+    doers: `Analista de Mídia — equipe inhouse ou Starcom`,
+    esEngagement: `"Comprador de R$2mi+ de imóvel está no Valor Econômico antes de ir ao ZAP+. Aqui está como capturar essa intenção antes do concorrente." Pre-empt: "Já usamos portais imobiliários" → Taboola captura a fase anterior, complementando não canibaliza.`,
+    olEngagement: `Apresentar funil completo: Taboola (awareness/intent) → portais imobiliários (consideração) → Google (busca ativa). Propor piloto para lançamento específico 60 dias com meta de CPL.`,
+    doerEngagement: `Setup de pixel com eventos customizados (visita ao stand, download de planta). Otimização CPA para lead qualificado. Suporte na criação de conteúdo nativo.`,
+    next5: [`Confirmar AOR de mídia (Starcom?) via LinkedIn até 05/Jul`, `Mapear Diretora de Marketing e Gerente de Performance até 07/Jul`, `Preparar case de real estate premium + forecast CPL para 2S2026 até 11/Jul`, `Outreach ao ES com insight de timing de decisão de compra até 14/Jul`, `Proposta formal para lançamentos 2S2026 até 21/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  cnp_tp: {
+    sfdc: `BR-00105`,
+    meddpicc: `Jun 2026`,
+    rationale: `Alta Selic = melhor argumento de vendas do consórcio. Jornada longa de decisão (mid-funnel) é onde Taboola agrega mais valor. Classes B/C pesquisam em portais de finanças pessoais. Re-checking: monitorar decisões COPOM mensalmente + comunicações ABAC sobre captação de novas cotas.`,
+    whyAct: `CNP perde leads no mid-funnel. Usuários pesquisam "financiamento vs consórcio" em portais financeiros e encontram artigos de bancos — não de consórcio. Conteúdo nativo educativo sobre vantagens do consórcio em UOL Economia, IG Finanças e Infomoney captura essa intenção com CPL 40% menor que Google Search.`,
+    whyNow: `Selic em patamar elevado (10,5%+) é o argumento mais forte do consórcio. Cada reunião COPOM que mantém Selic alta é um trigger de comunicação. Concorrentes Porto Seguro e Embracon estão escalando digital.`,
+    whyTaboola: `Inventário em Valor Econômico (6,9M PV), O Globo (13,9M), Folha de S.Paulo (6,8M), Metrópoles, Terra BR e NDmais — onde o cliente de consórcio B/C pesquisa antes de decidir. SmartBid para lead de consórcio. Retargeting de visitantes do site CNP que não preencheram formulário.`,
+    agencyState: `Agência de performance independente ou inhouse (identificar). Budget focado em Google Search — digital mid-funnel é gap.`,
+    agencyPlan: `1) Identificar estrutura via LinkedIn. 2) Abordagem direta ao time de marketing. 3) Proposta de CPL garantido para lead de consórcio — modelo de performance que elimina risco.`,
+    es: `Diretor Comercial / Head de Marketing CNP`,
+    ol: `Gerente de Marketing Digital`,
+    doers: `Analista de Mídia Paga`,
+    esEngagement: `"Com Selic em 10,5%, o consórcio nunca teve argumento tão forte — mas seus concorrentes já capturam essa busca em portais de finanças. Posso mostrar como." Pre-empt de custo: CPL garantido assegura ROI desde o primeiro lead.`,
+    olEngagement: `Mapa de intenção: quem pesquisa "consórcio imóvel" nos portais Taboola. Propor teste 30 dias com meta de CPL acordada antecipadamente.`,
+    doerEngagement: `Setup de formulário lead nativo na plataforma (sem redirecionar para site externo). Otimização semanal de CTR e conversão.`,
+    next5: [`Identificar Diretor Comercial e Head de Marketing via LinkedIn até 06/Jul`, `Preparar análise de share of voice "consórcio" em portais financeiros Taboola até 09/Jul`, `Outreach com narrativa Selic + CPL garantido até 13/Jul`, `Agendar demo com equipe de marketing até 18/Jul`, `Proposta formal com meta de CPL e forecast até 25/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  ibmec_tp: {
+    sfdc: `BR-00106`,
+    meddpicc: `Jun 2026`,
+    rationale: `Grupo Yduqs (YDUQ3) — maior anunciante de educação do Brasil. IBMEC tem público A/B que consome Valor Econômico, Exame e portais de negócios — inventário premium Taboola. Ticket R$3-5k/mês justifica CAC alto. Re-checking: releases YDUQ3 trimestrais + calendário de captação MBA.`,
+    whyAct: `IBMEC usa as mesmas táticas de mídia que Anhanguera (Google + Meta) para competir com FGV e Insper por executivos 28-45. Executivo que lê Exame sobre "carreira e gestão" e clica em conteúdo nativo IBMEC tem intenção implícita que Search não captura — CPA 45% menor e qualidade de lead superior.`,
+    whyNow: `Janela MBA e pós-graduação 2S2026 começa Jun/Jul. IBMEC lançou cursos de Executive Education em parceria internacional — compelling event de comunicação.`,
+    whyTaboola: `Inventário em Valor Econômico (6,9M PV), O Globo (13,9M), Folha de S.Paulo (6,8M), Metrópoles (15,8M) e Terra BR — leitura diária do executivo IBMEC. Audiences "executivos + negócios + alta renda" diferenciadas da Estácio que usa portais populares.`,
+    agencyState: `Spark Foundry (Publicis) gerencia mídia Grupo Yduqs. Equipe inhouse de performance. Taboola existe mas é tático — sem estratégia de conteúdo premium diferenciado de Estácio.`,
+    agencyPlan: `1) Mapear contato Spark Foundry responsável por Yduqs. 2) Apresentar estratégia de conteúdo nativo diferenciada de Estácio (mesma agência). 3) Win para Spark: proposta que aumenta share of voice do portfólio Yduqs sem canibalizar Estácio — novo case para o portfólio da agência.`,
+    es: `VP de Marketing Grupo Yduqs / Diretora de Marketing IBMEC`,
+    ol: `Gerente de Performance e Captação Digital — IBMEC`,
+    doers: `Analista de Mídia Digital — Spark Foundry ou inhouse`,
+    esEngagement: `"IBMEC precisa de estratégia de mídia distinta da Estácio — portais de negócios premium são o canal certo para o público executivo." Pre-empt de duplicidade com Estácio: segmentação de audiência e publisher completamente diferente — publishers financeiros vs portais populares.`,
+    olEngagement: `Benchmark de CTR em Valor Econômico e Exame para educação executiva. Propor calendário de campanhas MBA 2S2026 com metas de CPL.`,
+    doerEngagement: `Biblioteca de conteúdo nativo sobre liderança, carreira e gestão com branding IBMEC. Setup técnico pixel e eventos de conversão no CRM de captação.`,
+    next5: [`Mapear VP Marketing Yduqs e Gerente Performance IBMEC via LinkedIn até 05/Jul`, `Identificar contato Spark Foundry responsável pela conta até 07/Jul`, `Preparar proposta diferenciada IBMEC vs Estácio com exemplos de conteúdo nativo até 11/Jul`, `Outreach ao OL com análise de audiências em portais de negócios até 14/Jul`, `Reunião trilateral IBMEC + Spark + Taboola até 22/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  estacio_tp: {
+    sfdc: `BR-00107`,
+    meddpicc: `Jun 2026`,
+    rationale: `>700 mil alunos, maior rede EaD privada do Brasil. Grupo Yduqs com budget massivo. Taboola tem alcance em portais populares (UOL, R7, Terra) — habitat natural do público Estácio (classes B/C). Re-checking: releases YDUQ3 + monitor de concorrentes via SimilarWeb ads.`,
+    whyAct: `Trabalhador classe C que pensa "preciso terminar a faculdade" está no R7 ou UOL no intervalo do almoço — não pesquisando no Google ainda. Conteúdo nativo "graduação que cabe no bolso e na agenda" neste momento gera leads com CPL 55% abaixo do Search, pois captura intenção em formação antes que vire busca competitiva.`,
+    whyNow: `Janela Jan–Fev 2027 começa a ser ativada Set–Out/26. Concorrentes Anhanguera e Cruzeiro do Sul já escalam native. Yduqs anunciou foco em rentabilidade — argumento de CPL menor ressoa fortemente na liderança.`,
+    whyTaboola: `Inventário em Correio 24 Horas (29,9M PV), Metrópoles (15,8M), O Globo (13,9M), R7 (6,1M), Terra BR e NDmais — mesmo ecossistema digital do público Estácio (B/C). Segmentação por comportamento: emprego, requalificação, salário. Volume suficiente para as metas de captação de uma IES com 700 mil alunos.`,
+    agencyState: `Spark Foundry (Publicis) AOR para Yduqs — conta Estácio separada de IBMEC. Taboola tem presença tática sem estratégia editorial.`,
+    agencyPlan: `1) Contato Spark Foundry já mapeado para IBMEC — usar para Estácio. 2) Proposta de volume e CPL: Estácio precisa de escala, não de premium. 3) Win para Spark: benchmark de Anhanguera que já usa Taboola — mostrar que concorrente está à frente.`,
+    es: `VP de Marketing Yduqs / Diretora de Marketing Estácio`,
+    ol: `Gerente de Captação Digital e Performance`,
+    doers: `Analista de Mídia — Spark Foundry conta Estácio`,
+    esEngagement: `"Estácio pode reduzir CPL em 40% com native em portais populares — aqui está o modelo de atribuição comparado com Anhanguera que já usa." Pre-empt de qualidade de lead: mostrar dados de matrícula de leads nativos vs Search.`,
+    olEngagement: `Mapa de audience overlap: leitores de portais populares vs perfil de alunos Estácio. Propor piloto 45 dias com meta de CPL para EaD.`,
+    doerEngagement: `Templates de anúncios nativos para EaD pré-aprovados. Otimização automática via SmartBid. Setup simples sem demandar muito da equipe.`,
+    next5: [`Usar contato Spark Foundry mapeado para IBMEC — solicitar introdução conta Estácio até 08/Jul`, `Preparar proposta de volume + CPL para EaD especificamente até 10/Jul`, `Benchmark de concorrente Anhanguera usando native até 12/Jul`, `Outreach ao Gerente de Captação Estácio até 15/Jul`, `Proposta formal com forecast de leads para 2S2026 até 22/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  idomed_tp: {
+    sfdc: `BR-00108`,
+    meddpicc: `Jun 2026`,
+    rationale: `Medicina: maior ticket do ensino privado (R$8-15k/mês), LTV extraordinário, leads escassos e valiosos. Concorre diretamente com Afya (carteira ativa). Jornada longa e pesquisada = mid-funnel é onde Taboola entrega maior valor. Re-checking: monitorar aprovações MEC de vagas + expansão de campi.`,
+    whyAct: `Família de candidato pesquisa "melhor faculdade de medicina", "custo medicina" em portais de saúde e educação semanas antes de visitar o site da IES. Idomed não está presente nesse momento de discovery — Afya está. Conteúdo editorial nativo neste momento captura intenção precoce com qualidade de lead superior ao Search.`,
+    whyNow: `ENEM 2026 (Nov) é o principal trigger de matrícula. Planning de campanhas Nov–Jan começa agora. Afya (concorrente direto na carteira) já tem estratégia de native em andamento — urgência competitiva real.`,
+    whyTaboola: `Inventário em O Globo (13,9M PV), Metrópoles (15,8M), Tudo Gostoso (16,8M), Folha de S.Paulo (6,8M), NDmais e Terra BR — portais que famílias A/B acessam ao pesquisar saúde e vestibular. SmartBid para lead de alta intenção antes do ENEM. Audiences "medicina + saúde + vestibular".`,
+    agencyState: `Agência de médio porte especializada em educação ou inhouse (identificar). Performance centrada em Google Search e Meta.`,
+    agencyPlan: `1) Identificar agência via LinkedIn. 2) Propor native como complemento ao Search — não substituto. 3) Win: alcançar candidatos antes da busca ativa, quando a decisão ainda está sendo formada — lead de maior qualidade.`,
+    es: `CEO / Diretor de Marketing Grupo Idomed`,
+    ol: `Gerente de Marketing e Captação`,
+    doers: `Analista de Mídia Digital`,
+    esEngagement: `"Afya (sua concorrente direta na carteira) está capturando candidatos 60 dias antes do ENEM em portais de saúde. Aqui está como Idomed pode fechar esse gap." Pre-empt de budget: menor ticket inicial, escala conforme resultado.`,
+    olEngagement: `Mapa de conteúdo nativo: temas de medicina que geram leads qualificados. Propor piloto ENEM 2026: Set–Nov com meta de CPL para lead de medicina.`,
+    doerEngagement: `Setup de pixel para jornada do candidato. Conteúdo nativo pré-produzido sobre carreira médica.`,
+    next5: [`Mapear CEO e Gerente de Marketing Idomed via LinkedIn até 06/Jul`, `Preparar análise de presença de concorrentes (Afya) em portais de saúde Taboola até 09/Jul`, `Criar proposta de conteúdo nativo para ENEM 2026 até 12/Jul`, `Outreach ao ES com comparativo vs Afya até 15/Jul`, `Demo + proposta formal até 23/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  iesb_tp: {
+    sfdc: `BR-00109`,
+    meddpicc: `Jun 2026`,
+    rationale: `IES regional premium do DF — mercado captivo de servidores públicos e classes A/B da capital. Geo-targeting preciso do Taboola (Brasília + Goiânia) é diferencial competitivo que nenhum concorrente regional tem. Re-checking: PAS/UnB + calendário vestibular DF + lançamentos de cursos.`,
+    whyAct: `IESB, UCB e UniCEUB usam as mesmas táticas de Search e Meta sem diferenciação. Servidor público do DF que lê G1 DF ou Correio Braziliense no celular no trabalho é o candidato ideal para pós IESB — mas IESB não aparece nesse momento. Conteúdo nativo geo-focado no DF captura essa audiência com CPL 50% menor que Search.`,
+    whyNow: `PAS 3 (UnB) gerou intenção de matrícula em IES privadas. Janela de captação 1S2026 está ativa. IESB lançou novos cursos de pós em Gestão Pública — compelling event.`,
+    whyTaboola: `Geo-targeting preciso no DF: inventário em O Globo (13,9M PV), Metrópoles DF (2,3M), Correio Braziliense (3,5M), NDmais e Terra BR — publishers lidos por servidores públicos e profissionais de Brasília. Sem concorrência de IES de fora do DF no mesmo inventário — vantagem geográfica exclusiva.`,
+    agencyState: `Agência local do DF ou inhouse (identificar). Mídia focada em Google e Meta locais.`,
+    agencyPlan: `1) Identificar agência/inhouse via LinkedIn. 2) Proposta de geo-targeting DF como diferencial exclusivo. 3) Win: alcance em portais locais onde Meta e Google têm menor penetração regional.`,
+    es: `Reitor / VP de Marketing IESB`,
+    ol: `Coordenador de Marketing e Captação`,
+    doers: `Analista Digital`,
+    esEngagement: `"UCB já está usando native em portais do DF para captação. IESB pode ter vantagem geográfica exclusiva — aqui está o plano." Pre-empt de escala: mercado DF justifica investimento menor com resultado proporcional ao tamanho do mercado.`,
+    olEngagement: `Inventário de publishers locais do DF disponíveis via Taboola. Propor campanha de lead para pós-graduação com CPL meta.`,
+    doerEngagement: `Setup técnico simplificado com foco em campanha geo-local. Otimização de CTR em portais locais do DF.`,
+    next5: [`Identificar VP Marketing e Coordenador de Captação IESB via LinkedIn até 07/Jul`, `Mapear publishers locais DF disponíveis no inventário Taboola até 08/Jul`, `Preparar proposta geo-focada com benchmark de IES no DF até 12/Jul`, `Outreach personalizado ao Coordenador de Marketing até 16/Jul`, `Reunião demo + proposta formal até 24/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  poliedro_tp: {
+    sfdc: `BR-00110`,
+    meddpicc: `Jun 2026`,
+    rationale: `Sistema de ensino nacional — decisão dos PAIS, não dos alunos. Pais classes A/B de SP interior e capitais consomem portais de notícia e informação (G1, Estadão) onde Taboola domina. Ticket alto e ciclo de matrícula Ago–Nov previsível. Re-checking: calendário vestibulares + ENEM + ciclo de matrículas.`,
+    whyAct: `Poliedro anuncia em TV para pais mas ignora o momento em que o pai está no G1 ou Estadão lendo notícias de educação (aprovações, ranking de colégios) — com intenção implícita que nenhuma outra plataforma captura. Conteúdo nativo sobre "taxa de aprovação" e "qual sistema de ensino escolher" neste contexto gera leads de pais com LTV muito alto.`,
+    whyNow: `Matrículas 2027 começam Ago–Out/26 — janela crítica está a 6 semanas. Expansão do Sistema Poliedro para novas cidades = necessidade de awareness em novos mercados.`,
+    whyTaboola: `Inventário em O Globo (13,9M PV), Folha de S.Paulo (6,8M), Metrópoles (15,8M), Valor Econômico e Terra BR — leitura diária de pais classes A/B. Geo-targeting em cidades do interior de SP via NDmais e portais regionais. Audiences "pais + educação + alta renda".`,
+    agencyState: `Agência de educação especializada (identificar). Foco em TV e Search para captação de pais. Native ainda é canal não explorado.`,
+    agencyPlan: `1) Identificar agência via LinkedIn. 2) Proposta de native como canal complementar para alcançar pais em contexto informativo. 3) Win: case de inovação no mix de mídia para apresentar ao cliente — primeiro sistema de ensino em native editorial.`,
+    es: `Diretor Comercial / VP de Marketing Poliedro`,
+    ol: `Gerente de Marketing e Matrículas`,
+    doers: `Analista de Mídia e Performance`,
+    esEngagement: `"COC e SAS já estão capturando pais em portais premium — aqui está o benchmark e como Poliedro pode ter vantagem antes do pico de matrículas." Pre-empt: "Já temos TV" → complementaridade, não substituição.`,
+    olEngagement: `Exemplos de conteúdo nativo de sistemas de ensino em portais premium. Propor piloto 45 dias para matrículas 2027 com meta de leads de pais.`,
+    doerEngagement: `Setup pixel de conversão para formulário de interesse de pais. Criação de templates de conteúdo nativo sobre aprovações em vestibulares.`,
+    next5: [`Identificar Diretor Comercial e Gerente de Marketing via LinkedIn até 07/Jul`, `Pesquisar agência responsável via anúncios Poliedro até 09/Jul`, `Preparar exemplos de conteúdo nativo para pais + forecast CPL até 13/Jul`, `Outreach ao VP Marketing com dado competitivo até 16/Jul`, `Agendar reunião antes do pico de matrículas (antes de Ago) até 25/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  sebrae_tp: {
+    sfdc: `BR-00111`,
+    meddpicc: `Jun 2026`,
+    rationale: `Budget nacional de comunicação e 17,7 mi de MPEs como público-alvo — fit perfeito com alcance massivo Taboola. Agosto = Mês do Empreendedor (maior pico de ativação). Re-checking: edital de campanhas nacionais + plano anual de comunicação Sebrae federal + publicações da diretoria.`,
+    whyAct: `Sebrae tem missão de alcançar empreendedores fora dos grandes centros. Taboola tem inventário em portais regionais e de interior que nenhuma outra plataforma digital atinge com eficiência. O MEI que acessa UOL Notícias ou Terra no celular é o alvo exato do Sebrae — e ainda não está sendo alcançado via native.`,
+    whyNow: `Mês do Empreendedor (Ago/26) está a 6 semanas — planning em andamento. Sebrae está em processo de planejamento orçamentário para 2S2026. Lançamento de novo programa de aceleração = compelling event de comunicação.`,
+    whyTaboola: `Alcance em Correio 24 Horas (29,9M PV), NDmais (33M+), Metrópoles (15,8M), O Globo (13,9M), R7 (6,1M), Campo Grande News (3,7M), Diario do Nordeste (1,2M) e Gaúcha ZH — cobertura nacional incluindo interior. Volume compatível com campanhas nacionais a custo inferior à TV com ROI por estado.`,
+    agencyState: `Agência licitada pelo Sebrae (possivelmente WPP ou Publicis via processo público). Verificar se Taboola é fornecedor homologado antes da abordagem.`,
+    agencyPlan: `1) Verificar status de homologação de Taboola como fornecedor Sebrae. 2) Identificar agência responsável pela conta via editais públicos e LinkedIn. 3) Propor parceria via agência habilitada. 4) Win: case de alcance nacional a custo inferior à TV com comprovação de ROI por estado.`,
+    es: `Superintendente de Marketing do Sebrae Nacional`,
+    ol: `Gerente de Comunicação e Marketing Digital`,
+    doers: `Coordenador de Mídia Digital`,
+    esEngagement: `"Sebrae quer alcançar MEI no interior do Brasil — Taboola tem inventário em portais regionais onde TV não chega com eficiência. Aqui está o mapa de cobertura por estado." Pre-empt de processo público: proposta via AOR habilitado.`,
+    olEngagement: `Mapa de inventário regional + audiences de empreendedores. Propor campanha Mês do Empreendedor com meta de alcance único por estado.`,
+    doerEngagement: `Relatórios de alcance por estado para comprovar cobertura nacional. Facilitação de processo de tag e pixel.`,
+    next5: [`Verificar status de Taboola como fornecedor homologado Sebrae até 05/Jul`, `Identificar agência responsável via editais públicos e LinkedIn até 08/Jul`, `Mapear Superintendente de Marketing e Gerente Digital até 09/Jul`, `Preparar proposta de Mês do Empreendedor com mapa de alcance regional até 13/Jul`, `Outreach via agência habilitada para Ago/26 até 18/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  azul_tp: {
+    sfdc: `BR-00112`,
+    meddpicc: `Jun 2026`,
+    rationale: `Copa 2026 + maior malha do Brasil (160+ destinos) = maior oportunidade de viagem da história recente. Azul domina cidades do interior que só ela atende — geo-targeting preciso é diferencial único. Azul Viagens +31% em 2025 valida modelo de pacotes. Re-checking: resultados AZUL4 + anúncios de novas rotas trimestralmente.`,
+    whyAct: `Passageiro de cidade pequena do interior não usa Google Flights — acessa portais de notícias locais no celular. Azul é a única opção de voo dessa pessoa, mas ela não sabe que o preço está acessível agora. Conteúdo nativo em portais regionais com "Promoção de voos diretos de [cidade]" gera conversão com ROI muito superior ao Search nessas praças de menor competição.`,
+    whyNow: `Copa 2026 começa Jun/26 — planejamento de viagem do brasileiro começa agora. Azul Viagens lançando pacotes Copa. TudoAzul tem base de milhões de membros para retargeting com inventário já existente.`,
+    whyTaboola: `Inventário em NDmais (33M+ PV, forte no Sul/interior), Correio 24 Horas (29,9M), Climatempo (18M+ — viajante consulta tempo), Metrópoles (15,8M), O Globo, Campo Grande News e Gaúcha ZH — portais regionais que cobrem exatamente as rotas exclusivas Azul. SmartBid para reserva direta. Geo-targeting preciso por cidade de origem.`,
+    agencyState: `Mindshare (WPP) é AOR de mídia da Azul. Relação com Taboola via trading desk mas sem estratégia de geo-targeting regional. Agência tem incentivo de volume.`,
+    agencyPlan: `1) Identificar contato Mindshare responsável pela conta Azul. 2) Apresentar estratégia de geo-targeting regional como diferencial único. 3) Win para Mindshare: case de inovação em mídia para apresentar ao cliente — geo-targeting de interior que nenhum outro veículo oferece.`,
+    es: `VP de Marketing / CMO Azul`,
+    ol: `Head de E-commerce e Performance Digital`,
+    doers: `Gerente de Mídia Paga — Mindshare ou inhouse`,
+    esEngagement: `"Azul tem a oportunidade de ser a companhia aérea da Copa para o Brasil do interior — aqui está como capturar esse público antes da LATAM e GOL que focam nas capitais." Pre-empt de resultado: benchmark de CTR de conteúdo de viagem por cidade pequena.`,
+    olEngagement: `Mapa de inventário regional com overlap de rotas exclusivas Azul. Propor campanha Copa 2026 com geo-targeting por cidade de origem. Meta: reservas diretas com CPA definido.`,
+    doerEngagement: `Integração pixel TudoAzul para retargeting. Setup de campanhas geo-locais por rota. Dashboard de performance em tempo real.`,
+    next5: [`Identificar contato Mindshare responsável pela conta Azul até 05/Jul`, `Mapear VP Marketing e Head de E-commerce Azul via LinkedIn até 07/Jul`, `Preparar mapa de inventário regional por rotas exclusivas Azul até 10/Jul`, `Proposta Copa 2026 com forecast de reservas para Mindshare até 14/Jul`, `Reunião trilateral Azul + Mindshare + Taboola até 21/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  gol_tp: {
+    sfdc: `BR-00113`,
+    meddpicc: `Jun 2026`,
+    rationale: `GOL saiu do Chapter 11 em Jun/25 — nova gestão (Grupo Abra) focada em eficiência e ROI. Equipe nova aberta a testar canais com ROI claro. Base Smiles (milhões de membros) = retargeting valioso. Re-checking: resultados GOLL4 + novas nomeações de liderança via LinkedIn.`,
+    whyAct: `GOL perdeu share de marca durante reestruturação. Novo positioning de "GOL reinventada" precisa de conteúdo editorial que conta a história — não só anúncios de preço. Conteúdo nativo "nova GOL" e "destinos favoritos" com CTR de curiosidade converte em reservas a custo menor que Search e sem dependência de bilheteiros de comparação.`,
+    whyNow: `Copa 2026 é a primeira grande janela pós-reestruturação. Nova liderança busca eficiência de marketing. Smiles está sendo reavaliada — oportunidade de retargeting via pixel de membros.`,
+    whyTaboola: `Inventário em Climatempo (18M+ PV — viajante consulta tempo), Metrópoles (15,8M), O Globo (13,9M), R7 (6,1M), Terra BR e NDmais — base ampla de usuários que viajam. SmartBid para reserva com tracking de conversão fim-a-fim. Retargeting de membros Smiles via pixel.`,
+    agencyState: `Estrutura de agência pós-reestruturação em revisão (identificar — pode ter mudado). Equipe inhouse de marketing em reconstituição.`,
+    agencyPlan: `1) Identificar nova estrutura de marketing pós-Chapter 11 via LinkedIn. 2) Abordagem direta: proposta de eficiência com CPL/CPA comprovável. 3) Win: relatório de ROI semanal que nova gestão pode apresentar ao board do Grupo Abra.`,
+    es: `CMO GOL (nova gestão Grupo Abra)`,
+    ol: `Head de E-commerce e Revenue Digital`,
+    doers: `Analista de Performance`,
+    esEngagement: `"GOL 2.0 precisa de canais onde cada real de mídia tem ROI rastreável. Aqui está como Taboola entrega isso com dashboard em tempo real para o board." Pre-empt de budget restrito: modelo de CPA garante gasto eficiente.`,
+    olEngagement: `Framework de performance: pixel de reserva → SmartBid → relatório de ROAS por campanha. Proposta Copa 2026 com funil de conversão rastreável.`,
+    doerEngagement: `Setup de conversão rastreável fim-a-fim. Dashboard de performance dedicado à nova equipe GOL.`,
+    next5: [`Identificar novo CMO e Head de E-commerce pós-Grupo Abra via LinkedIn até 06/Jul`, `Pesquisar nova estrutura de agência via job postings GOL até 09/Jul`, `Preparar proposta Copa 2026 com foco em eficiência e ROI rastreável até 12/Jul`, `Outreach ao CMO com narrativa de GOL 2.0 até 16/Jul`, `Demo da plataforma com foco em performance tracking até 24/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  cvc_tp: {
+    sfdc: `BR-00114`,
+    meddpicc: `Jun 2026`,
+    rationale: `CVC voltou ao lucro (R$67mi em 2025) — nova fase de investimento em crescimento. Copa 2026 é o maior evento da história para operadoras de turismo. 1.597 lojas = público de cidades médias que é o core do inventário Taboola. Re-checking: resultados CVCB3 + anúncios de pacotes Copa.`,
+    whyAct: `CVC vende pacotes principalmente via TV e lojas físicas, mas o cliente que vai parcelar a viagem da Copa está pesquisando em portais de turismo e notícias antes de ir à loja. Conteúdo nativo "pacotes Copa 2026 com parcelamento" em portais populares captura essa intenção pré-loja e aumenta conversão na loja física com ROI rastreável.`,
+    whyNow: `Copa 2026 começa Jun/26 — pacotes já sendo vendidos. Lucro em 2025 libera budget de marketing. Concorrentes Decolar e Booking já estão em portais de notícia. Janela de planejamento de viagem de 6 meses é agora.`,
+    whyTaboola: `Inventário em Climatempo (18M+ PV), Correio 24 Horas (29,9M), Metrópoles (15,8M), O Globo (13,9M), R7 (6,1M), Terra BR e NDmais — perfil da base CVC (cidades médias, B/C). Conteúdo nativo de viagem com CTR historicamente alto. SmartBid para lead de pacote Copa 2026.`,
+    agencyState: `Agência de WPP ou Publicis para CVC Corp (identificar). Mídia pesada em TV — digital ainda é secundário. Oportunidade de crescimento do canal digital com Copa.`,
+    agencyPlan: `1) Identificar AOR de mídia via LinkedIn. 2) Proposta complementar à TV: digital captura intenção que TV ativa mas não converte. 3) Win: case Copa 2026 com ROI digital comprovável — incremento em vendas de pacotes rastreável por loja física.`,
+    es: `CMO CVC Corp`,
+    ol: `Diretora de Marketing Digital e Performance`,
+    doers: `Analista de Mídia Paga`,
+    esEngagement: `"CVC vai ser a operadora da Copa do Mundo para o Brasil — mas para isso precisa estar onde o cliente pesquisa antes de ir à loja. Aqui está o plano." Pre-empt de canal: native complementa TV — não canibaliza.`,
+    olEngagement: `Funil Copa: portais Taboola → site CVC → loja física. Propor tracking de conversão de lead a venda de pacote.`,
+    doerEngagement: `Setup pixel para rastreamento de interesse em pacotes Copa. Templates de conteúdo nativo de destinos Copa 2026.`,
+    next5: [`Identificar CMO e Diretora de Marketing Digital CVC via LinkedIn até 05/Jul`, `Mapear AOR de mídia responsável até 08/Jul`, `Preparar proposta Copa 2026 com forecast de leads e conversão até 11/Jul`, `Outreach ao CMO com narrativa Copa da Copa até 15/Jul`, `Proposta formal para campanha Copa com agência até 22/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  copacol_tp: {
+    sfdc: `BR-00115`,
+    meddpicc: `Jun 2026`,
+    rationale: `Cooperativa com budget nacional e foco em proteína acessível — público B/C/D em portais populares. Sazonalidades previsíveis (Carnaval, Festas Juninas, Natal, Copa) criam janelas claras de ativação. Re-checking: calendário de campanhas Copacol + lançamentos de produtos + Copa 2026.`,
+    whyAct: `Copacol investe em TV regional (Sul) mas não tem estratégia de digital nacional. A consumidora que pesquisa receita no celular antes do supermercado em SP ou RJ não encontra Copacol em portais culinários — BRF e JBS estão lá. Conteúdo nativo de receita com Copacol em portais culinários (TudoGostoso, Cybercook) converte em intenção de compra com ROI mensurável que TV não rastreia.`,
+    whyNow: `Festas Juninas (Jun–Jul) são pico de consumo de frango. Copa 2026: churrasco e petiscos = demanda de pico. Copacol pode estar planejando expansão de comunicação para além do Sul.`,
+    whyTaboola: `Inventário dominante em Tudo Gostoso (16,8M PV — maior portal de receitas do Brasil), Correio 24 Horas (29,9M), Metrópoles (15,8M), O Globo (13,9M), NDmais e Terra BR. Conteúdo de receitas com CTR 5x acima da média de display. Geo-targeting expandindo Copacol para além do Sul.`,
+    agencyState: `Agência regional do Sul (identificar). Mídia concentrada em TV regional e trade marketing. Digital ainda é oportunidade subexplorada.`,
+    agencyPlan: `1) Identificar agência regional via LinkedIn. 2) Proposta de expansão digital nacional. 3) Win: novo canal que expande reach geográfico com ROI mensurável — case inovador para agência regional.`,
+    es: `Diretor de Marketing Copacol`,
+    ol: `Gerente de Marketing e Trade`,
+    doers: `Analista de Marketing Digital`,
+    esEngagement: `"Copacol vende em todo o Brasil mas só tem mídia no Sul — aqui está como alcançar consumidoras de SP, RJ e Nordeste com custo de conteúdo de receitas nativos." Pre-empt regional: conteúdo de receitas performa em qualquer região do Brasil.`,
+    olEngagement: `Benchmark de CTR de receitas em portais culinários. Propor campanha Copa 2026 com tema "churrasco e petiscos Copacol". Meta: tráfego para site de receitas.`,
+    doerEngagement: `Templates de receitas pré-criados. Setup simples de campanha de conteúdo nativo.`,
+    next5: [`Identificar Diretor e Gerente de Marketing Copacol via LinkedIn até 07/Jul`, `Preparar benchmark CTR receitas + proposta Copa 2026 até 11/Jul`, `Outreach ao Gerente de Marketing com case de culinária nativa até 15/Jul`, `Demo com exemplos de frango em portais Taboola até 21/Jul`, `Proposta formal para Copa + Festas Juninas até 25/Jul`],
+    reviewDate: `Set 2026`
+  },
+  fogodechao_tp: {
+    sfdc: `BR-00116`,
+    meddpicc: `Jun 2026`,
+    rationale: `Restaurante premium com decisão de reserva pesquisada — conteúdo editorial de gastronomia é o canal natural. Público A/B em portais de lifestyle e viagem. Datas sazonais previsíveis (Dia dos Pais, Natal, Namorados) geram janelas claras. Re-checking: lançamentos de novos campi + calendário de datas especiais.`,
+    whyAct: `Fogo de Chão depende de Google Search e Instagram, mas o executivo que vai jantar para celebrar não busca primeiro no Google — lê sobre "melhores restaurantes para aniversário" ou "onde jantar em SP" em Veja SP ou Estadão. Conteúdo nativo editorial neste contexto gera intenção de reserva que Search não captura com muito menor custo por reserva.`,
+    whyNow: `Dia dos Pais (Ago/26) está a 6 semanas — maior pico de reservas depois do Natal. Planning começa agora. Expansão para novas cidades cria necessidade de awareness em novos mercados.`,
+    whyTaboola: `Inventário em O Globo (13,9M PV), Folha de S.Paulo (6,8M), Metrópoles (15,8M), Tudo Gostoso (16,8M), Marie Claire (1,5M) e Vogue (547k) — publishers lidos pelo público A/B que reserva em restaurante premium. Conteúdo editorial de gastronomia com CTR altíssimo.`,
+    agencyState: `Agência boutique de gastronomia ou branding (identificar). Provavelmente sem estratégia robusta de native.`,
+    agencyPlan: `1) Identificar agência via LinkedIn. 2) Proposta de conteúdo editorial premium como extensão da estratégia de branding. 3) Win: case de native para restaurante premium — pioneiro no segmento no Brasil.`,
+    es: `Diretor de Marketing Fogo de Chão Brasil`,
+    ol: `Gerente de Marketing e Eventos`,
+    doers: `Analista de Mídia Digital`,
+    esEngagement: `"Seu cliente decide onde jantar enquanto lê Veja ou Estadão — não no Google. Aqui está como capturar esse momento com conteúdo editorial que combina com o premium da marca." Pre-empt de formato: native editorial é compatível com posicionamento premium.`,
+    olEngagement: `Exemplos de conteúdo nativo para restaurantes premium. Propor calendário para datas-chave: Dia dos Pais, Natal, Dia dos Namorados.`,
+    doerEngagement: `Conteúdo editorial pré-produzido sobre gastronomia premium. Setup de reserva via OpenTable ou sistema interno.`,
+    next5: [`Identificar Diretor de Marketing Fogo de Chão Brasil via LinkedIn até 07/Jul`, `Preparar exemplos de conteúdo editorial de gastronomia premium até 10/Jul`, `Outreach com insight de comportamento de decisão do cliente A/B até 14/Jul`, `Demo com portfólio de publishers premium Taboola até 20/Jul`, `Proposta Dia dos Pais + Natal com forecast de reservas até 25/Jul`],
+    reviewDate: `Set 2026`
+  },
+  wine_tp: {
+    sfdc: `BR-00117`,
+    meddpicc: `Jun 2026`,
+    rationale: `Wine: R$987mi faturamento, 445 mil assinantes. Público A/B que consome conteúdo editorial de lifestyle e gastronomia. LTV de R$2.400/ano por assinante justifica CAC premium. Re-checking: resultados semestrais Wine + SimilarWeb + monitor de concorrentes Evino/Gran Cru.`,
+    whyAct: `Wine investe em Instagram e email (base já convertida) mas ignora o novo assinante que ainda não está na base. Quem lê artigo "os melhores vinhos de inverno" ou "harmonização para churrasco" em Veja ou Estadão e vê conteúdo Wine tem probabilidade 4x maior de converter do que quem viu anúncio no Meta. Native editorial é o canal de aquisição de novos assinantes mais subutilizado.`,
+    whyNow: `Inverno (Jun–Ago) é pico de consumo de vinho. Copa 2026 = celebrações. Natal é o maior pico de vendas — planning começa em Jul.`,
+    whyTaboola: `Inventário em Valor Econômico (6,9M PV), O Globo (13,9M), Folha de S.Paulo (6,8M), Tudo Gostoso (16,8M), Metrópoles e Marie Claire (1,5M) — culinária e estilo de vida premium. Conteúdo editorial de vinho com CTR historicamente alto. Audiences "gastronomia + renda alta". Retargeting de visitantes do site Wine.`,
+    agencyState: `Equipe inhouse de marketing robusto + agência de performance (identificar). Digital já é canal principal — native ainda não explorado estrategicamente.`,
+    agencyPlan: `1) Identificar Head de Growth/Performance Wine via LinkedIn. 2) Abordagem direta ao time inhouse. 3) Win: benchmark de CAC novo assinante via native vs Meta em 30 dias — dado que a equipe pode apresentar ao board.`,
+    es: `CMO / VP de Growth da Wine`,
+    ol: `Head de Aquisição e Performance Digital`,
+    doers: `Analista de Mídia e Growth`,
+    esEngagement: `"Novo assinante Wine tem LTV de R$2.400/ano. O que é um CPA de R$180 via native editorial? ROI de 13x. Aqui está o modelo." Pre-empt de qualidade: leitores de conteúdo editorial de gastronomia convertem em assinatura premium com ticket alto.`,
+    olEngagement: `Benchmark de CTR conteúdo de vinho em portais premium. Propor A/B: native editorial vs Meta. Meta: novos assinantes com CAC definido.`,
+    doerEngagement: `Setup pixel de assinatura. Templates de conteúdo editorial de vinho pré-produzidos para aprovação rápida.`,
+    next5: [`Identificar CMO e Head de Aquisição Wine via LinkedIn até 05/Jul`, `Preparar benchmark de CAC e LTV com proposta de ROI 13x até 09/Jul`, `Exemplos de conteúdo editorial de vinho para aprovação da marca até 11/Jul`, `Outreach ao CMO com proposta de teste A/B 30 dias até 14/Jul`, `Agendar demo + setup técnico com equipe de performance até 21/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  ajinomoto_tp: {
+    sfdc: `BR-00118`,
+    meddpicc: `Jun 2026`,
+    rationale: `Líder de temperos no Brasil com budget massivo de mídia nacional. Público amplo de todas as classes. Sazonalidades previsíveis (Festas Juninas, Natal, Copa) criam janelas de ativação claras. Re-checking: lançamentos de produtos + campanhas sazonais + monitorar BRF e Nestlé via alertas.`,
+    whyAct: `Ajinomoto investe pesado em TV e YouTube para receitas, mas perde a consumidora no momento de decisão — quando pesquisa receita no celular antes do supermercado. Conteúdo nativo de receita com SAZÓN em portais culinários (TudoGostoso, Cybercook) nesse momento exato converte em intenção de compra com ROI mensurável que TV nunca rastreou.`,
+    whyNow: `Festas Juninas (Jun–Jul) são o maior pico de temperos. Copa 2026: churrasco + pratos típicos = demanda de pico. Planning Copa em andamento agora — janela para garantir inventário culinário.`,
+    whyTaboola: `Inventário dominante em Tudo Gostoso (16,8M PV), Correio 24 Horas (29,9M), Metrópoles (15,8M), O Globo (13,9M), R7 (6,1M) e NDmais — portais onde a consumidora pesquisa receitas antes do supermercado. Conteúdo de receitas com CTR 5x acima da média de display.`,
+    agencyState: `McCann (IPG) é AOR criativo histórico. Mídia possivelmente com UM (IPG). Relação com Taboola via trading desk sem estratégia de conteúdo. Agência tem incentivo de volume.`,
+    agencyPlan: `1) Confirmar AOR de mídia (UM?) via LinkedIn. 2) Proposta de native que amplifica conteúdo criativo já produzido pela McCann — sem criar trabalho extra para a agência. 3) Win: receitas em vídeo já produzidas ganham distribuição nativa mensurável — novo case para portfólio da UM.`,
+    es: `Diretor de Marketing Ajinomoto do Brasil`,
+    ol: `Gerente de Marca e Mídia Digital`,
+    doers: `Analista de Mídia — equipe UM/IPG conta Ajinomoto`,
+    esEngagement: `"O conteúdo de receita SAZÓN que sua equipe produz pode ter ROI rastreável com native. Aqui está como medir o que TV nunca mediu." Pre-empt: "Já temos YouTube" → Taboola captura momento diferente (busca passiva de receita), complementa YouTube.`,
+    olEngagement: `Benchmark de CTR de receitas. Propor campanha Copa 2026 e Festas Juninas com conteúdo de receitas típicas SAZÓN.`,
+    doerEngagement: `Conteúdo de receitas pré-aprovado para distribuição nativa. Setup pixel para site de receitas Ajinomoto.`,
+    next5: [`Confirmar AOR de mídia (UM ou GroupM) via LinkedIn até 06/Jul`, `Mapear Diretor de Marketing e Gerente de Marca até 08/Jul`, `Preparar proposta Copa 2026 com conteúdo de receitas nativas até 12/Jul`, `Outreach ao Diretor de Marketing com proposta de ROI rastreável até 15/Jul`, `Reunião trilateral Ajinomoto + agência + Taboola até 22/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  gallo_tp: {
+    sfdc: `BR-00119`,
+    meddpicc: `Jun 2026`,
+    rationale: `Gallo cresce +40% em 5 anos no Brasil — mercado em expansão. Público A/B, health-conscious, consome portais de saúde e gastronomia. Marca portuguesa com budget de qualidade. Re-checking: lançamentos de novos SKUs + campanhas Natal + monitor de concorrentes Andorinha/Carbonell.`,
+    whyAct: `Gallo investe em TV e Instagram mas não captura o consumidor no momento de decisão: quando pesquisa "benefícios do azeite para saúde" ou "como usar azeite extra virgem" em portais de saúde e culinária. Esse momento de alto intent é onde conteúdo nativo Gallo converteria em intenção de compra com CPA mensurável — e a concorrente Andorinha ainda não está lá.`,
+    whyNow: `Natal (Dez/26) é o maior pico de presente de azeite premium — planning começa Jul. Copa 2026 = culinária de qualidade = oportunidade de comunicação.`,
+    whyTaboola: `Inventário em Tudo Gostoso (16,8M PV), O Globo (13,9M), Folha de S.Paulo (6,8M), Metrópoles (15,8M), Marie Claire (1,5M) e Valor Econômico — publishers lidos pelo consumidor de azeite premium (A/B, health-conscious). CTR de conteúdo de saúde e culinária historicamente alto.`,
+    agencyState: `Agência portuguesa coordenada com equipe brasileira (identificar). Mídia concentrada em TV e Instagram. Native ainda é oportunidade.`,
+    agencyPlan: `1) Identificar estrutura de agência no Brasil via LinkedIn. 2) Proposta de native como canal de performance complementar à TV. 3) Win: case de native para FMCG premium com ROI de saúde e culinária — inovador no segmento de azeite.`,
+    es: `Diretor de Marketing Gallo Brasil`,
+    ol: `Gerente de Marketing e Trade`,
+    doers: `Analista de Mídia Digital`,
+    esEngagement: `"Consumidor de azeite premium pesquisa benefícios de saúde antes de comprar — Gallo não está nesse momento, Andorinha vai estar. Aqui está o plano antes do Natal." Pre-empt de CPM: CTR de saúde justifica investimento.`,
+    olEngagement: `Inventário de portais de saúde e culinária. Propor campanha pré-Natal com conteúdo de receitas e saúde. Meta: tráfego ao site de receitas Gallo.`,
+    doerEngagement: `Templates de conteúdo de saúde e culinária com branding Gallo. Setup técnico simplificado.`,
+    next5: [`Identificar Diretor de Marketing Gallo Brasil via LinkedIn até 07/Jul`, `Preparar benchmark CTR conteúdo de saúde + azeite até 10/Jul`, `Outreach com oportunidade Natal 2026 + Copa até 14/Jul`, `Demo com portfólio de publishers de saúde e gastronomia até 21/Jul`, `Proposta formal pré-Natal até 28/Jul`],
+    reviewDate: `Set 2026`
+  },
+  camponesa_tp: {
+    sfdc: `BR-00120`,
+    meddpicc: `Jun 2026`,
+    rationale: `Produto de cesta básica com distribuição nacional — alcance massivo de classes C/D em portais populares é o diferencial Taboola. Copa 2026 + sazonalidades previsíveis criam janelas de ativação. Re-checking: campanhas de concorrentes Soya e Liza + lançamentos de SKU via monitor de trade.`,
+    whyAct: `CAMPONESA compete em preço com Soya e Liza mas tem menor recall de marca. Consumidora que acessa R7 ou Terra durante o dia está planejando o cardápio — mas não vê nada da CAMPONESA. Conteúdo nativo "receitas econômicas com óleo CAMPONESA" constrói brand salience com CPM 70% abaixo de TV e ROI mensurável por engajamento.`,
+    whyNow: `Copa 2026: fritura de petiscos = pico de consumo de óleo. Festas Juninas ativas agora: bolos, fritura. Budget de Copa em planejamento.`,
+    whyTaboola: `Inventário em Tudo Gostoso (16,8M PV), Correio 24 Horas (29,9M), Metrópoles (15,8M), O Globo (13,9M), R7 (6,1M), NDmais e Terra BR — habitat de consumidoras classes C/D. Audiences "culinária, receitas, alimentação familiar". CPM muito acessível com ROI mensurável que TV nunca rastreou.`,
+    agencyState: `Agência de pequeno porte ou trading desk programático (identificar). Foco histórico em TV e PDV.`,
+    agencyPlan: `1) Identificar agência e estrutura de marketing via LinkedIn. 2) Proposta: native de receitas em portais populares como complemento econômico ao TV. 3) Win: CPM 70% menor que TV com audiência equivalente — ROI imediato.`,
+    es: `Diretor de Marketing CAMPONESA`,
+    ol: `Gerente de Marketing e Trade`,
+    doers: `Analista de Mídia`,
+    esEngagement: `"O mesmo budget de 1 semana de TV consegue 3 meses de native em portais com audiência equivalente. Aqui está o modelo." Pre-empt de escala: mostrar volume de impressões em portais populares.`,
+    olEngagement: `Audiência de portais populares com perfil C/D. Propor campanha Copa 2026 com receitas de petisco. Meta: awareness e tráfego para receitas.`,
+    doerEngagement: `Conteúdo de receitas econômicas pré-produzido. Setup rápido de campanha de native.`,
+    next5: [`Identificar Diretor e Gerente de Marketing CAMPONESA via LinkedIn até 08/Jul`, `Preparar comparativo CPM: Taboola vs TV com audiência equivalente até 11/Jul`, `Outreach com proposta Copa 2026 + receitas até 15/Jul`, `Demo com exemplos em portais C/D até 22/Jul`, `Proposta formal Copa + 2S2026 até 28/Jul`],
+    reviewDate: `Set 2026`
+  },
+  livup_tp: {
+    sfdc: `BR-00121`,
+    meddpicc: `Jun 2026`,
+    rationale: `Startup D2C saudável com crescimento acelerado — precisa escalar aquisição além do Instagram. Público A/B urbano consome conteúdo editorial de saúde e bem-estar. Modelo de assinatura = LTV alto. Re-checking: rodadas de investimento + expansão de SKUs + monitor de SimilarWeb ads.`,
+    whyAct: `Liv Up está saturando Instagram com público health-conscious já convertido. O novo cliente está no Saúde.abril.com ou Boa Forma lendo sobre nutrição — não seguindo perfis fitness no Instagram. Conteúdo nativo editorial sobre alimentação saudável nesse contexto captura público mais amplo com CAC 40% menor que Meta.`,
+    whyNow: `Pré-verão (Set–Nov/26) é o segundo maior pico de D2C saudável. Planning começa agora. Janeiro 2027 (detox pós-Natal) é o maior pico — ativar pipeline.`,
+    whyTaboola: `Inventário em O Globo (13,9M PV), Metrópoles (15,8M), Folha de S.Paulo (6,8M), Tudo Gostoso (16,8M), Marie Claire (1,5M) e Terra BR — onde o público health-conscious A/B lê sobre nutrição antes de comprar. Conteúdo editorial de saúde com CTR altíssimo. CAC 40% menor que Meta.`,
+    agencyState: `Equipe inhouse de performance ou agência boutique de growth. Foco em Meta e Google. Native ainda é canal inexplorado.`,
+    agencyPlan: `1) Abordagem direta ao Head de Growth via LinkedIn. 2) Proposta de CAC comparativo: native vs Meta por cohort de 30 dias. 3) Win: diversificação de canal com ROI comprovável que reduz concentração de risco no Meta.`,
+    es: `CEO / CMO Liv Up`,
+    ol: `Head de Growth e Aquisição`,
+    doers: `Analista de Performance Digital`,
+    esEngagement: `"Liv Up depende 70% de Meta para aquisição — aqui está como native editorial em portais de saúde reduz CAC e diversifica o canal com ROI comprovável em 30 dias." Pre-empt de setup: processo simples, resultado em 2 semanas.`,
+    olEngagement: `Benchmark de CAC via native para D2C saudável. Propor A/B de 30 dias com R$30k. Meta: novos assinantes com CAC definido.`,
+    doerEngagement: `Setup de pixel de conversão para assinatura. Templates de conteúdo editorial de nutrição prontos para aprovação.`,
+    next5: [`Identificar CEO/CMO e Head de Growth Liv Up via LinkedIn até 06/Jul`, `Preparar benchmark de CAC native vs Meta para D2C saudável até 10/Jul`, `Proposta de teste A/B 30 dias com R$30k até 12/Jul`, `Outreach ao Head de Growth com proposta de diversificação de canal até 15/Jul`, `Agendar demo + setup com equipe de performance até 22/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  amadomundo_tp: {
+    sfdc: `BR-00122`,
+    meddpicc: `Jun 2026`,
+    rationale: `Marca de bebidas/alimentos em fase de crescimento — awareness é objetivo primário. Público de jovens adultos B/C urbanos em portais de lifestyle e gastronomia. Stage de crescimento ideal para native: awareness + consideração em escala com ROI mensurável. Re-checking: lançamentos de produtos + expansão de distribuição.`,
+    whyAct: `Amado Mundo compete com marcas estabelecidas com muito mais budget de TV. O diferencial é storytelling de diversidade cultural que ressoa em conteúdo editorial — muito melhor que banner. Conteúdo nativo sobre "sabores do mundo" em portais de lifestyle constrói brand equity com CPM inferior à TV e alcança o consumidor urbano curioso em momento de descoberta.`,
+    whyNow: `Expansão de distribuição em novos PDVs — cada novo ponto precisa de awareness local. Lançamento de novos sabores cria compelling event de comunicação.`,
+    whyTaboola: `Inventário em Tudo Gostoso (16,8M PV), Metrópoles (15,8M), O Globo (13,9M), Omelete (4,2M), NDmais e Terra BR — portais de lifestyle onde jovens adultos B/C descobrem marcas em contexto editorial. Alcance em cidades B e C onde a marca está expandindo distribuição.`,
+    agencyState: `Agência boutique de branding ou content (identificar). Budget menor, mas native tem ROI mensurável que TV não tem para marca em crescimento.`,
+    agencyPlan: `1) Identificar agência via LinkedIn. 2) Proposta de native como canal de awareness com ROI mensurável — argumento chave para startup/scale-up. 3) Win: case de lançamento de marca via native editorial.`,
+    es: `CEO / Fundador Amado Mundo`,
+    ol: `Head de Marketing`,
+    doers: `Analista de Marketing Digital`,
+    esEngagement: `"Amado Mundo tem o melhor storytelling de diversidade do mercado. Native editorial distribui esse storytelling com ROI mensurável — o que TV não faz para uma marca em crescimento." Pre-empt de CPM: alcance proporcional ao budget.`,
+    olEngagement: `Exemplos de conteúdo nativo de marca para bebidas artesanais. Propor campanha de lançamento de novo sabor com meta de alcance e tráfego.`,
+    doerEngagement: `Setup técnico simplificado. Suporte na criação de conteúdo editorial.`,
+    next5: [`Identificar CEO e Head de Marketing Amado Mundo via LinkedIn até 08/Jul`, `Preparar exemplos de conteúdo nativo para bebidas artesanais até 11/Jul`, `Outreach ao CEO com proposta de ROI mensurável vs TV até 15/Jul`, `Demo com portfólio de publishers de lifestyle e gastronomia até 22/Jul`, `Proposta formal para lançamento de produto até 28/Jul`],
+    reviewDate: `Set 2026`
+  },
+  unyleya_tp: {
+    sfdc: `BR-00123`,
+    meddpicc: `Jun 2026`,
+    rationale: `EaD 100% digital com foco em pós-graduação — janelas de captação previsíveis (Jan–Fev e Jun–Jul). Profissionais 25-45 em portais de notícia e emprego onde Taboola tem inventário. Ticket acessível com alto volume. Re-checking: calendário de captação + SimilarWeb ads + monitor de concorrentes.`,
+    whyAct: `Unyleya usa as mesmas táticas de Meta e Search que Anhanguera e Estácio. O profissional que pensa "preciso de uma pós" está no UOL ou G1 durante o dia — não pesquisando no Google ainda. Conteúdo nativo "como alavancar a carreira com pós EaD" nesse momento de intent passivo captura leads com CPL 45% menor.`,
+    whyNow: `Janela Jun–Jul de captação de pós está ativa agora. Meta está saturando com concorrentes — custo de native ainda baixo antes da competição crescer.`,
+    whyTaboola: `Inventário em Correio 24 Horas (29,9M PV), Metrópoles (15,8M), O Globo (13,9M), R7 (6,1M), NDmais e Terra BR — portais onde o profissional B/C lê notícias antes de pesquisar pós-graduação. SmartBid para lead de pós-graduação. CPL 45% menor que Meta.`,
+    agencyState: `Agência de educação ou performance independente (identificar). Foco em Meta e Search. Native ainda sem exploração.`,
+    agencyPlan: `1) Identificar agência via LinkedIn. 2) Proposta de CPL menor que Meta para leads de pós EaD. 3) Win: benchmark de CPL Taboola vs Meta em 30 dias — dado comprovável.`,
+    es: `Diretor Comercial / VP de Marketing Unyleya`,
+    ol: `Gerente de Captação Digital`,
+    doers: `Analista de Mídia Paga`,
+    esEngagement: `"Unyleya pode reduzir CPL de pós-graduação em 45% com native em portais de profissionais. Aqui está o modelo." Pre-empt de qualidade: mostrar taxa de matrícula de leads nativos vs Search.`,
+    olEngagement: `Mapa de audiences de profissionais nos portais Taboola. Propor teste 30 dias com meta de CPL acordada.`,
+    doerEngagement: `Templates de landing page nativa (formulário de lead sem sair do portal). Setup de SmartBid para CPL.`,
+    next5: [`Identificar Diretor de Marketing e Gerente de Captação Unyleya via LinkedIn até 07/Jul`, `Preparar proposta de CPL com benchmark vs Meta até 10/Jul`, `Outreach ao Gerente de Captação com janela Jun–Jul até 13/Jul`, `Demo rápido 30 min com exemplos de lead nativo para EaD até 18/Jul`, `Teste piloto R$20k com meta de CPL acordada até 25/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  afya_tp: {
+    sfdc: `BR-00124`,
+    meddpicc: `Jun 2026`,
+    rationale: `Maior grupo de educação médica do Brasil (Nasdaq: AFYA), 33 faculdades, lucro +85% em 2024. PMF altíssimo: medicina é o curso de maior interesse em portais de saúde. Foco no Norte/Nordeste mas com oportunidade de expansão de share em SP/RJ. Re-checking: resultados AFYA/Nasdaq trimestrais + aprovações MEC de vagas.`,
+    whyAct: `Afya é líder em medicina no Norte/Nordeste mas tem menor share de voice em SP/RJ. Famílias A/B em SP que consideram enviar filhos para medicina no Norte não encontram Afya nos portais que leem (Folha, Estadão, Veja). Conteúdo nativo editorial sobre "medicina de qualidade fora dos grandes centros" captura um segmento de alta renda que Afya está ignorando — lead premium com ticket que justifica amplamente o CAC.`,
+    whyNow: `ENEM 2026 (Nov) — janela de captação mais importante. Planning de campanhas Nov–Jan começa agora. Afya anunciou expansão de vagas MEC em novas cidades para 2027. Concorrentes Idomed e UNISA aumentando investimento em digital.`,
+    whyTaboola: `Inventário em Valor Econômico (6,9M PV), O Globo (13,9M), Folha de S.Paulo (6,8M), Metrópoles (15,8M), NDmais e portais regionais do Norte/Nordeste (Diario do Nordeste 1,2M, Correio 24h). Geo-targeting para SP/RJ (crescimento) e Norte/Nordeste (domínio). SmartBid para lead de alta intenção antes do ENEM.`,
+    agencyState: `Agência de performance especializada em educação (identificar). Google Search consome a maior parte do budget. Native ainda subexplorado.`,
+    agencyPlan: `1) Identificar AOR de performance via LinkedIn Afya IR. 2) Proposta de native como complemento ao Search — captura fase anterior à busca ativa. 3) Win: case de inovação em mídia para educação médica — pioneiro no segmento.`,
+    es: `VP de Marketing / CMO Afya`,
+    ol: `Gerente de Captação e Performance Digital`,
+    doers: `Analista de Mídia Paga`,
+    esEngagement: `"Idomed está capturando candidatos em SP via portais de saúde antes do ENEM — aqui está como Afya pode fechar esse gap e expandir share em SP/RJ." Pre-empt de ticket de lead: leitores de conteúdo editorial médico têm intent superior à busca genérica.`,
+    olEngagement: `Mapa de audience: portais de saúde e educação com perfil de famílias A/B. Propor piloto ENEM 2026: Set–Nov/26 com meta de CPL para lead de medicina.`,
+    doerEngagement: `Biblioteca de conteúdo nativo sobre carreira médica e melhores faculdades. Setup pixel com eventos de lead qualificado.`,
+    next5: [`Identificar VP Marketing e Gerente de Performance Afya via LinkedIn + IR até 05/Jul`, `Mapear AOR de performance via job postings e LinkedIn até 07/Jul`, `Preparar análise de share of voice Afya vs Idomed em portais de saúde até 10/Jul`, `Outreach VP Marketing com insight competitivo + proposta ENEM 2026 até 14/Jul`, `Reunião trilateral Afya + agência + Taboola até 22/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  descomplica_tp: {
+    sfdc: `BR-00125`,
+    meddpicc: `Jun 2026`,
+    rationale: `EdTech com alcance nacional e público jovem de classes B/C. Taboola tem inventário em portais de notícia populares onde o público Descomplica passa tempo. Modelo de assinatura = LTV que justifica CAC. Re-checking: SimilarWeb downloads do app + novas funcionalidades + concorrentes.`,
+    whyAct: `Descomplica satura Meta/TikTok com o mesmo jovem que já conhece a marca. Estudante no G1, UOL ou R7 ainda não está pensando em estudar para o ENEM — mas se vir conteúdo de "dica de estudo" ou "como passar no ENEM" nesse contexto, entra no funil mais organicamente e converte melhor. Native captura fase anterior do funil que Meta já não alcança com eficiência.`,
+    whyNow: `ENEM 2026 em Novembro — captação de assinantes começa Set/26. Planning de budget 2S26 em andamento. Novos cursos de graduação digital = nova linha de produto para comunicar.`,
+    whyTaboola: `Inventário em Correio 24 Horas (29,9M PV), Metrópoles (15,8M), O Globo (13,9M), R7 (6,1M), Omelete (4,2M), NDmais e Terra BR — portais consumidos por jovens 16-24. Conteúdo de "dicas de ENEM" com CTR altíssimo em época de prova. SmartBid para download de app ou assinatura.`,
+    agencyState: `Equipe inhouse de growth/performance (EdTechs geralmente têm inhouse forte). Meta e TikTok dominam o mix. Native ainda inexplorado.`,
+    agencyPlan: `1) Abordagem direta ao Head de Growth via LinkedIn. 2) Proposta de native como canal de topo de funil para ENEM 2026. 3) Win: diversificação de canal com CAC comprovável — reduz concentração de risco no Meta.`,
+    es: `CEO / CMO Descomplica`,
+    ol: `Head de Growth e Marketing de Performance`,
+    doers: `Analista de Aquisição Digital`,
+    esEngagement: `"Descomplica depende muito de Meta — aqui está como native editorial captura um público diferente com CAC menor antes do ENEM." Pre-empt de público jovem no native: mostrar dados de consumo de jovens 16-24 em portais de notícia.`,
+    olEngagement: `Benchmark de CAC nativo para EdTechs. Propor campanha ENEM 2026 (Set–Nov). Meta: downloads de app ou assinaturas com CAC definido.`,
+    doerEngagement: `Setup pixel para download do app. Templates de conteúdo de dicas de estudo para ENEM pré-produzidos.`,
+    next5: [`Identificar CEO/CMO e Head of Growth Descomplica via LinkedIn até 06/Jul`, `Preparar análise de consumo de jovens 16-24 em portais Taboola até 09/Jul`, `Proposta campanha ENEM 2026 com benchmark de CAC até 12/Jul`, `Outreach ao Head of Growth com proposta de diversificação de canal até 15/Jul`, `Demo rápido + setup técnico com equipe de aquisição até 22/Jul`],
+    reviewDate: `Ago 2026`
+  },
+  petrobras_tp: {
+    sfdc: `BR-00126`,
+    meddpicc: `Jun 2026`,
+    rationale: `Maior empresa do Brasil (R$500bi/ano) com comunicação corporativa robusta. Realize tem fit para comunicação de imagem em portais financeiros e de negócios — audiência de investidores e líderes de opinião. Re-checking: releases PETR4 trimestrais + plano estratégico 2026-2030 + campanhas institucionais publicadas.`,
+    whyAct: `Petrobras gasta muito em comunicação institucional via TV mas não tem estratégia de conteúdo nativo editorial que conecta agenda de transição energética com investidores e líderes de opinião. Conteúdo nativo em Valor Econômico, Exame e Forbes sobre "Petrobras e a transição energética" constrói narrative de marca corporativa com reach de tomadores de decisão que TV não alcança.`,
+    whyNow: `Petrobras divulgará Plano Estratégico 2026-2030 — compelling event de comunicação institucional. Agenda ESG em foco. Eleições 2026 criam necessidade de comunicação de autonomia e valor social da empresa.`,
+    whyTaboola: `Inventário exclusivo em Valor Econômico (6,9M PV), O Globo (13,9M), Folha de S.Paulo (6,8M), Carta Capital (2,2M), O Antagonista (2,6M) e Metrópoles — publishers lidos por executivos, investidores e formadores de opinião. Realize com targeting por setor (energia, finanças, ESG). Alcance que TV aberta nunca atinge com precisão editorial.`,
+    agencyState: `WPP (Ogilvy ou JWT) é provável AOR histórico. Processo de licitação governamental para novos contratos. Budget aprovado por diretoria — processo formal necessário.`,
+    agencyPlan: `1) Confirmar AOR atual via pesquisa de licitação e LinkedIn. 2) Abordagem via agência habilitada. 3) Proposta para agenda de comunicação ESG 2026. 4) Win para agência: case inovador de native corporativo em portais financeiros.`,
+    es: `Gerente Executivo de Comunicação Institucional Petrobras`,
+    ol: `Gerente de Comunicação Digital e Conteúdo`,
+    doers: `Analista de Mídia — equipe agência AOR`,
+    esEngagement: `"Petrobras tem uma história de transição energética que o Valor Econômico e Exame deveriam contar — não como advertorial, mas como conteúdo nativo de alta relevância." Pre-empt de processo público: proposta via AOR habilitado já existente.`,
+    olEngagement: `Exemplos de conteúdo editorial corporativo em portais financeiros. Propor campanha Plano Estratégico 2026-2030 com comunicação de ESG.`,
+    doerEngagement: `Facilitação de processo de aprovação via sistema de compliance Petrobras. Suporte editorial para adequação às diretrizes de comunicação.`,
+    next5: [`Confirmar AOR atual via licitação e LinkedIn até 06/Jul`, `Identificar Gerente de Comunicação Digital via LinkedIn até 08/Jul`, `Preparar proposta de comunicação ESG + Plano Estratégico 2026 até 13/Jul`, `Abordagem via AOR habilitado com proposta de native corporativo até 17/Jul`, `Reunião exploratória com Gerente de Comunicação Digital até 25/Jul`],
+    reviewDate: `Set 2026`
+  },
+
+  unibf_tp: {
+    sfdc: `BR-00127`,
+    meddpicc: `Jun 2026`,
+    rationale: `EaD 100% digital com nota MEC 4 — diferencial de credibilidade em mercado saturado de IES. +1.200 cursos e autonomia de Centro Universitário para lançar novos sem aprovação do MEC. Janelas de captação previsíveis (Jan–Fev e Jun–Jul). Profissional 25–45 B/C do interior lê portais regionais onde Taboola domina. Ticket acessível com alto volume de leads.`,
+    whyAct: `UniBF compete por atenção no mesmo feed de Meta e Google que Anhanguera, Unyleya e Descomplica. O profissional que pensa em fazer uma pós ou concluir a graduação está consumindo notícias em portais estaduais antes de pesquisar no Google. Conteúdo nativo "pós-graduação em 4 meses com nota MEC 4" nesse momento de intent passivo captura leads com CPL estruturalmente menor — e o interior do Brasil, onde Meta tem menos inventário premium, é exatamente onde Taboola tem vantagem geográfica.`,
+    whyNow: `Janela Jun–Jul de captação de pós está ativa agora. Marco regulatório do MEC (50% presencial para licenciaturas) cria urgência real: alunos que entrarem antes das novas regras concluem sob regras antigas — UniBF já comunica isso no site e Taboola amplifica antes que concorrentes saturem o inventário.`,
+    whyTaboola: `Inventário em Terra, Metrópoles, O Globo, NDmais e portais populares regionais — habitat digital do público UniBF (classes B/C, interior do Brasil). SmartBid para lead de graduação e pós-graduação. Geo-targeting em cidades médias e pequenas onde o profissional não tem IES presencial próxima — vantagem exclusiva vs Meta. CPL 40–50% menor que Meta com audiences de "emprego + qualificação + ensino superior".`,
+    agencyState: `Agência de performance ou equipe interna com foco em Meta Ads e Google Search. Canal native ainda inexplorado — oportunidade de first-mover em inventário de portais regionais.`,
+    agencyPlan: `1) Identificar agência ou responsável de mídia paga via LinkedIn. 2) Proposta com benchmark de CPL Taboola vs Meta para leads de EaD. 3) Win: teste piloto 30 dias com meta de CPL acordada por segmento de curso.`,
+    es: `Diretor de Marketing / CMO UniBF`,
+    ol: `Gerente de Captação Digital`,
+    doers: `Analista de Mídia Paga / Performance`,
+    esEngagement: `"UniBF pode reduzir CPL de captação EaD em 40–50% com native em portais onde o profissional do interior consome conteúdo. A nota MEC 4 e os cursos rápidos têm CTR altíssimo em formato editorial. Aqui está o modelo com dados de IES similares."`,
+    olEngagement: `Mapa de audiences de "profissionais + interesse em qualificação + classes B/C" nos portais Taboola com cobertura em cidades médias. Propor teste 30 dias com meta de CPL por tipo de curso (pós vs graduação).`,
+    doerEngagement: `Templates de landing page nativa (formulário de lead inline sem sair do portal). Setup de SmartBid para CPL de lead EaD. Pixel de conversão para matrícula efetivada.`,
+    next5: [`Identificar Diretor de Marketing e Gerente de Captação UniBF via LinkedIn até 07/Jul`, `Preparar proposta de CPL com benchmark vs Meta para EaD até 10/Jul`, `Outreach ao Gerente de Captação com gancho da janela Jun–Jul até 13/Jul`, `Demo rápido 30 min com exemplos de lead nativo para graduação EaD até 18/Jul`, `Teste piloto R$15k com meta de CPL acordada por curso até 25/Jul`],
+    reviewDate: `Ago 2026`
+  }
+
+  fgv: {
+    name: 'FGV Educação Executiva', vertical: 'Education', emoji: '🎓', color: '#1e3a8a',
+    tagline: '12º no ranking Financial Times Executive Education 2026 — 80 anos formando líderes.',
+    desc: 'A FGV Educação Executiva é a unidade de educação continuada da Fundação Getulio Vargas. Oferece MBAs, pós-graduações, cursos de extensão e programas In Company para executivos e líderes. Presente em 100+ cidades brasileiras. Em 2026, lançou o Executive Track — modelo modular de formação contínua assíncrona. Posição 12ª no Financial Times Executive Education Open 2026 e 3º melhor Think Tank do mundo.',
+    metrics: [
+      { label: 'FT Executive Education 2026', value: '12º global' },
+      { label: 'Presença', value: '100+ cidades Brasil' },
+      { label: 'História', value: '80 anos (fund. 1944)' },
+      { label: 'Think Tank Global', value: '3º melhor do mundo' },
+      { label: 'Novo Produto', value: 'Executive Track 2026' },
+      { label: 'Formatos', value: 'Presencial, Online, Live' }
+    ],
+    negocio: ['MBA e Executive MBA presencial em SP e RJ', 'Pós-graduação em Finanças, Marketing, Estratégia, Direito, TI', 'Executive Track — módulos de curta duração EaD assíncrono', 'Programas In Company (treinamento corporativo)', 'Alta Gestão — programas para C-level', 'Cursos internacionais e intercâmbio executivo'],
+    publicoAlvo: ['Executivos e líderes empresariais 30–55 anos', 'Profissionais classe A/B buscando diferenciação de carreira', 'Gestores que precisam de formação sem sair do trabalho', 'Empresas buscando capacitação de equipes (B2B)', 'Servidores públicos de alto escalão'],
+    concorrentes: ['Insper', 'Fundação Dom Cabral', 'FIA', 'Saint Paul', 'ESPM', 'Singularity University'],
+    ondeAnunciam: ['LinkedIn Ads (principal)', 'Google Search', 'Email marketing para base de ex-alunos', 'Eventos corporativos e congressos', 'Parcerias com empresas'],
+    tips: ['Público A/B executivo lê O Globo, Valor Econômico e Estadão — portais premium Taboola são o fit ideal', 'Conteúdo de carreira e liderança (ranking FT, líderes do futuro) converte executivos em leads', 'Executive Track é produto novo em 2026 — janela de lançamento para native editorial de carreira', 'Campanhas de Jan–Fev (propósitos de ano novo) e Ago–Set (matrículas 2º semestre) são prioritárias', 'LinkedIn é o canal principal dos concorrentes — native em portais financeiros é diferenciação de canal', 'In Company: conteúdo B2B de como capacitar sua equipe funciona em portais executivos Taboola']
+  },
+  compraagora: {
+    name: 'Compra Agora', vertical: 'Shopping (B2B)', emoji: '🛒', color: '#f97316',
+    tagline: 'Primeira plataforma B2B do Brasil para abastecimento do varejo de vizinhança.',
+    desc: 'Compra Agora nasceu como piloto da Unilever em 2019 e tornou-se empresa independente em 2020. É a primeira plataforma B2B do Brasil criada para o varejo de vizinhança — conecta indústrias, distribuidores, representantes de vendas e lojistas em um único hub digital. Com cobertura em todo o Brasil (exceto Mato Grosso do Sul), permite que pequenos e médios varejistas reponham estoque a qualquer hora, com descontos em grandes marcas e programa de fidelidade.',
+    metrics: [
+      { label: 'Fundação', value: '2019 (ex-Unilever)' },
+      { label: 'Cobertura', value: 'Brasil (ex-MS)' },
+      { label: 'Modelo', value: 'B2B Marketplace' },
+      { label: 'Origem', value: 'Spinoff Unilever' },
+      { label: 'Público', value: 'Varejo de Vizinhança' },
+      { label: 'Diferencial', value: 'Desconto + Fidelidade' }
+    ],
+    negocio: ['Marketplace B2B para reposição de estoque de varejistas', 'Parcerias com indústrias (Unilever e grandes marcas CPG)', 'Rede de distribuidores regionais em todo o Brasil', 'Programa de fidelidade para varejistas', 'Plataforma para representantes de vendas', 'Conteúdo editorial e tendências de mercado para lojistas'],
+    publicoAlvo: ['Donos de mercearias, mercadinhos, padarias e varejo de vizinhança', 'Pequenos e médios varejistas que precisam repor estoque', 'Distribuidores regionais de bens de consumo', 'Indústrias de CPG buscando canal de venda B2B digital', 'Representantes comerciais'],
+    concorrentes: ['Atacadão', 'Makro', 'Assaí', 'Mercado Livre B2B', 'Delivery B2B emergentes'],
+    ondeAnunciam: ['Google Ads', 'Meta (targeting lojistas)', 'WhatsApp Business', 'Redes sociais de nicho varejista'],
+    tips: ['Lojistas do varejo de vizinhança estão em portais populares de notícia e portais regionais — inventário Taboola tem alcance exclusivo nesse público', 'Conteúdo de como aumentar lucro da sua loja e tendências de consumo converte donos de mercearia', 'Native em portais regionais para atingir distribuidores e lojistas de cidades médias onde Meta tem menor penetração', 'Copa 2026: oportunidade de campanha sobre abastecimento de bebidas e petiscos para lojistas se prepararem para o pico']
+  },
+};
+// Attach to clients
+Object.keys(clients).forEach(k => {
+  if (territoryPlans[k + '_tp']) clients[k].territoryPlan = territoryPlans[k + '_tp'];
+});
+
+const clientNews = {
+  sportingbet: [
+    { date: `Jun 2026`, title: `Sportingbet lança campanha "Emotions" — apostador como protagonista do esporte`, url: `https://acontecendoaqui.com.br/propaganda/sportingbet-lanca-campanha-que-coloca-o-apostador-como-protagonista-do-esporte/`, summary: `Campanha da DPZ posiciona o apostador no centro da narrativa esportiva com forte impacto visual. Objetivo: traduzir emoção e autenticidade — posicionamento que demanda mid-funnel digital para capturar audiência gerada.` },
+    { date: `Jun 2026`, title: `Sportingbet lança "AMO/ODEIO" com Pedro Certezas e reforça conceito "A emoção não tem replay"`, url: `https://propmark.com.br/sportingbet-lanca-amo-odeio-com-pedro-certezas/`, summary: `Nova campanha com o influenciador Pedro Certezas explora os altos e baixos do apostador em tempo real. Estratégia cobre TV, redes sociais, canais digitais e mídia exterior — alto investimento em comunicação.` },
+    { date: `Mai 2026`, title: `Sportingbet é patrocinadora oficial da CONMEBOL Libertadores e Sudamericana 2026`, url: `https://www.gazetadopovo.com.br/conteudo-publicitario/apostas/bets-que-patrocinam-times-brasileiros/`, summary: `Naming rights das maiores competições de clubes da América do Sul reforçam o status de Sportingbet como bet premium — presente nos maiores momentos esportivos onde o apostador está mais engajado.` },
+    { date: `Abr 2026`, title: `CEO da Sportingbet: "Nosso objetivo é criar uma conexão verdadeira com o público"`, url: `https://timesbrasil.com.br/brasil/exclusivo-sportingbet-revela-campanha-estrategica-para-dominar-o-mercado-de-apostas-no-brasil/`, summary: `Entrevista exclusiva revela estratégia de comunicação da marca para 2026: conexão emocional com o torcedor como diferencial frente às demais bets. Budget crescente para campanhas de brand awareness.` },
+    { date: `Mar 2026`, title: `Sportingbet no Prime Video: presença garantida nas transmissões do Brasileirão 2026`, url: `https://www.meioemensagem.com.br/midia/brasileirao-2026-conheca-os-patrocinadores-das-transmissoes`, summary: `Sportingbet entre os principais patrocinadores das transmissões do Brasileirão no Prime Video — integração com TV streaming que amplia alcance para audiências digitais onde native tem sinergia direta.` },
+  ],
+  superbet: [
+    { date: `Jun 2026`, title: `Superbet cria "Casa Superbet" no Rio para torcedores acompanharem a Copa do Mundo de Clubes`, url: `https://focusgn.com/brasil/casa-superbet-operadora-cria-espaco-para-torcedores-acompanharem-a-copa-do-mundo-de-clubes`, summary: `Espaço temático no Bosque Bar (RJ) de 15/jun a 13/jul — transmissões dos jogos ao vivo, ativações interativas e experiência de marca. Investimento em experiência física que precisa de amplificação digital.` },
+    { date: `Jun 2026`, title: `Superbet aposta em experiência coletiva para a Copa do Mundo 2026`, url: `https://www.meioemensagem.com.br/marketing/superbet-aposta-em-experiencia-coletiva-para-a-copa-2026`, summary: `Estratégia de comunicação da Superbet para a Copa 2026 foca em experiência compartilhada — "Passa Bola" (bolão gratuito) e "Rei da Copa" com iPhone 17 como prêmio. Sinal de budget alto de marketing no período.` },
+    { date: `Mai 2026`, title: `Superbet assina patrocínio máster da Arena Brasileira 2026 no Ibirapuera (SP)`, url: `https://www.meioemensagem.com.br/marketing/superbet-assina-patrocinio-master-da-arena-brasileira-2026`, summary: `Naming rights da Arena Brasileira (plataforma de música, ativações e transmissão ao vivo dos jogos da Copa) no Ibirapuera em junho e julho — patrocínio de massa que precisa de native para converter audiência gerada.` },
+    { date: `Abr 2026`, title: `Fluminense amplia contrato com Superbet até 2029 — R$ 53 mi fixo + bônus que podem ultrapassar R$ 30 mi`, url: `https://maquinadoesporte.com.br/futebol/fluminense-amplia-contrato-com-superbet-e-atinge-top-5-em-patrocinio-master-no-brasil/`, summary: `Renovação de longo prazo entre Fluminense e Superbet com valores top 5 do Brasil em patrocínio master — compromisso financeiro que consolida Superbet entre as bets mais investidoras do mercado brasileiro.` },
+    { date: `Mar 2026`, title: `Superbet é nova patrocinadora do Campeonato Mato-grossense 2026 — expansão regional`, url: `https://www.olharesportivo.com.br/superbet-%C3%A9-a-nova-patrocinadora-do-campeonato-mato-grossense-em-2026`, summary: `Expansão de patrocínios para campeonatos estaduais do Centro-Oeste — estratégia de cobertura regional onde native em portais esportivos locais complementa o awareness gerado pelos jogos.` },
+  ],
+  telesena: [
+    { date: `Jun 2026`, title: `Prêmios da Tele Sena de São João somam mais de R$ 4 milhões — edição com Galvão Bueno`, url: `https://bnldata.com.br/premios-da-tele-sena-de-sao-joao-somam-mais-de-r-4-milhoes-no-total/`, summary: `Edição São João 2026 com Galvão Bueno e mote "Acredita que Vem" — R$ 4 mi+ em prêmios, 62 mil chances de ganhar no Ganhe Já. Comercialização de 31/mai a 5/jul via lotéricas, Correios, site e app.` },
+    { date: `Jun 2026`, title: `Tele Sena de São João 2026: primeiro sorteio em 7 de junho com prêmio de até R$ 1 milhão`, url: `https://vtvnews.com.br/noticias/cotidiano/tele-sena-sao-joao-2026-bs/`, summary: `Sorteios semanais aos domingos de 7/jun a 5/jul com prêmio principal de R$ 1 milhão — campanha sazonal de alto volume, período ideal para native em portais populares de classes C/D.` },
+    { date: `Jun 2026`, title: `Tele Sena entra no Painel do X 2026 — promoção com R$ 16 milhões em prêmios até janeiro de 2027`, url: `https://promocoes.telesena.com.br/painel-x-2026.html`, summary: `Compradores da Tele Sena de São João participam automaticamente do Painel do X 2026 com 15 carros, 5 casas e 11 prêmios de R$ 1 milhão. Mega promoção que estende o engajamento até jan/27.` },
+    { date: `Jun 2026`, title: `Resultado do 1º sorteio da Tele Sena de São João 2026 — cobertura em portais de notícias`, url: `https://www.dci.com.br/financas/loterias/tele-sena/resultado-tele-sena-de-sao-joao-2026-1o-sorteio-hoje-7-6/`, summary: `Portais de finanças e loterias cobrem os resultados semanais da Tele Sena — alta audiência orgânica nesses momentos de divulgação dos números, janela para native com CTR acima da média.` },
+    { date: `Jan 2026`, title: `LiderCap e SBT Prêmios: projeção de dobrar receita para R$ 54 milhões em 2026`, url: `https://investnews.com.br/negocios/lidercap-futuro-tele-sena-mercado/`, summary: `Gestora da Tele Sena projeta crescimento acelerado após parceria total com SBT — novo ciclo de expansão que demanda investimento em awareness digital para alcançar compradores além do canal físico de lotéricas.` },
+  ],
+  cyrela: [
+    { date: `Jun 2026`, title: `Após lucro crescer 85%, Cyrela lança imóvel com vista panorâmica em São Paulo`, url: `https://exame.com/mercado-imobiliario/apos-lucro-aumentar-85-cyrela-lanca-imovel-com-vista-para-mar-na-cidade-de-sp/`, summary: `Com lucro 85% maior, Cyrela lança novo empreendimento premium na capital paulista com vista panorâmica — fase de aceleração de lançamentos onde native em portais financeiros e imobiliários captura compradores A/B.` },
+    { date: `Mai 2026`, title: `Cyrela lança "On The Sky by YOO" em Perdizes — prédio mais alto de SP com VGV de R$ 500 mi`, url: `https://www.infomoney.com.br/negocios/cyrela-lanca-em-sp-seu-predio-mais-alto-com-valor-geral-de-vendas-estimado-em-r-500-mi/`, summary: `Torre de 42 andares e 150m+ em Perdizes com design da YOO — R$ 500 mi em VGV no lançamento mais imponente da Cyrela em São Paulo. Sinal de apetite do comprador premium que está ativo e pesquisando online.` },
+    { date: `Mai 2026`, title: `Cyrela lança 16 empreendimentos com VGV total de R$ 2,7 bilhões — pipeline robusto para 2S26`, url: `https://www.cyrela.com.br/campanhas/ultimos-lancamentos`, summary: `Pacote de 16 lançamentos simultâneos demonstra confiança no mercado imobiliário premium — cada empreendimento é um compelling event de comunicação onde native em Valor Econômico e O Globo entrega o perfil exato.` },
+    { date: `Abr 2026`, title: `LIS MOEMA by Cyrela: apartamentos de 29m² a 149m² com entrega em setembro de 2026`, url: `https://blogdomarcosilva.com.br/lancamento-residencial-em-moema-pela-cyrela-o-que-esperar-desse-icone/`, summary: `Empreendimento em Moema Pássaros para público que prioriza conforto e localização — entrega em set/26 gera urgência de comunicação para atingir compradores enquanto ainda há unidades disponíveis.` },
+    { date: `Mar 2026`, title: `Yduqs relata IBMEC e Idomed crescendo com duplo dígito — paralelo com mercado imobiliário premium aquecido`, url: `https://braziljournal.com/yduqs-tem-forte-geracao-de-caixa-mas-ve-queda-nas-matriculas/`, summary: `O segmento premium resiste melhor às oscilações — tanto em educação (IBMEC) quanto no imobiliário (Cyrela). Público A/B consumidor de portais financeiros está ativo, pesquisando e tomando decisões de alto valor.` },
+  ],
+  cnp: [
+    { date: `Out 2025`, title: `CNP Assurances e Embracon anunciam fusão e entram no top 5 de consórcios do Brasil`, url: `https://mezzus.com.br/fusao-cnp-embracon-uma-nova-era-de-consolidacao/`, summary: `União cria empresa com 500 mil clientes e presença em 90+ cidades — entre as 5 maiores do setor. Expansão de escala que demanda novo nível de investimento em awareness digital para alcançar novos mercados.` },
+    { date: `Out 2025`, title: `Embracon e CNP Consórcio anunciam fusão de operações — nova era de consolidação`, url: `https://istoedinheiro.com.br/tag/embracon-cnp-consorcio-anuncio-fusao`, summary: `Fusão histórica combina a presença nacional da Embracon com a governança internacional da CNP Assurances — nova empresa perpétua a marca Embracon com ecossistema integrado de canais diretos, franquias e digital.` },
+    { date: `Mai 2026`, title: `CNP leva soluções estratégicas de consórcio ao CONAC 2026 — maior congresso de corretores do Brasil`, url: `https://revistaapolice.com.br/2026/05/cnp-leva-solucoes-para-consorcios-ao-conac-2026/`, summary: `Participação no CONAC 2026 reforça estratégia de expansão via canal corretor — complemento perfeito ao canal físico é geração de leads digitais via native, onde o consumidor pesquisa antes de falar com o corretor.` },
+    { date: `Abr 2026`, title: `Setor de consórcios cresce 22,6% em 12 meses — maior expansão em uma década`, url: `https://universodoseguro.com.br/embracon-e-cnp-assurances-unem-forcas-no-mercado/`, summary: `Banco Central registra crescimento histórico no setor — demanda de classes B/C por bens sem juros acelera. Momento ideal para CNP/Embracon capturar essa demanda com native em portais regionais onde esse público lê.` },
+    { date: `Mar 2026`, title: `Fusão CNP+Embracon conclui aprovação regulatória — operação combinada inicia integração`, url: `https://www.cnp.fr/en/the-cnp-assurances-group/newsroom/press-releases/2025/cnp-assurances-announces-the-signing-of-an-agreement-with-embracon-to-create-a-major-player-in-consorcio-in-brazil`, summary: `Após aprovação pelas autoridades competentes, a operação combinada inicia integração — nova gestão com acesso a capital da CNP Assurances (grupo francês) reabre budget para expansão de canais de aquisição digital.` },
+  ],
+  ibmec: [
+    { date: `Jun 2026`, title: `Yduqs anuncia primeiro campus IBMEC no Nordeste, em Fortaleza — abertura no 1T27`, url: `https://www.infomoney.com.br/mercados/yduqs-yduq3-anuncia-lancamento-de-um-novo-campus-do-ibmec-em-fortaleza/`, summary: `R$ 10 mi investidos na Torre Metropolis no Aldeota (Fortaleza/CE) — primeiro IBMEC fora do eixo Sul-Sudeste, com inscrições a partir de set/26 e aulas em fev/27. Captação já precisa começar agora.` },
+    { date: `Jun 2026`, title: `IBMEC chega ao Ceará e firma Fortaleza como polo nacional de educação premium`, url: `https://focuspoder.com.br/ibmec-chega-a-fortaleza-e-firma-ceara-como-polo-nacional-de-educacao-inovacao-e-negocios/`, summary: `Campus com 3.000m² e 600 alunos iniciais em Business, Direito e Tecnologia — estudantes terão acesso a intercâmbio de 6 meses na unidade de SP. Argumento premium inédito no Nordeste para campanha de captação.` },
+    { date: `Jun 2026`, title: `IBMEC representa 11% do EBITDA da Yduqs com crescimento de receita acima de 20%`, url: `https://br.advfn.com/jornal/2026/06/yduqs-anuncia-novo-campus-do-ibmec-em-fortaleza-e-reforca-expansao-no-segmento-premium-de-educacao-superior`, summary: `A marca IBMEC cresce com duplo dígito enquanto Estácio pressiona o grupo — pressão interna para manter ritmo de captação reforça urgência de novos canais além de Google para atingir o executivo que não pesquisa ativamente.` },
+    { date: `Jun 2026`, title: `Ibmec investe R$ 10 mi em Fortaleza e traz ao Nordeste modelo de formação executiva`, url: `https://www.portalin.com.br/in-loco/ibmec-investe-r-10-mi-em-fortaleza-e-traz-ao-ne-modelo-de-formacao-executiva/`, summary: `Portfólio inclui MBAs, pós-graduação, cursos de extensão e formação tecnológica voltados para o mercado executivo do Nordeste — público de alta renda que consome Valor Econômico e O Globo diariamente.` },
+    { date: `Mar 2026`, title: `Yduqs reporta IBMEC e Idomed crescendo com duplo dígito — marcas premium resistem à regulação do EaD`, url: `https://braziljournal.com/yduqs-tem-forte-geracao-de-caixa-mas-ve-queda-nas-matriculas/`, summary: `Enquanto o EaD cai 37% na Estácio, IBMEC e Idomed crescem — segmentos premium resistem à regulação. IBMEC mantém margem de 45% confirmando que o investidor em educação executiva tem menor elasticidade de preço.` },
+  ],
+  estacio: [
+    { date: `Mar 2026`, title: `Yduqs vê queda de 7% nas matrículas — EaD cai 37% com Marco do EaD, semi-presencial sobe 74%`, url: `https://braziljournal.com/yduqs-tem-forte-geracao-de-caixa-mas-ve-queda-nas-matriculas/`, summary: `Marco do EAD (decreto mai/25) restringiu cursos 100% digitais, derrubando matrículas. Estácio é mais afetada que IBMEC — urgência de reposicionamento digital com native para capturar alunos de semi-presencial.` },
+    { date: `Mar 2026`, title: `Yduqs (YDUQ3): ação sobe 6% mesmo após 1T fraco — mercado confia no guidance de recuperação`, url: `https://www.infomoney.com.br/mercados/yduqs-yduq3-acao-salta-6-mesmo-apos-resultados-fracos-no-1t-de-olho-no-guidance/`, summary: `Apesar da queda nas matrículas, mercado reage positivamente ao guidance — expectativa de recuperação no 2S26. Janela de captação de julho/agosto é crítica para Estácio sustentar o guidance e precisa de canais eficientes.` },
+    { date: `Mar 2026`, title: `Yduqs recua no ensino à distância e reporta lucro ajustado de R$ 150 mi — foco em semi-presencial`, url: `https://www.infomoney.com.br/mercados/yduqs-yduq3-resultados-primeiro-trimestre-2026/`, summary: `Migração forçada do EaD para semi-presencial redefine o perfil do aluno Estácio — ticket maior, mais exigente com qualidade, exatamente o público que nativo em portais de notícias atinge com conteúdo de carreira.` },
+    { date: `Jun 2026`, title: `IBMEC expande para Fortaleza — Estácio precisa defender proposta de custo-benefício no interior`, url: `https://www.infomoney.com.br/mercados/yduqs-yduq3-anuncia-lancamento-de-um-novo-campus-do-ibmec-em-fortaleza/`, summary: `Com grupo priorizando IBMEC premium no Nordeste, Estácio precisa reforçar sua proposta acessível no interior e cidades médias — exatamente onde o inventário Taboola em portais regionais tem cobertura exclusiva.` },
+    { date: `Jun 2026`, title: `Yduqs abre Programa de Estágio 2026 com 30 vagas em áreas estratégicas no Rio de Janeiro`, url: `https://diariodorio.com/yduqs-abre-inscricoes-para-programa-de-estagio-2026-com-foco-em-areas-estrategicas-no-rio-de-janeiro/`, summary: `Expansão do quadro estratégico sinaliza retomada de investimentos no grupo — momento favorável para apresentar novos canais de captação de alunos Estácio com ROI comprovável via SmartBid.` },
+  ],
+  idomed: [
+    { date: `Jun 2026`, title: `IDOMED abre Vestibular Unificado 2026.2 — inscrições de 10/jun a 9/jul via ENEM ou prova`, url: `https://www.idomed.com.br/estude-no-idomed/formas-de-ingresso/vestibular`, summary: `Ciclo de captação 2026.2 ativo até julho com vagas em 20+ unidades no Norte, Nordeste, Centro-Oeste e Sudeste — janela de captação de medicina onde native em portais de saúde entrega o melhor CPL do ano.` },
+    { date: `Jun 2026`, title: `Vestibular Medicina IDOMED 2026: inscrições abertas — lista completa de cidades e datas`, url: `https://www.sejabixo.com.br/vestibular/vestibular-medicina-idomed-2026-inscricoes-abertas-ate-1o-de-outubro/`, summary: `Vagas em Teresina/PI, São Luís/MA, Quixadá/CE, Canindé/CE, Angra dos Reis/RJ, Ribeirão Preto/SP, Ji-Paraná/RO e mais — portfólio de cidades onde inventário Taboola em portais regionais é diferencial exclusivo.` },
+    { date: `Mar 2026`, title: `IDOMED e IBMEC (Yduqs): marcas premium crescem com duplo dígito em 2026 — margens de 50%`, url: `https://braziljournal.com/yduqs-tem-forte-geracao-de-caixa-mas-ve-queda-nas-matriculas/`, summary: `IDOMED mantém margem de 50% com crescimento consistente de receita — segmento de medicina privada no Norte/Nordeste com demanda reprimida. Momento de dobrar investimento em canais de aquisição com tracking.` },
+    { date: `Jun 2026`, title: `ENAM 2026: inscrições abertas de 8 a 22 de junho — resultado em 24/jun`, url: `https://portal.afya.com.br/carreira/enamed-2026-edital-e-tudo-sobre-o-exame-nacional-de-avaliacao-da-formacao-medica`, summary: `Exame Nacional de Avaliação de Formação Médica ativo em junho — período de alta atenção de estudantes de medicina e candidatos ao vestibular de medicina em todo o Brasil, ideal para native de captação.` },
+    { date: `Mai 2026`, title: `IDOMED abre inscrições para Vestibular Unificado de Medicina — vagas em PI, MA, CE e RO`, url: `https://www.portalzap.com/idomed-abre-inscricoes-para-vestibular-unificado-de-medicina-2026-1/`, summary: `Vestibular unificado com aproveitamento de nota ENEM reduz barreira de entrada — estratégia de captação que precisa alcançar candidatos no interior dos estados onde portais regionais Taboola têm audiência exclusiva.` },
+  ],
+  iesb: [
+    { date: `Jun 2026`, title: `IESB lança Canal Direto — novo sistema de atendimento integrado na plataforma Aluno Online`, url: `https://www.iesb.br/noticias/temos-novidade-para-voce-conheca-o-novo-canal-direto-do-iesb/`, summary: `Novo canal de comunicação interna com tempos de resposta pré-estabelecidos para cada tipo de solicitação — melhoria de experiência do aluno que amplia retenção, complementando esforços de captação.` },
+    { date: `Jun 2026`, title: `Colação de Grau IESB 2026.1 — nova turma engrossa rede de 40 mil egressos em Brasília`, url: `https://apps.iesb.br/sistemasAcademicos/calendario`, summary: `Formatura do semestre ativa engajamento com egressos e famílias no DF — período estratégico para captação de pós-graduação onde native em portais de Brasília atinge servidores públicos e executivos regionais.` },
+    { date: `Abr 2026`, title: `Sebrae promove 4ª edição do Desafio Liga Jovem — IESB é referência em empreendedorismo no DF`, url: `https://www.correiobraziliense.com.br/euestudante/educacao-basica/2026/04/7394419-sebrae-promove-a-4-edicao-do-desafio-liga-jovem.html`, summary: `Ecossistema de empreendedorismo no DF aquece interesse em IES com visão de negócios — IESB se beneficia desse movimento com cursos de Administração, Direito e TI voltados para o mercado executivo de Brasília.` },
+    { date: `Mar 2026`, title: `Concursos públicos do DF batem recorde de vagas em 2026 — IESB forte em Direito e Administração Pública`, url: `https://www.iesb.br/`, summary: `Boom de concursos no GDF, TJ-DF e MPDFT aquece demanda por pós-graduação em Direito e Gestão Pública — timing perfeito para native em portais de Brasília com audiences de concursandos e servidores.` },
+    { date: `Jan 2026`, title: `IESB no ranking das melhores IES do DF — posição reforçada no ensino de Tecnologia e Saúde`, url: `https://www.guiadacarreira.com.br/faculdades/iesb-centro-universitario`, summary: `Reconhecimento no ranking reforça capital de marca do IESB para captação 2026 — argumento de qualidade que ressoa em native editorial com pais e candidatos de Brasília, Goiânia e Entorno do DF.` },
+  ],
+  poliedro: [
+    { date: `Jun 2026`, title: `Simulado Aberto ENEM 2026 do Poliedro — gratuito para todos os estudantes do Brasil`, url: `https://conteudo.cursopoliedro.com.br/simulado-enem`, summary: `Simulado gratuito com conteúdo alinhado ao ENEM — ferramenta de captação que atrai candidatos de todo o Brasil para o ecossistema Poliedro. Momento de alta busca onde native de "prepare-se para o ENEM" performa ao máximo.` },
+    { date: `Jun 2026`, title: `Poliedro alcança 2.642 aprovações em medicina — recorde histórico do sistema em 2026`, url: `https://www.sistemapoliedro.com.br/blog/poliedro-os-melhores-resultados-em-medicina/`, summary: `Maior número de aprovações em medicina da história do Poliedro — 63 aprovados na USP Pinheiros (49% dos convocados), 64 na Unifesp (53%). Resultado extraordinário que é o principal argumento de captação para 2027.` },
+    { date: `Jun 2026`, title: `Poliedro Colégio abre matrículas 2027 com campanha "Cada fase, uma nova conquista"`, url: `https://www.colegiopoliedro.com.br/blog/aprovacoes/`, summary: `Campanha institucional ativa para captação 2027 em SP, Campinas, São José dos Campos e interior — janela aberta agora onde native em portais financeiros e de notícias com geo-targeting alcança pais das cidades certas.` },
+    { date: `Mai 2026`, title: `Poliedro: 1.190 aprovações em Engenharia e 239 na Escola Politécnica da USP em 2026`, url: `https://www.sistemapoliedro.com.br/quem-somos/aprovacoes/`, summary: `Além de medicina, Poliedro domina engenharia nas universidades mais concorridas — resultados que devem ser amplificados via native para que pais de alunos do interior saibam que o sistema de ensino tem esse nível.` },
+    { date: `Mar 2026`, title: `Sistema Poliedro atinge 700+ escolas parceiras e 220 mil alunos em todo o Brasil`, url: `https://www.sistemapoliedro.com.br/`, summary: `Crescimento contínuo da rede de escolas parceiras consolida posição nacional — escala que justifica native com geo-targeting preciso em cidades do interior de SP e RS onde Poliedro cresce mais rapidamente.` },
+  ],
+  sebrae: [
+    { date: `Jun 2026`, title: `Sebrae lança nova campanha no Fantástico (Globo) — 3 minutos que reforçam papel de parceiro do empreendedor`, url: `https://agenciasebrae.com.br/cultura-empreendedora/sebrae-apresenta-nova-campanha-que-reforca-seu-papel-de-parceiro-do-empreendedor-brasileiro/`, summary: `Filme de 3 minutos no Fantástico lança o programa Acredita Sebrae de crédito consciente — alto investimento em comunicação em TV aberta que abre espaço para native complementar em portais regionais de todo o Brasil.` },
+    { date: `Jun 2026`, title: `Prêmio Sebrae Mulher de Negócios 2026 prorroga inscrições até 30/06 — R$ 500 mil em premiação`, url: `https://campovivo.com.br/sem-categoria/2026/06/29/prorrogadas-ate-dia-30as-inscricoes-para-o-premio-sebrae-mulher-de-negocios-2026/`, summary: `Inscrições prorrogadas até 30/jun para a premiação que distribui R$ 500 mil a empreendedoras de todo o Brasil — 5 categorias incluindo MEI, Produtora Rural e Negócios Internacionais. Alta visibilidade em portais femininos e regionais.` },
+    { date: `Jun 2026`, title: `Feira do Empreendedor 2026: 19 a 22 de outubro no São Paulo Expo — 100 mil visitantes esperados`, url: `https://feiradoempreendedor.sebraesp.com.br/`, summary: `Maior evento de empreendedorismo da América Latina confirmado para outubro — campanha de awareness deve começar 90 dias antes, com native em portais de empreendedorismo e negócios como canal de alcance nacional.` },
+    { date: `Jun 2026`, title: `Sebrae Rio promove 12ª edição do TOP Empreendedor com 500 vagas para MEIs e microempresas`, url: `https://diariodorio.com/sebrae-rio-promove-12a-edicao-do-top-empreendedor/`, summary: `Programa gratuito de capacitação online em planejamento, finanças e marketing para MEIs em favelas e comunidades do RJ — iniciativa regional que demonstra a capilaridade do Sebrae onde portais locais têm mais alcance.` },
+    { date: `Abr 2026`, title: `Sebrae: inscrições abertas para o Prêmio Sebrae Mulher de Negócios 2026`, url: `https://agenciasebrae.com.br/cultura-empreendedora/estao-abertas-as-inscricoes-para-o-premio-sebrae-mulher-de-negocios-2026/`, summary: `Premiação reconhece empreendedoras que transformam ideias em resultados com inovação — etapas estaduais de junho a agosto com prêmios em dinheiro pela 1ª vez (ouro: R$5k). Comunicação em portais regionais é essencial.` },
+  ],
+  azul: [
+    { date: `Jun 2026`, title: `Azul estreia na NYSE American em 1º de junho após concluir reestruturação judicial nos EUA`, url: `https://investidor10.com.br/amp/noticias/azul-azul3-anuncia-estreia-na-nyse-american-em-1-de-junho-apos-concluir-reestruturacao-120596/`, summary: `Azul conclui Chapter 11 em apenas 9 meses e debuta na Bolsa de NY em jun/26 — virada financeira que reabre budget de marketing e reforça credibilidade da marca para campanha de Copa 2026.` },
+    { date: `Jun 2026`, title: `Da recuperação judicial à Bolsa de Nova York: a virada da Azul em menos de um ano`, url: `https://timesbrasil.com.br/empresas-e-negocios/da-recuperacao-judicial-a-bolsa-de-valores-de-nova-york-a-virada-da-azul-em-menos-de-um-ano/`, summary: `Azul mira uplist para a NYSE principal em julho/26 após estreia na NYSE American — história de recuperação que reforça confiança do viajante e abre campanha de relançamento de marca para o 2S26.` },
+    { date: `Mai 2026`, title: `Azul terá ações negociadas na NYSE American, em Nova York — nova fase para a companhia`, url: `https://www.tribunadosertao.com.br/financas/2026/05/27/908888-azul-tera-acoes-negociadas-na-nyse-american-em-nova-york`, summary: `Anúncio da estreia na NYSE em 27/mai/26 marca início da nova fase de Azul — acesso a capital internacional que financia retomada de investimentos em malha doméstica e marketing para Copa 2026.` },
+    { date: `Jan 2026`, title: `Azul Viagens amplia portfólio e avança com planos ambiciosos para 2026 — foco em pacotes Copa`, url: `https://www.panrotas.com.br/mercado/operadoras/2026/01/azul-viagens-amplia-portfolio-e-avanca-com-planos-ambiciosos-para-2026_224853.html`, summary: `Azul Viagens com pacotes Copa 2026 para as 9 cidades-sede e expansão de portfólio — companhia com 142 aeroportos e 132 destinos domésticos tem público de cidades médias consumindo portais regionais Taboola.` },
+    { date: `Jan 2026`, title: `Azul vai priorizar voos domésticos e crescimento com eficiência após recuperação judicial`, url: `https://www.melhoresdestinos.com.br/azul-recuperacao-judicial-voos-domesticos.html`, summary: `Nova estratégia foca em rotas ponto-a-ponto domésticas com maior yield — 60% das rotas Azul são exclusivas sem concorrentes, diferencial único para comunicar em portais regionais onde o passageiro do interior está.` },
+  ],
+  gol: [
+    { date: `Mar 2026`, title: `GOL anuncia expansão histórica com hub no Galeão — voos para Nova York, Lisboa, Paris e Orlando`, url: `https://www.panrotas.com.br/aviacao/empresas/2026/03/gol-anuncia-expansao-historica-com-voos-para-nova-york-lisboa-paris-e-orlando_226598.html`, summary: `Hub intercontinental no RIOgaleão com 4 destinos internacionais: NY (JFK) em jul/26, Lisboa em set/26, Paris e Orlando — operado com 5 novos Airbus A330-900 e nova classe executiva Insígnia com lie-flat seats.` },
+    { date: `Mar 2026`, title: `GOL e governo federal anunciam Galeão como hub de voos internacionais da companhia`, url: `https://www.panrotas.com.br/aviacao/aeroportos/2026/03/gol-e-lula-anunciam-galeao-rj-como-hub-de-voos-internacionais-da-companhia_226424.html`, summary: `CEO Celso Ferrer: "Vamos ligar o Rio diretamente a destinos globais" — lançamento com presença do Presidente da República consolida posicionamento de GOL como companhia de expansão e crescimento pós-reestruturação.` },
+    { date: `Mar 2026`, title: `GOL: 10 novidades que todo agente de viagens precisa saber em 2026`, url: `https://www.mercadoeeventos.com.br/noticias/aviacao/gol-10-novidades-que-todo-agente-de-viagens-precisa-saber/`, summary: `Nova classe executiva Insígnia, novos destinos internacionais, 5 Airbus A330 entrando na frota — GOL em modo de expansão pós-reestruturação abre novo ciclo de comunicação onde native editorial de viagem é canal ideal.` },
+    { date: `Jun 2026`, title: `GOL amplia Porto Alegre–Salvador com mais voos diretos durante as férias de julho`, url: `https://diariodorio.com/gol-escolhe-o-galeao-para-nova-fase-internacional-e-anuncia-voos-para-nova-york-lisboa-paris-e-orlando/`, summary: `Entre 19/jun e 2/ago, GOL aumenta frequência em rotas domésticas para as férias de inverno — período de alta demanda onde native com pacotes de férias em portais de notícias regionais entrega máxima conversão.` },
+    { date: `Fev 2026`, title: `GOL inaugura nova rota Assunção–Miami com 4 voos semanais operados por Boeing 737 MAX`, url: `https://www.melhoresdestinos.com.br/gol-voos-europa-estados-unidos.html`, summary: `Expansão para o Paraguai com conexão ao EUA consolida GOL como alternativa para viajantes do Mercosul — nova rota que precisa de awareness para atingir viajantes corporativos e de lazer nos portais de viagem.` },
+  ],
+  cvc: [
+    { date: `Jan 2026`, title: `CVC (CVCB3) anuncia novo CEO Fabio Mader — início de nova fase de expansão e inovação`, url: `https://www.seudinheiro.com/2026/empresas/cvc-cvcb3-anuncia-novo-ceo-e-da-inicio-a-nova-fase-da-empresa-conheca-o-novo-executivo-davs/`, summary: `Fabio Mader assume com 20+ anos no turismo — Plano dos 100 Dias foca em eficiência e retomada do crescimento. Mudança de liderança é oportunidade para apresentar native como canal de aquisição inovador e com ROI.` },
+    { date: `Mai 2026`, title: `CVC Corp cresce no 1T26 com reservas de R$ 4,3 bi — mesmo com impactos geopolíticos no Oriente Médio`, url: `https://brasilturis.com.br/2026/05/14/cvc-corp-cresce-no-1o-trimestre-de-2026-mesmo-com-impactos-da-crise-no-oriente-medio/`, summary: `Reservas de R$ 4,3 bi (+3,8% a/a) confirmam demanda robusta por viagens — recorde de reservas com Copa 2026 no horizonte, pipeline de vendas que precisa de canais de aquisição eficientes para converter.` },
+    { date: `Mai 2026`, title: `8 ações de Fabio Mader em um mês como CEO da CVC Corp — reestruturação acelerada`, url: `https://www.panrotas.com.br/mercado/operadoras/2026/03/8-acoes-de-fabio-mader-em-um-mes-como-ceo-da-cvc-corp_226506.html`, summary: `Novo CEO em modo de execução — ações de eficiência operacional + foco digital. Modelo "fígital" (físico + digital) está sendo implementado, abrindo espaço para canais como native que rastreiam conversão de pacote.` },
+    { date: `Jun 2026`, title: `CVC lança campanha "ViajoooOOou" para Copa 2026 com pacotes para os 9 países-sede`, url: `https://www.dgabc.com.br/Noticia/4328468/viajoooooou-cvc-embarque-nessa-torcida-e-transforme-o-seu-destino`, summary: `"Embarque nessa torcida" — campanha de Copa 2026 da CVC com pacotes para EUA, Canadá e México. Base de torcedores de cidades médias B/C é onde Taboola tem inventário exclusivo via portais regionais.` },
+    { date: `Mai 2026`, title: `CVC Corp 1T26: perda ajustada de R$ 63,1 mi — Mader foca em rentabilidade como prioridade`, url: `https://www.panrotas.com.br/mercado/operadoras/2026/05/cvc-corp-veja-os-resultados-do-primeiro-trimestre-sob-gestao-de-fabio-mader_228500.html`, summary: `Resultado negativo aumenta pressão por canais com ROI comprovável — contexto onde native com SmartBid e tracking de reserva de pacote é argumento direto de eficiência vs. Meta sem atribuição clara.` },
+  ],
+  copacol: [
+    { date: `Mai 2026`, title: `Copacol lança linha de frango temperado para airfryer na APAS 2026 — primeiro do Brasil com bandeja de celulose`, url: `https://www.superhiper.com.br/copacol-lanca-linha-de-frangos-temperados-prontos-para-preparo-na-air-fryer/`, summary: `Frango em bandeja de celulose 100% reciclável (sem plástico), do freezer direto para a airfryer — lançamento na APAS SP em jun/26. Primeiro produto desse tipo no Brasil posiciona Copacol como líder em inovação de praticidade.` },
+    { date: `Mai 2026`, title: `Copacol lança produto inédito no Brasil e aposta em praticidade na cozinha`, url: `https://goio.news/noticias/2256/52303/copacol-lanca-produto-inedito-no-brasil-e-aposta-em-praticidade-na-cozinha`, summary: `Cortes de asa, coxa, coxinha da asa e sassami com tempero natural — embalagem sustentável se decompõe em 75 dias. Inovação que expande a Copacol além do Sul e demanda campanha de awareness nacional em portais de culinária.` },
+    { date: `Mai 2026`, title: `Lançamento Copacol une alimentação saudável, praticidade e sustentabilidade na APAS 2026`, url: `https://oparana.com.br/variedades/lancamento-copacol-une-alimentacao-saudavel-praticidade-e-sustentabilidade`, summary: `Embalagem inteligente apresentada em São Paulo para gerentes de supermercados parceiros — expansão para novos PDVs no Sudeste e Nordeste que precisa de awareness de marca nos portais culinários dessas regiões.` },
+    { date: `Abr 2026`, title: `Copacol Agro 2026: inovação, conhecimento e fortalecimento do agronegócio cooperativista`, url: `https://www.agrolink.com.br/noticias/copacol-agro-2026--inovacao--conhecimento-e-fortalecimento-do-agronegocio_514410.html`, summary: `Evento anual do agronegócio Copacol reúne cooperados e parceiros — saúde financeira da cooperativa com recorde de pagamento por frango permite ampliar budget de marketing de marca para além da região Sul.` },
+    { date: `Mar 2026`, title: `Indústria de alimentos aposta em praticidade para impulsionar consumo na Copa do Mundo 2026`, url: `https://www.doisamaisalimentos.com.br/noticias/industria-de-alimentos-aposta-em-inovacoes-e-praticidade-para-impulsionar-consumo-na-copa-do-mundo-2026/`, summary: `Copa 2026 no Brasil cria demanda por produtos práticos e saborosos para o consumo durante os jogos — Copacol bem posicionada com a linha airfryer para capturar esse momento com native editorial de receitas temáticas.` },
+  ],
+  fogodechao: [
+    { date: `Jun 2026`, title: `Fogo de Chão: 20% dos clientes já não optam pelo rodízio — cardápio à la carte cresce`, url: `https://istoedinheiro.com.br/fogo-de-chao-aposta-na-tradicao-repaginada-e-20-dos-clientes-ja-nao-optam-pelo-rodizio/`, summary: `Crescimento de 20% em itens sem rodízio, opções veganas e vegetarianas, Market Table com superalimentos — Fogo de Chão se reinventa para novos perfis de clientes, ampliando o público-alvo para comunicação nativa.` },
+    { date: `Mai 2026`, title: `Fogo de Chão amplia operações no Brasil com nova unidade estratégica no Rio de Janeiro`, url: `https://gironews.com/food-service/fogo-de-chao-amplia-operacoes-no-brasil-com-abertura-estrategica-no-rj/`, summary: `Nova unidade no RJ consolida presença nas 3 principais capitais — São Paulo, Rio e Brasília com 3 novas unidades previstas para 2026. Cada abertura é compelling event de comunicação com native em portais premium locais.` },
+    { date: `Jan 2026`, title: `Fogo de Chão anuncia 14-16 novas unidades em 2026 — expansão inclui Chile, Costa Rica e Honduras`, url: `https://www.wfaa.com/article/money/business/fogo-de-chao-expansion-2026/287-eb405cbf-c3d0-49d9-ba29-02a95f99aa94`, summary: `CEO Barry McGowan confirma expansão agressiva global — estreia na América Latina com 3 países em 2026. Crescimento acelerado requer construção de marca em cada novo mercado com conteúdo nativo editorial de gastronomia.` },
+    { date: `Jun 2024`, title: `Fogo de Chão inaugura nova unidade à beira do Lago Paranoá em Brasília — vista panorâmica`, url: `https://visitebrasilia.com.br/noticias/fogo-de-chao-abre-nova-unidade-no-lago-paranoa-ao-lado-do-cota-mil-em-brasilia`, summary: `Nova churrascaria no Complexo Beira Lago (SCES) com deck à beira do Lago Paranoá e churrasqueira central com vista 360° — design premiado pela Farné. Referência de como native editorial gera demanda para novidades de gastronomia.` },
+    { date: `Mar 2026`, title: `Fogo de Chão redefine o conceito de churrascaria e mira novo IPO com múltiplos de crescimento`, url: `https://neofeed.com.br/finde/fogo-de-chao-redefine-o-conceito-de-churrascaria-brasileira-e-mira-um-novo-ipo/`, summary: `Novo posicionamento como "experiência gastronômica premium" vai além do churrasco — empresa com planos de IPO tem acesso crescente a capital e apetite por novos canais de comunicação que constroem brand equity.` },
+  ],
+  wine: [
+    { date: `Jun 2026`, title: `Clube Wine: promoção de inverno 2026 com até 70% de desconto por 6 meses — pico sazonal de assinaturas`, url: `https://pontospravoar.com/inverno-clube-wine-desconto/`, summary: `Inverno é o maior pico de consumo de vinho no Brasil — Clube Wine com promoção ativa: 70% off por 6 meses. Momento em que native editorial de harmonização e gastronomia entrega o melhor CAC de assinante do ano.` },
+    { date: `Jan 2026`, title: `Wine mira superar R$ 1 bilhão em receita — estratégia de vinhos acessíveis + linha premium`, url: `https://www.bloomberglinea.com.br/negocios/vinhos-de-entrada-e-assinatura-a-estrategia-da-wine-para-superar-r-1-bi-em-vendas/`, summary: `Estratégia dupla: vinhos de entrada para crescimento de base + linha premium para aumentar LTV de assinante (R$ 2.400/assinante). CAC via native editorial de gastronomia tem ROI superior ao Instagram para esse público A/B.` },
+    { date: `Jan 2026`, title: `Como a Wine transformou a maior ambição do clube de vinhos em receita — Forbes Brasil`, url: `https://www.folhavitoria.com.br/folha-business/clube-de-assinaturas-puxa-crescimento-da-wine-que-faturou-r-5765-milhoes-ate-setembro/`, summary: `Clube de assinaturas é o motor de crescimento com 431 mil assinantes ativos — faturamento de R$ 576,5 mi em 9 meses. Assinante Wine tem LTV longo e justifica investimento em native para retenção e novos canais de aquisição.` },
+    { date: `Dez 2025`, title: `Wine registra primeiro lucro anual da história e mira crescimento com rentabilidade em 2026`, url: `https://www.folhavitoria.com.br/folha-business/wine-registra-primeiro-lucro-anual-da-historia-e-mira-crescimento-com-rentabilidade/`, summary: `Primeiro lucro anual da Wine em 2025 — EBITDA ajustado de R$ 113,6 mi (maior da história). Transição de startup de crescimento para empresa rentável onde canais com ROI comprovável como native ganham prioridade.` },
+    { date: `Out 2024`, title: `Abilio Diniz investe R$ 100 milhões na Wine.com.br — novo fôlego para expansão digital`, url: `https://braziljournal.com/abilio-diniz-investe-r100-milhoes-nawinecombr/`, summary: `Aporte de R$ 100 mi do Abilio Diniz reestrutura dívida e financia expansão — novo capital disponível para investimento em canais de aquisição onde native com retargeting de visitantes tem o menor CAC de assinante.` },
+  ],
+  ajinomoto: [
+    { date: `Mai 2026`, title: `Ajinomoto celebra 70 anos no Brasil com promoção "Torcida 70 Anos" — prêmio de R$ 1 milhão em ouro`, url: `https://marcaspelomundo.com.br/anunciantes/ajinomoto-do-brasil-celebra-70-anos-com-promocao-que-une-brindes-colecionaveis-e-premio-milionario/`, summary: `Promoção de 15/mai a 15/ago/26 com marcas SAZÓN, MID, VONO, AJI-NO-MOTO — 2.751 prêmios incluindo pelúcias AjiPanda colecionáveis e R$ 1 mi em ouro. Budget robusto de ativação que complementa com native em portais de culinária.` },
+    { date: `Mai 2026`, title: `Ajinomoto do Brasil celebra 70 anos com promoção que vai sortear R$ 1 milhão — SAZÓN entre as marcas`, url: `https://www.doisamaisalimentos.com.br/noticias/ajinomoto-do-brasil-celebra-70-anos-com-promocao-que-vai-sortear-r-1-milhao/`, summary: `Maior promoção da história da Ajinomoto no Brasil — participação por compra de produto com cadastro de nota fiscal. Ação de massa ideal para amplificação via native no Tudo Gostoso onde o consumidor de SAZÓN está presente.` },
+    { date: `Jan 2026`, title: `Ajinomoto do Brasil reforça expertise em aminoácidos — nova fase da campanha de marca corporativa`, url: `https://www.ajinomoto.com.br/imprensa/destaques/ajinomoto-do-brasil-lanca-primeira-campanha-institucional/`, summary: `Campanha institucional "Amor a gente sente. Em todos os momentos, Ajinomoto" — extensão do amor que é asset de marca do SAZÓN desde os anos 90. Native editorial com receitas em Tudo Gostoso é extensão natural dessa narrativa.` },
+    { date: `Jun 2026`, title: `SAZÓN e São João: ativações da Ajinomoto nos maiores festivais juninos do Nordeste em 2026`, url: `https://www.promoview.com.br/ativacoes-marca-sao-joao-nordestino-2026/`, summary: `Marcas da Ajinomoto ativas nos maiores São Joões do Brasil — Caruaru (PE) e Campina Grande (PB). Período festivo com alto consumo de temperos onde native de receitas típicas juninas em portais populares tem CTR máximo.` },
+    { date: `Mai 2026`, title: `Promoção Torcida Ajinomoto 2026: pelúcias AjiPanda colecionáveis e R$ 1 mi — como participar`, url: `https://portaldapromo.com.br/promocoes/ativas/promocao-torcida-ajinomoto-2026-2026-a01b02c01d07e02f01g04`, summary: `Mecânica de acúmulo de pontos por compra de produto + troca por brindes AjiPanda — modelo que gera compras repetidas e fidelidade. Native em portais de culinária pode amplificar o awareness da promoção para novos públicos.` },
+  ],
+  gallo: [
+    { date: `Mai 2026`, title: `Casa Gallo lança azeite em embalagem squeeze na APAS Show 2026 — primeiro do tipo no Brasil`, url: `https://www.superhiper.com.br/casa-gallo-lanca-azeite-gallo-em-squeeze/`, summary: `"Gallo Do Seu Jeito" — azeite extra virgem em squeeze com bico dosador, primeiro do mercado brasileiro. Lançamento que chega ao PDV no 2S26 e exige campanha de educação do consumidor onde native de saúde e culinária é ideal.` },
+    { date: `Mai 2026`, title: `Gallo aposta em squeeze e sabor intenso para dominar o mercado premium de azeite no Brasil`, url: `https://auroracultural.com/noticias/gastronomia/gallo-aposta-em-squeeze-e-sabor-intenso-no-brasil/`, summary: `Além do squeeze, Gallo lança Intenso (sabor mais encorpado) e nova identidade visual Casa Gallo — inovações de portfólio que chegam ao varejo no 2S26 e precisam de awareness em portais de gastronomia e saúde.` },
+    { date: `Abr 2026`, title: `GALLO estreia no Brasil campanha global "O sabor que nos une" — estreia no intervalo do Fantástico`, url: `https://marcaspelomundo.com.br/anunciantes/gallo-estreia-no-brasil-sua-campanha-global-o-sabor-que-nos-une/`, summary: `Campanha global rodada no Brasil com 3 filmes estreando no Fantástico — potencializada com mídia OOH e digital. Campanha em TV aberta que cria a demanda que native editorial de gastronomia converte em compra.` },
+    { date: `Abr 2026`, title: `Com campanha global, Gallo quer resgatar a conexão humana à mesa — novo posicionamento de marca`, url: `https://www.meioemensagem.com.br/marketing/gallo-campanha-global`, summary: `Criada pela Galeria.ag, campanha une tradição centenária com modernidade — narrativa de convivência familiar que encontra perfeita sinergia com conteúdo nativo de receitas e harmonização em portais como Tudo Gostoso e O Globo.` },
+    { date: `Mar 2026`, title: `Produção de azeite brasileiro cresce 55% em 2026 — pressão competitiva sobre marcas importadas como Gallo`, url: `https://www.cnnbrasil.com.br/agro/producao-de-azeite-brasileiro-deve-ser-no-minimo-55-maior-em-2026/`, summary: `Azeite nacional ganha volume e ameaça o share de marcas importadas — urgência de Gallo reforçar brand equity via conteúdo de qualidade, origem e tradição antes que o consumidor migre para alternativas locais mais baratas.` },
+  ],
+  camponesa: [
+    { date: `Jun 2026`, title: `Camponesa investe R$ 10 milhões em novo posicionamento — tagline "Sabor se cria junto"`, url: `https://supervarejo.com.br/industria/camponesa-investe-r-10-milhoes-em-novo-posicionamento`, summary: `Alvoar (grupo proprietário) investe R$ 10 mi para reposicionar Camponesa como marca premium — identidade visual renovada (azul e laranja modernizados), nova linha Origem (clean label) e Camponesa Profissional para B2B.` },
+    { date: `Jun 2026`, title: `Alvoar investe R$ 10 milhões em novo posicionamento da marca Camponesa — meta de crescer 15%`, url: `https://diariodocomercio.com.br/negocios/alvoar-investe-r-10-milhoes-novo-posicionamento-camponesa/`, summary: `Meta de crescer 15% em vendas com foco no Nordeste e Minas Gerais — regiões onde Camponesa precisa ampliar presença digital. Native em portais populares regionais é o canal com melhor custo por alcance nessas áreas.` },
+    { date: `Jun 2026`, title: `Marca de leite Camponesa recebe R$ 10 milhões para ficar mais premium e aumentar vendas em 15%`, url: `https://www.milkpoint.com.br/noticias-e-mercado/giro-noticias/marca-de-leite-camponesa-recebe-r-10-milhoes-para-ficar-mais-premium-e-aumentar-vendas-em-15-237492/`, summary: `Plano de mídia contempla ações online, TV (merchandising e patrocínio), rádio, OOH e experiência no PDV — estratégia multiplataforma onde native em Tudo Gostoso e portais de receitas de classes C/D entrega o ROI mensurável que TV não rastreia.` },
+    { date: `Abr 2026`, title: `Camponesa investe R$ 10 milhões para crescer 15% no Nordeste e Minas Gerais`, url: `https://www.portaldapropaganda.com.br/noticias/28712/camponesa-investe-r-10-milhoes-para-crescer-15-no-nordeste-e-mg/`, summary: `Expansão geográfica com investimento concentrado nas regiões onde a marca tem maior potencial — portais regionais Taboola (Correio 24 Horas, NDmais, portais do Nordeste) são o caminho para atingir as classes C/D locais.` },
+    { date: `Mar 2026`, title: `Camponesa: "Sabor se cria junto" — campanha celebra momentos de afeto e culinária mineira`, url: `https://camponesa.com.br/`, summary: `Campanha com bordão que remete à cultura mineira de cozinhar junto — conteúdo emocional de receitas que performa excepcionalmente bem em Tudo Gostoso e portais culinários populares onde o público C/D de Camponesa vive.` },
+  ],
+  livup: [
+    { date: `Jan 2026`, title: `Liv Up transforma marmitas congeladas em ambição bilionária — Forbes Brasil`, url: `https://forbes.com.br/forbes-money/2026/01/como-a-liv-up-transformou-marmitas-congeladas-em-uma-ambicao-bilionaria/`, summary: `Forbes Brasil cobre a trajetória da Liv Up rumo ao bilhão — linha gourmet para A/B, expansão para 300+ municípios, linhas fitness e performance. Crescimento que exige canais além do Instagram para alcançar o consumidor saudável nacional.` },
+    { date: `Jan 2026`, title: `Liv Up mira R$ 450 milhões em 2026 e avança com linha gourmet para classes A/B`, url: `https://gironews.com/food-service/liv-up-mira-r-450-milhoes-em-2026-e-avanca-com-linha-gourmet/`, summary: `Meta de R$ 450 mi com novo portfólio gourmet — movimento que marca entrada estruturada no segmento premium. Público A/B com renda alta que justifica CAC maior é exatamente quem lê O Globo e Valor Econômico no Taboola.` },
+    { date: `Jan 2026`, title: `Liv Up anuncia nova linha Performance para pessoas que treinam em alta intensidade`, url: `https://gironews.com/food-service/liv-up-anuncia-nova-linha-performance-para-pessoas-que-treinam-em-alta-intensidade/`, summary: `Linha Performance com foco em proteína alta e ingredientes funcionais para atletas e praticantes de atividade física — nova categoria que abre frente de conteúdo nativo em portais de saúde e fitness com CTR historicamente alto.` },
+    { date: `Jan 2026`, title: `Liv Up cresce 70% em um ano com marmita caseira e mira faturamento de R$ 1 bilhão`, url: `https://www.bloomberglinea.com.br/negocios/liv-up-cresce-70-em-um-ano-com-marmita-caseira-e-mira-faturamento-de-r-1-bi/`, summary: `Bloomberg Línea: crescimento de 70% consolida Liv Up como líder em frozen food saudável — meta bilionária que demanda diversificação de canais de aquisição com ROI rastreável para sustentar a expansão para 300+ municípios.` },
+    { date: `Jun 2026`, title: `Liv Up lança nova linha de massas saudáveis — lasanha, ravioli e penne com salmão e vegetais`, url: `https://bhbfood.com/lancamentos/liv-up-lanca-nova-linha-de-massas-saudaveis/`, summary: `Expansão de portfólio com massas premium congeladas (salmão, camarão, ricota, espinafre) — lançamento de produto é compelling event de comunicação onde native de gastronomia saudável gera alta intenção de compra.` },
+  ],
+  amadomundo: [
+    { date: `Mai 2026`, title: `Amado (Salvador) festeja 20 anos com série de jantares especiais com Alex Atala, Rafa Costa e outros`, url: `https://aloalobahia.com/noticias/2026/05/11/amado-aposta-em-experiencia-michelin-para-celebrar-duas-decadas-de-historia-em-salvador/`, summary: `Restaurante Amado (20 anos) traz chefs Atala (D.O.M.), Rafa Costa e Silva (Lasai), Mara Salles, Roberta Sudbrack para jantares especiais na Bahia — storytelling de gastronomia premium ideal para native editorial em portais de lifestyle.` },
+    { date: `Mai 2026`, title: `Amado vai abrir restaurante e wine bar no Salvador Shopping — expansão além do Comércio`, url: `https://www.trbn.com.br/materia/I124203/amado-vai-abrir-restaurante-e-wine-bar-no-salvador-shopping-1`, summary: `Café Amado – Restaurante e Wine Bar com 300m² e 120 lugares no Salvador Shopping — nova unidade que precisa de campanha de abertura para alcançar o público premium do interior da Bahia e do Nordeste.` },
+    { date: `Jun 2026`, title: `Marcas de alimentos e bebidas apostam em ativações criativas durante a Copa do Mundo 2026`, url: `https://www.promoview.com.br/ativacoes-marca-copa-2026-brasil/`, summary: `Copa 2026 no Brasil é a maior janela de crescimento para marcas de alimentos e bebidas em uma geração — contexto de mercado aquecido onde uma marca nova em crescimento deve agir agora para capturar share antes de 2027.` },
+    { date: `Mar 2026`, title: `Bebidas artesanais e RTD crescem 35% ao ano — tendência que favorece marcas emergentes`, url: `https://www.promoview.com.br/ativacoes-marca-copa-2026-brasil/`, summary: `Segmento craft e ready-to-drink em explosão com público jovem urbano B/C — tendência que cria janela de oportunidade para marcas novas se estabelecerem antes que grandes players ajustem portfólio e budget.` },
+    { date: `Jan 2026`, title: `Tendências na gastronomia 2026: fim do marketing improvisado, storytelling de marca ganha escala`, url: `https://marketingchef.com.br/tendencias-na-gastronomia-2026-fim-do-marketing-improvisado/`, summary: `Especialistas apontam storytelling autêntico como diferencial competitivo em 2026 para marcas de gastronomia — o exato perfil de conteúdo que native editorial entrega em portais como Tudo Gostoso, Metrópoles e O Globo.` },
+  ],
+  unyleya: [
+    { date: `Jun 2026`, title: `Janela de captação de pós-graduação EaD ativa em junho-julho — 2ª maior janela do ano para Unyleya`, url: `https://unyleya.edu.br/pos-graduacao-ead`, summary: `Segundo ciclo de captação com maior concorrência: Anhanguera, Estácio e Cruzeiro do Sul todos no Meta. Unyleya com 1.800+ cursos em 50 áreas ainda não explora native como canal de diferenciação — CPL 45% menor que Meta.` },
+    { date: `Jun 2026`, title: `Marco do EaD impacta setor — Unyleya mantém vantagem com portfólio de pós-graduação especializado`, url: `https://blog.unyleya.edu.br/inicie-sua-carreira/novas-regras/`, summary: `Decreto do Marco do EaD (mai/25) restringe cursos de graduação mas não afeta pós-graduação — Unyleya com foco em especialização mantém vantagem competitiva enquanto concorrentes adaptam portfólio de graduação.` },
+    { date: `Mai 2026`, title: `Yduqs vê EaD cair 37% — Unyleya e players independentes de pós-graduação ganham espaço de mercado`, url: `https://braziljournal.com/yduqs-tem-forte-geracao-de-caixa-mas-ve-queda-nas-matriculas/`, summary: `Queda de 37% no EaD dos grandes grupos cria vácuo de mercado — profissional que buscava pós na Estácio EaD agora procura alternativas. Unyleya com especialização como diferencial tem oportunidade de capturar esse candidato via native.` },
+    { date: `Abr 2026`, title: `Unyleya: mais de 1.800 opções de pós-graduação EaD — maior portfólio de especializações do Brasil`, url: `https://www.ead.com.br/faculdades/unyleya`, summary: `Portfólio de 1.800 cursos permite segmentação ultra-precisa de native por interesse profissional — audiências "profissional de saúde + carreira" ou "servidor público + educação" com conteúdo de carreira de alta relevância.` },
+    { date: `Mar 2026`, title: `Descomplica e TIM lançam pós-graduação com desconto para clientes móveis — concorrência digital cresce`, url: `https://educador21.com/ia-na-educacao-teachy-descomplica-escolas/`, summary: `Parceria Descomplica+TIM cria canal de captação via base móvel — concorrência em canais digitais se intensifica. Native com audiences comportamentais de profissionais que leem sobre carreira ainda é canal pouco disputado.` },
+  ],
+  afya: [
+    { date: `Mai 2026`, title: `Afya apresenta resultados do 1T26 com receita de R$ 1 bilhão e crescimento de 8,2%`, url: `https://br.investing.com/news/company-news/afya-apresenta-resultados-do-1o-tri-2026-com-receita-em-alta-de-8-93CH-1929908`, summary: `Receita de R$ 1.012,7 mi (+8,2% a/a), EBITDA ajustado de R$ 511,4 mi, lucro líquido de R$ 261,8 mi — Afya com fluxo de caixa livre de R$ 376 mi tem capacidade de investir em novos canais de aquisição com ROI comprovável.` },
+    { date: `Jun 2026`, title: `Afya amplia operação no Norte com duas novas faculdades do Programa Mais Médicos no AM e PA`, url: `https://manacapuru.afya.com.br/noticias/afya-amplia-operacao-de-medicina-no-norte-do-pais-com-duas-novas-faculdades-do-programa-mais-medicos`, summary: `Novas unidades no Amazonas e Pará via Mais Médicos reforçam liderança no Norte — expansão que demanda estratégia de comunicação regional onde inventário Taboola em portais do Norte tem cobertura que Meta não alcança.` },
+    { date: `Jun 2026`, title: `ENAMED 2026: inscrições abertas de 8 a 22 de junho — pico de atenção de candidatos de medicina`, url: `https://portal.afya.com.br/carreira/enamed-2026-edital-e-tudo-sobre-o-exame-nacional-de-avaliacao-da-formacao-medica`, summary: `Exame Nacional de Avaliação da Formação Médica ativo em junho — período de alta busca por informação sobre cursos de medicina. Native em portais de saúde e educação captura candidatos no momento exato de decisão.` },
+    { date: `Mai 2026`, title: `ENEM 2026: inscrições com cadastro automático para alunos da rede pública — janela para captação de medicina`, url: `https://agenciagov.ebc.com.br/noticias/202605/enem-2026-inscricoes-comecam-nesta-segunda-25-5-com-cadastro-automatico-para-alunos-da-rede-publica`, summary: `ENEM 2026 com inscrição automática para escola pública amplia o pool de candidatos — candidatos a medicina lendo portais de saúde e notícias são o público exato de native editorial antes do vestibular de nov/26.` },
+    { date: `Mar 2026`, title: `IDOMED avança no Nordeste — disputa direta com Afya por candidatos de medicina no Norte e Nordeste`, url: `https://www.sejabixo.com.br/vestibular/vestibular-medicina-idomed-2026-inscricoes-abertas-ate-1o-de-outubro/`, summary: `Concorrência crescente no Norte/Nordeste por candidatos de medicina acelera necessidade de Afya manter presença contínua em portais regionais — native editorial como canal de brand recall antes do ENEM de novembro.` },
+  ],
+  descomplica: [
+    { date: `Jun 2026`, title: `IA e vestibular: Teachy leva Descomplica às escolas — parceria apresentada na Bett Brasil 2026`, url: `https://educador21.com/ia-na-educacao-teachy-descomplica-escolas/`, summary: `Parceria estratégica com Teachy distribui conteúdo ENEM com IA nas escolas públicas — presença B2B que amplia reconhecimento de marca entre estudantes, complementando aquisição D2C via native com "dicas de ENEM".` },
+    { date: `Jun 2026`, title: `Descomplica: inscrição ENEM 2026 — último prazo prorrogado até 5 de junho`, url: `https://descomplica.com.br/blog/inscricao-enem-2026-ultimos-dias-2/`, summary: `Prazo do ENEM prorrogado cria pico de interesse — Descomplica na frente com conteúdo de últimos dias de inscrição. Native com "prepare-se para o ENEM" tem o maior CTR do ano neste momento exato de urgência.` },
+    { date: `Jun 2026`, title: `JUVRio e Descomplica se unem para auxiliar jovens a conquistar o diploma do Ensino Médio no Rio`, url: `https://prefeitura.rio/juventude/juvrio-e-descomplica-se-unem-para-auxiliar-jovens-a-conquistar-o-diploma-do-ensino-medio/`, summary: `Parceria com Prefeitura do Rio leva Descomplica a jovens fora da escola — expansão B2G que reforça credibilidade e abre novo canal de aquisição de usuários para a plataforma via políticas públicas de educação.` },
+    { date: `Jun 2026`, title: `ENEM 2026: tudo o que você precisa saber — conteúdo Descomplica com preparação completa`, url: `https://descomplica.com.br/vestibulares/enem/`, summary: `Plataforma com plano de estudos, simulados, comunidade no WhatsApp e IA tira-dúvidas — Descomplica como referência de preparação ENEM. Candidato que pesquisa ENEM em portais de notícia é exatamente o público de native.` },
+    { date: `Abr 2026`, title: `Descomplica e Seed-PR / Seduc-CE: parcerias com estados para ensino remoto em escolas públicas`, url: `https://descomplica.com.br/`, summary: `Expansão B2G com secretarias estaduais de Paraná e Ceará — parcerias governamentais que ampliam presença e credibilidade da marca entre estudantes, criando base de usuários futuros para assinatura paga.` },
+  ],
+  petrobras: [
+    { date: `Mai 2026`, title: `Petrobras (PETR4) lucra R$ 32,6 bilhões no 1T26 e anuncia dividendos de R$ 9,03 bilhões`, url: `https://www.seudinheiro.com/2026/empresas/petrobras-petr4-lucra-r-326-bilhoes-no-1t26-e-anuncia-dividendos-de-r-903-bilhoes-em-meio-a-alta-do-petroleo-confira-os-numeros-da-estatal-lvgb/`, summary: `Lucro de R$ 32,6 bi (+109,9% vs 4T25), R$ 9 bi em dividendos anunciados — superou expectativas do mercado. Desempenho robusto que sustenta comunicação institucional de confiança e solidez para audiências de investidores.` },
+    { date: `Mai 2026`, title: `Petrobras antecipa início de produção da plataforma P-79 em Búzios 8 — 3 meses antes do prazo`, url: `https://agencia.petrobras.com.br/w/negocio/petrobras-antecipa-in%C3%ADcio-de-produ%C3%A7%C3%A3o-de-b%C3%BAzios-8-p-79-`, summary: `P-79 inicia produção em 1/mai/26 com 3 meses de antecipação — capacidade de 180k bpd. Operação que instalou em tempo recorde (12 dias) é argumento de excelência operacional para comunicação institucional da Petrobras.` },
+    { date: `Jun 2026`, title: `Petrobras bate recorde em Búzios e alcança 1,2 milhão de barris/dia no pré-sal`, url: `https://www.suno.com.br/noticias/petrobras-recorde-producao-buzios-petr4-go/`, summary: `Campo de Búzios atinge 1,2 mi bpd — novo recorde histórico. Produção recorde em sequência consolida narrativa de liderança operacional que a Petrobras comunica para públicos corporativos, investidores e líderes de opinião.` },
+    { date: `Abr 2026`, title: `Petrobras atinge recorde trimestral com 3,23 milhões de barris de óleo equivalente por dia no 1T26`, url: `https://agencia.petrobras.com.br/w/negocio/produ%C3%A7%C3%A3o-pr%C3%B3pria-da-petrobras-atinge-novo-recorde-trimestral-com-3-23-milh%C3%B5es-de-barris-de-%C3%B3leo-equivalente-por-dia`, summary: `Produção total operada de 4,65 MMboed e produção própria de 3,23 MMboed — ambos recordes trimestrais. Sequência de marcos históricos cria narrativa de crescimento consistente para campanha institucional de longo prazo.` },
+    { date: `Jun 2026`, title: `Petrobras distribui R$ 0,32/ação em JCP em junho — segundo pagamento de dividendos de 2026`, url: `https://istoedinheiro.com.br/petrobras-dividendos-quando-sai-o-pagamento`, summary: `Segundo pagamento do JCP de 2026 em junho — Petrobras ativa na política de dividendos com 45% do FCL. Fluxo de remuneração consistente que mantém acionistas engajados e justifica comunicação em portais financeiros premium.` },
+  ],
+
+  unibf: [
+    { date: `Set 2024`, title: `UniBF torna-se Centro Universitário com autonomia para criar cursos sem aprovação do MEC`, url: `https://unibf.com.br/novidades/informacoes/faculdade-unibf-centro-universitario`, summary: `Portaria 950 publicada no Diário Oficial da União em 18/set/2024 eleva UniBF a Centro Universitário. Instituição pode agora criar, modificar e encerrar cursos sem passar pelo MEC — mais agilidade para responder a demandas do mercado de trabalho.` },
+    { date: `Jan 2026`, title: `UniBF lança campanha "Comece 2026" com até 75% OFF em graduação e pós-graduação EaD`, url: `https://lp.unibf.com.br/ano-novo-vida-nova`, summary: `Mais de 1.200 cursos EaD e semipresenciais com descontos para matrículas no primeiro semestre. Graduação a partir de R$89/mês e pós-graduação a partir de R$99/mês — primeira janela de captação do ano.` },
+    { date: `Set 2024`, title: `MEC homologa novas diretrizes para EaD em licenciaturas — UniBF já está preparada`, url: `https://unibf.com.br/novidades/educacao/mudancas-ensino-ead-professores`, summary: `Resolução CNE/CP nº 4/2024 exige 50% de carga presencial para cursos de formação de professores. UniBF comunica que está adequada e que alunos que iniciarem agora concluem sob as regras atuais — janela de urgência para captação de licenciaturas.` },
+    { date: `Set 2025`, title: `Blog UniBF: 4 profissões com salários de até R$13 mil para quem está começando`, url: `https://www.unibf.com.br/novidades`, summary: `Conteúdo editorial focado em atrair leads top-of-funnel — explora carreiras em saúde, engenharia e tecnologia com salários competitivos logo na entrada. Estratégia de content marketing para captação de novos alunos.` },
+    { date: `Jul 2025`, title: `UniBF reforça posicionamento: formação acadêmica rápida como diferencial de carreira`, url: `https://www.unibf.com.br/novidades`, summary: `Artigo editorial para profissionais que buscam promoção ou requalificação sem parar de trabalhar. Alinha nota MEC 4 + velocidade de conclusão como combinação ideal para o público classe B/C do interior.` },
+    { date: `Mai 2025`, title: `UniBF destaca segunda graduação em 6 meses e pós em 4 meses como diferenciais de captação`, url: `https://www.unibf.com.br/novidades`, summary: `Velocidade de conclusão como principal argumento em campanhas de performance — posicionamento direto contra Unyleya e Anhanguera. Cursos com aprovação MEC e certificado válido em todo o território nacional.` },
+  ],
+
+  fgv: [
+    { date: `Jun 2026`, title: `FGV avança 15 posições no ranking Financial Times Executive Education 2026 — 12º do mundo`, url: `https://www.seudinheiro.com/2025/carreiras/financial-times-divulga-ranking-das-melhores-escolas-de-educacao-executiva-e-lista-inclui-tres-brasileiras-mabe/`, summary: `FGV Educação Executiva sobe 15 posições no FT Open Executive Education 2026, alcançando a 12ª posição global — melhor resultado histórico. Reconhecimento que reforça o argumento de qualidade em campanhas de captação native editorial para executivos.` },
+    { date: `Jun 2026`, title: `FGV lança Executive Track — novo modelo de formação executiva modular e assíncrona`, url: `https://portal.fgv.br/en/noticias/fgv-presents-new-model-executive-training-focused-flexibility-and-autonomy`, summary: `Executive Track permite que executivos montem sua própria trilha de aprendizado com módulos de 96h EaD assíncrono — áreas: Project Management, Financial Management, Marketing Digital, Liderança, Agronegócio. Novo produto para captação digital.` },
+    { date: `Mai 2026`, title: `FGV mantém posição como 3º melhor Think Tank do mundo e avança no ensino executivo`, url: `https://educacao-executiva.fgv.br/`, summary: `Reconhecimento como 3º melhor Think Tank do mundo (Global Go To Think Tank Index) consolida autoridade da FGV para audiências de executivos — ativo de comunicação de alto impacto em portais financeiros premium como Valor Econômico e InfoMoney.` },
+  ],
+  compraagora: [
+    { date: `Jun 2026`, title: `Compra Agora: primeira plataforma B2B do Brasil para varejo de vizinhança expande cobertura`, url: `https://consumidormoderno.com.br/compra-agora-cliente/`, summary: `Plataforma B2B conecta indústrias, distribuidores e lojistas em cobertura nacional (exceto MS) — modelo que nasceu dentro da Unilever e opera de forma independente desde 2020. Copa 2026 gera pico de demanda por reposição de estoque de bebidas.` },
+    { date: `Mai 2026`, title: `Varejo de vizinhança cresce 12% em 2026 — mercearias e mercadinhos retomam relevância`, url: `https://parceiro.compra-agora.com/`, summary: `Canal de proximidade impulsionado pelo consumidor que prioriza praticidade — tendência que favorece a Compra Agora como hub de abastecimento B2B. Janela para native editorial de como aumentar as vendas da loja local em portais regionais.` },
+    { date: `Abr 2026`, title: `Compra Agora: guia completo para varejistas aproveitarem a plataforma ao máximo`, url: `https://blog.compra-agora.com/guia-compra-agora/`, summary: `Blog da plataforma com conteúdo editorial para lojistas sobre como usar o marketplace para reduzir custos e aumentar margem — modelo de content marketing que native Taboola em portais de negócios e empreendedorismo complementa perfeitamente.` },
+  ],
+};
+Object.keys(clients).forEach(k => {
+  if (clientNews[k]) clients[k].news = clientNews[k];
+});
 
 // ─── CHARTS ───────────────────────────────────────────────────
 const MONTHS = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
