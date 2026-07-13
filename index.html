@@ -2670,6 +2670,42 @@ const clients = {
     ondeAnunciam: ['Meta Ads (principal canal de captação)', 'Google Search (termos de curso EaD)', 'Portais de comparação EaD (ead.com.br, querobolsa.com.br)', 'Afiliados de educação', 'WhatsApp e SMS para leads quentes'],
     tips: ['Janelas Jan–Fev e Jun–Jul são picos de captação — native entra antes do clique de pesquisa', 'Mensagem de rapidez e flexibilidade é o diferencial central do UniBF', 'Nota MEC 4 é ativo de credibilidade para audiências céticas sobre EaD', 'Profissional B/C do interior está em portais regionais onde Taboola domina vs Meta', 'Centro Universitário — autonomia para lançar cursos sem MEC — conteúdo nativo de novidade tem alto CTR']
   }
+  fgv: {
+    name: 'FGV Educação Executiva', vertical: 'Education', emoji: '🎓', color: '#1e3a8a',
+    tagline: '12º no ranking Financial Times Executive Education 2026 — 80 anos formando líderes.',
+    desc: 'A FGV Educação Executiva é a unidade de educação continuada da Fundação Getulio Vargas. Oferece MBAs, pós-graduações, cursos de extensão e programas In Company para executivos e líderes. Presente em 100+ cidades brasileiras. Em 2026, lançou o Executive Track — modelo modular de formação contínua assíncrona. Posição 12ª no Financial Times Executive Education Open 2026 e 3º melhor Think Tank do mundo.',
+    metrics: [
+      { label: 'FT Executive Education 2026', value: '12º global' },
+      { label: 'Presença', value: '100+ cidades Brasil' },
+      { label: 'História', value: '80 anos (fund. 1944)' },
+      { label: 'Think Tank Global', value: '3º melhor do mundo' },
+      { label: 'Novo Produto', value: 'Executive Track 2026' },
+      { label: 'Formatos', value: 'Presencial, Online, Live' }
+    ],
+    negocio: ['MBA e Executive MBA presencial em SP e RJ', 'Pós-graduação em Finanças, Marketing, Estratégia, Direito, TI', 'Executive Track — módulos de curta duração EaD assíncrono', 'Programas In Company (treinamento corporativo)', 'Alta Gestão — programas para C-level', 'Cursos internacionais e intercâmbio executivo'],
+    publicoAlvo: ['Executivos e líderes empresariais 30–55 anos', 'Profissionais classe A/B buscando diferenciação de carreira', 'Gestores que precisam de formação sem sair do trabalho', 'Empresas buscando capacitação de equipes (B2B)', 'Servidores públicos de alto escalão'],
+    concorrentes: ['Insper', 'Fundação Dom Cabral', 'FIA', 'Saint Paul', 'ESPM', 'Singularity University'],
+    ondeAnunciam: ['LinkedIn Ads (principal)', 'Google Search', 'Email marketing para base de ex-alunos', 'Eventos corporativos e congressos', 'Parcerias com empresas'],
+    tips: ['Público A/B executivo lê O Globo, Valor Econômico e Estadão — portais premium Taboola são o fit ideal', 'Conteúdo de carreira e liderança (ranking FT, líderes do futuro) converte executivos em leads', 'Executive Track é produto novo em 2026 — janela de lançamento para native editorial de carreira', 'Campanhas de Jan–Fev (propósitos de ano novo) e Ago–Set (matrículas 2º semestre) são prioritárias', 'LinkedIn é o canal principal dos concorrentes — native em portais financeiros é diferenciação de canal', 'In Company: conteúdo B2B de como capacitar sua equipe funciona em portais executivos Taboola']
+  },
+  compraagora: {
+    name: 'Compra Agora', vertical: 'Shopping (B2B)', emoji: '🛒', color: '#f97316',
+    tagline: 'Primeira plataforma B2B do Brasil para abastecimento do varejo de vizinhança.',
+    desc: 'Compra Agora nasceu como piloto da Unilever em 2019 e tornou-se empresa independente em 2020. É a primeira plataforma B2B do Brasil criada para o varejo de vizinhança — conecta indústrias, distribuidores, representantes de vendas e lojistas em um único hub digital. Com cobertura em todo o Brasil (exceto Mato Grosso do Sul), permite que pequenos e médios varejistas reponham estoque a qualquer hora, com descontos em grandes marcas e programa de fidelidade.',
+    metrics: [
+      { label: 'Fundação', value: '2019 (ex-Unilever)' },
+      { label: 'Cobertura', value: 'Brasil (ex-MS)' },
+      { label: 'Modelo', value: 'B2B Marketplace' },
+      { label: 'Origem', value: 'Spinoff Unilever' },
+      { label: 'Público', value: 'Varejo de Vizinhança' },
+      { label: 'Diferencial', value: 'Desconto + Fidelidade' }
+    ],
+    negocio: ['Marketplace B2B para reposição de estoque de varejistas', 'Parcerias com indústrias (Unilever e grandes marcas CPG)', 'Rede de distribuidores regionais em todo o Brasil', 'Programa de fidelidade para varejistas', 'Plataforma para representantes de vendas', 'Conteúdo editorial e tendências de mercado para lojistas'],
+    publicoAlvo: ['Donos de mercearias, mercadinhos, padarias e varejo de vizinhança', 'Pequenos e médios varejistas que precisam repor estoque', 'Distribuidores regionais de bens de consumo', 'Indústrias de CPG buscando canal de venda B2B digital', 'Representantes comerciais'],
+    concorrentes: ['Atacadão', 'Makro', 'Assaí', 'Mercado Livre B2B', 'Delivery B2B emergentes'],
+    ondeAnunciam: ['Google Ads', 'Meta (targeting lojistas)', 'WhatsApp Business', 'Redes sociais de nicho varejista'],
+    tips: ['Lojistas do varejo de vizinhança estão em portais populares de notícia e portais regionais — inventário Taboola tem alcance exclusivo nesse público', 'Conteúdo de como aumentar lucro da sua loja e tendências de consumo converte donos de mercearia', 'Native em portais regionais para atingir distribuidores e lojistas de cidades médias onde Meta tem menor penetração', 'Copa 2026: oportunidade de campanha sobre abastecimento de bebidas e petiscos para lojistas se prepararem para o pico']
+  },
 };
 
 function selectClient(val) {
@@ -2809,42 +2845,6 @@ function selectClient(val) {
 const territoryPlans = {
 
 
-  fgv: {
-    name: 'FGV Educação Executiva', vertical: 'Education', emoji: '🎓', color: '#1e3a8a',
-    tagline: '12º no ranking Financial Times Executive Education 2026 — 80 anos formando líderes.',
-    desc: 'A FGV Educação Executiva é a unidade de educação continuada da Fundação Getulio Vargas. Oferece MBAs, pós-graduações, cursos de extensão e programas In Company para executivos e líderes. Presente em 100+ cidades brasileiras. Em 2026, lançou o Executive Track — modelo modular de formação contínua assíncrona. Posição 12ª no Financial Times Executive Education Open 2026 e 3º melhor Think Tank do mundo.',
-    metrics: [
-      { label: 'FT Executive Education 2026', value: '12º global' },
-      { label: 'Presença', value: '100+ cidades Brasil' },
-      { label: 'História', value: '80 anos (fund. 1944)' },
-      { label: 'Think Tank Global', value: '3º melhor do mundo' },
-      { label: 'Novo Produto', value: 'Executive Track 2026' },
-      { label: 'Formatos', value: 'Presencial, Online, Live' }
-    ],
-    negocio: ['MBA e Executive MBA presencial em SP e RJ', 'Pós-graduação em Finanças, Marketing, Estratégia, Direito, TI', 'Executive Track — módulos de curta duração EaD assíncrono', 'Programas In Company (treinamento corporativo)', 'Alta Gestão — programas para C-level', 'Cursos internacionais e intercâmbio executivo'],
-    publicoAlvo: ['Executivos e líderes empresariais 30–55 anos', 'Profissionais classe A/B buscando diferenciação de carreira', 'Gestores que precisam de formação sem sair do trabalho', 'Empresas buscando capacitação de equipes (B2B)', 'Servidores públicos de alto escalão'],
-    concorrentes: ['Insper', 'Fundação Dom Cabral', 'FIA', 'Saint Paul', 'ESPM', 'Singularity University'],
-    ondeAnunciam: ['LinkedIn Ads (principal)', 'Google Search', 'Email marketing para base de ex-alunos', 'Eventos corporativos e congressos', 'Parcerias com empresas'],
-    tips: ['Público A/B executivo lê O Globo, Valor Econômico e Estadão — portais premium Taboola são o fit ideal', 'Conteúdo de carreira e liderança (ranking FT, líderes do futuro) converte executivos em leads', 'Executive Track é produto novo em 2026 — janela de lançamento para native editorial de carreira', 'Campanhas de Jan–Fev (propósitos de ano novo) e Ago–Set (matrículas 2º semestre) são prioritárias', 'LinkedIn é o canal principal dos concorrentes — native em portais financeiros é diferenciação de canal', 'In Company: conteúdo B2B de como capacitar sua equipe funciona em portais executivos Taboola']
-  },
-  compraagora: {
-    name: 'Compra Agora', vertical: 'Shopping (B2B)', emoji: '🛒', color: '#f97316',
-    tagline: 'Primeira plataforma B2B do Brasil para abastecimento do varejo de vizinhança.',
-    desc: 'Compra Agora nasceu como piloto da Unilever em 2019 e tornou-se empresa independente em 2020. É a primeira plataforma B2B do Brasil criada para o varejo de vizinhança — conecta indústrias, distribuidores, representantes de vendas e lojistas em um único hub digital. Com cobertura em todo o Brasil (exceto Mato Grosso do Sul), permite que pequenos e médios varejistas reponham estoque a qualquer hora, com descontos em grandes marcas e programa de fidelidade.',
-    metrics: [
-      { label: 'Fundação', value: '2019 (ex-Unilever)' },
-      { label: 'Cobertura', value: 'Brasil (ex-MS)' },
-      { label: 'Modelo', value: 'B2B Marketplace' },
-      { label: 'Origem', value: 'Spinoff Unilever' },
-      { label: 'Público', value: 'Varejo de Vizinhança' },
-      { label: 'Diferencial', value: 'Desconto + Fidelidade' }
-    ],
-    negocio: ['Marketplace B2B para reposição de estoque de varejistas', 'Parcerias com indústrias (Unilever e grandes marcas CPG)', 'Rede de distribuidores regionais em todo o Brasil', 'Programa de fidelidade para varejistas', 'Plataforma para representantes de vendas', 'Conteúdo editorial e tendências de mercado para lojistas'],
-    publicoAlvo: ['Donos de mercearias, mercadinhos, padarias e varejo de vizinhança', 'Pequenos e médios varejistas que precisam repor estoque', 'Distribuidores regionais de bens de consumo', 'Indústrias de CPG buscando canal de venda B2B digital', 'Representantes comerciais'],
-    concorrentes: ['Atacadão', 'Makro', 'Assaí', 'Mercado Livre B2B', 'Delivery B2B emergentes'],
-    ondeAnunciam: ['Google Ads', 'Meta (targeting lojistas)', 'WhatsApp Business', 'Redes sociais de nicho varejista'],
-    tips: ['Lojistas do varejo de vizinhança estão em portais populares de notícia e portais regionais — inventário Taboola tem alcance exclusivo nesse público', 'Conteúdo de como aumentar lucro da sua loja e tendências de consumo converte donos de mercearia', 'Native em portais regionais para atingir distribuidores e lojistas de cidades médias onde Meta tem menor penetração', 'Copa 2026: oportunidade de campanha sobre abastecimento de bebidas e petiscos para lojistas se prepararem para o pico']
-  },
 };
 // Attach to clients
 Object.keys(clients).forEach(k => {
