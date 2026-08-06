@@ -6,6 +6,49 @@
 <title>Taboola — Account Manager Intelligence</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <style>
+/* PASSWORD GATE */
+#auth-gate {
+  position: fixed; inset: 0; z-index: 9999;
+  background: #0e1117;
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+#auth-box {
+  background: #1a1d27;
+  border: 1px solid #2e3350;
+  border-radius: 16px;
+  padding: 40px 44px;
+  width: 100%;
+  max-width: 380px;
+  text-align: center;
+}
+#auth-box .auth-logo { font-size: 13px; color: #94a3b8; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+#auth-box h2 { font-size: 22px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+#auth-box h2 span { color: #3b82f6; }
+#auth-box p { font-size: 13px; color: #64748b; margin-bottom: 28px; }
+#auth-input {
+  width: 100%; padding: 12px 14px;
+  background: #22263a; border: 1px solid #2e3350;
+  border-radius: 8px; color: #e2e8f0; font-size: 15px;
+  outline: none; margin-bottom: 14px; text-align: center;
+  letter-spacing: 2px;
+  transition: border-color .2s;
+}
+#auth-input:focus { border-color: #3b82f6; }
+#auth-btn {
+  width: 100%; padding: 12px;
+  background: #3b82f6; border: none; border-radius: 8px;
+  color: #fff; font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: background .2s;
+}
+#auth-btn:hover { background: #2563eb; }
+#auth-error {
+  margin-top: 12px; font-size: 12px;
+  color: #ef4444; display: none;
+}
+#auth-gate.hidden { display: none; }
+</style>
+<style>
 :root {
   --primary: #0e1117;
   --surface: #1a1d27;
@@ -255,6 +298,48 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
 </style>
 </head>
 <body>
+
+<!-- PASSWORD GATE -->
+<div id="auth-gate">
+  <div id="auth-box">
+    <div class="auth-logo">Taboola Realize</div>
+    <h2>Account <span>Intelligence</span></h2>
+    <p>Acesso restrito — insira sua senha</p>
+    <input id="auth-input" type="password" placeholder="••••••••••" autocomplete="current-password" />
+    <button id="auth-btn" onclick="checkAuth()">Entrar</button>
+    <div id="auth-error">Senha incorreta. Tente novamente.</div>
+  </div>
+</div>
+
+<script>
+(function() {
+  const HASH = '301db0f415b78c6b01132111fa722c9b606e18f946729989d3c1a67506448962';
+  async function sha256(str) {
+    const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
+    return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
+  }
+  // Check session
+  if (sessionStorage.getItem('ait_auth') === HASH) {
+    document.getElementById('auth-gate').classList.add('hidden');
+  }
+  window.checkAuth = async function() {
+    const val = document.getElementById('auth-input').value;
+    const h = await sha256(val);
+    if (h === HASH) {
+      sessionStorage.setItem('ait_auth', HASH);
+      document.getElementById('auth-gate').classList.add('hidden');
+    } else {
+      document.getElementById('auth-error').style.display = 'block';
+      document.getElementById('auth-input').value = '';
+      document.getElementById('auth-input').focus();
+    }
+  };
+  document.addEventListener('DOMContentLoaded', () => {
+    const inp = document.getElementById('auth-input');
+    if (inp) inp.addEventListener('keydown', e => { if (e.key === 'Enter') window.checkAuth(); });
+  });
+})();
+</script>
 
 <!-- SIDEBAR -->
 <aside class="sidebar">
