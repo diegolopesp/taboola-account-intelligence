@@ -313,7 +313,7 @@ body { background: var(--primary); color: var(--text); font-family: 'Segoe UI', 
 
 <script>
 (function() {
-  const HASH = '301db0f415b78c6b01132111fa722c9b606e18f946729989d3c1a67506448962';
+  const HASH = '40229d65671c87ae1f4de5537d45ddb9b5f6fe91e174fe07e43b04e8dfe0d98b';
   async function sha256(str) {
     const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(str));
     return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2,'0')).join('');
